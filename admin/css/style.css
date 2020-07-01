@@ -1,0 +1,38 @@
+#collapseOne > div > a:nth-child(1),
+#collapseOne > div > a:nth-child(2),
+#collapseOne > div > a:nth-child(3),
+#collapseTwo > div > a:nth-child(1),
+#collapseTwo > div > a:nth-child(2){
+    color: rgba(0,0,0,.5);
+}
+
+#sidenav-collapse-main > i{
+    height: 10rem;
+}
+
+#navbar-main > div > a > img{
+    height: 5rem;
+}
+
+body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container > div > div > div > a > img{
+    height: 18rem;
+}
+
+#navbarSupportedContent > ul.navbar-nav.align-items-center.ml-auto.ml-md-0 > li > div{
+    background: #ffffff;
+    border: 1px solid #000000;
+}
+
+@media (min-width: 768px) {
+    .dropdown-item{
+        padding-left: 4rem !important;
+    }
+
+    .dropdown-menu{
+        background: transparent;
+        box-shadow: none;
+        border: none;
+    }
+
+}
+
