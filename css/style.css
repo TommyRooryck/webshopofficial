@@ -61,14 +61,29 @@ a{
     font-family: roboto_bold;
 }
 
+h1{
+    font-family: roboto_black;
+    background:linear-gradient(#2980b9, #6dd5fa);
+    color: transparent !important;
+    -webkit-background-clip: text;
+}
+
 *{
     padding: 0;
     margin: 0;
 }
 
+footer{
+    height: 100px;
+}
 
+/**HEADER**/
 .active_dropdown{
     color: #6dd5fa !important;
+}
+
+.active_dropdown_border{
+    border: 2px solid #2980b9!important;
 }
 
 
@@ -102,6 +117,148 @@ nav i{
 
 nav i:hover{
     color: #6dd5fa;
+}
+/**NAV END**/
+
+/**LOGIN AND REGISTRATION**/
+.login_form input{
+    border: 0px solid transparent;
+    border-bottom: 1px solid #dddddd;
+}
+
+.remember_me{
+    font-size: 0.75rem;
+}
+
+.login_form button{
+    text-transform: uppercase;
+    padding: 1.125rem 2.25rem;
+    border: 1px solid #2980b9;
+    color: #2980b9;
+    font-family: roboto_bold;
+}
+
+.login_form button:hover{
+    background-color: #2980b9;
+    color: #ffffff;
+}
+
+.login_form a{
+    color: #777777;
+    opacity: 0.5;
+}
+
+#register h3{
+    font-size: 24px;
+}
+
+.login_part_text{
+    height: 25rem;
+    padding: 1.875rem;
+}
+
+.login_part_text h2{
+    font-size: 1.5rem;
+    padding-top: 4.6875rem;
+}
+
+.login_part_text button{
+    border: 1px solid #ffffff;
+    background: transparent;
+    font-size: 0.875rem;
+    margin-top: 1.75rem;
+    color: #ffffff;
+    padding: 1.25rem 0.75rem;
+    font-family: roboto_bold;
+}
+
+.login_part_text button:hover{
+    background-color: #ffffff ;
+    color: #ff2020;
+}
+
+#registration button{
+    padding: 1.125rem 2.25rem ;
+    text-transform: uppercase;
+    padding: 1.125rem 2.25rem;
+    border: 1px solid #2980b9;
+    color: #2980b9;
+    font-family: roboto_bold;
+}
+
+#registration button:hover{
+    padding: 1.125rem 2.25rem ;
+    text-transform: uppercase;
+    padding: 1.125rem 2.25rem;
+    border: 1px solid #2980b9;
+    color: #ffffff;
+}
+
+.registration_form{
+    padding: 10px 10px 60px 10px;
+}
+/**END LOGIN AND REGISTRATION**/
+
+/**START MY_ACCOUNT**/
+
+.save-button{
+    padding: 1.125rem 2.25rem ;
+    text-transform: uppercase;
+    padding: 0.625rem 1.25rem;
+    border: 1px solid #2980b9;
+    color: #2980b9;
+    font-family: roboto_bold;
+}
+
+.save-button:hover{
+    padding: 1.125rem 2.25rem ;
+    border: 1px solid #2980b9;
+    padding: 0.625rem 1.25rem;
+    color: #ffffff;
+    background-color: #2980b9;;
+}
+
+.active_collapse{
+    background-color:  #2980b9!important;
+}
+
+.active_collapse_text{
+    color: #ffffff !important;
+}
+
+.card-header{
+    background: #f5f5f5 ;
+}
+
+
+
+.collapse_btn{
+    color: #2980b9;
+    font-family: roboto_bold;
+}
+
+.collapse_btn:hover{
+    text-decoration: none;
+}
+
+
+/**END MY_ACCOUNT**/
+
+
+
+
+@media (min-width: 768px) {
+    /**LOGIN AND REGISTRATION**/
+    .login_form{
+       padding: 7.8125rem 3.125rem ;
+    }
+
+
+    #register{
+        padding-top: 3.125rem;
+    }
+
+    /**END LOGIN AND REGISTRATION**/
 }
 
 

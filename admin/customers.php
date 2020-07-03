@@ -56,7 +56,7 @@ $customers = Customer::find_all();
 <div class="container-fluid px-0 main-content d-lg-none">
     <div class="row w-100 mx-0">
         <div class="col-12">
-            <h2 class="text-center">Customers</h2>
+            <h2 class="text-center pt-5">Customers</h2>
             <hr>
             <?php
             $x=0;
@@ -66,7 +66,7 @@ $customers = Customer::find_all();
                     <div class="card">
                         <div class="card-header" id="heading<?php echo $x; ?>">
                             <h5 class="mb-0">
-                                <button class="btn btn-link" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>" aria-expanded="true" aria-controls="collapse<?php echo $x;?>">
+                                <button class="btn btn-link dropdown-toggle w-100 p-0" data-toggle="collapse" data-target="#collapse<?php echo $x; ?>" aria-expanded="true" aria-controls="collapse<?php echo $x;?>">
                                     <?php echo $customer->id . ' : ' . $customer->username . ' - ' . $customer->first_name . ' ' . $customer->last_name; ?>
                                 </button>
                             </h5>

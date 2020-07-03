@@ -9,7 +9,7 @@ if (!$session->is_signed_in()){
 }
 
 $admin= new Admin(); //Creëer een niewe instantie van het object user met de naam $user
-$message = "";
+$msg = "";
 
 
 if (isset($_POST['add_user'])){
