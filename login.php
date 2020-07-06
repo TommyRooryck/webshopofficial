@@ -104,7 +104,7 @@ if (isset($_POST['submit_register'])) {
             </div>
 
 
-            <div class="col-md-6 text-white text-center <?php if ($message){ echo "d-none"; } ?>" id="register">
+            <div class="col-md-6 text-white text-center mt-5 pt-5 mt-lg-0 <?php if ($message){ echo "d-none"; } ?>" id="register">
                 <div class="registration_form text-center bg-dark">
                     <div class="login_part_text text-center">
                         <h2 class="pt-lg-5">Nieuw bij onze winkel?</h2>

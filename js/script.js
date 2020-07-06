@@ -45,11 +45,11 @@ $(document).ready(function () {
     })
 
 
-    $('#headingOne').click(function () {
+    $('#buttonOne').click(function () {
         if (!$('#collapseOne').hasClass('show')){
-            $('#headingOne').addClass('active_collapse')
             $('.active_collapse').not(this).removeClass('active_collapse')
             $('.active_collapse_text').not(this).removeClass('active_collapse_text')
+            $('#headingOne').addClass('active_collapse')
             $('#buttonOne').addClass('active_collapse_text')
         } else{
             $('#buttonOne').removeClass('active_collapse_text')
@@ -57,11 +57,11 @@ $(document).ready(function () {
         }
     })
 
-    $('#headingTwo').click(function () {
+    $('#buttonTwo').click(function () {
         if (!$('#collapseTwo').hasClass('show')){
-            $('#headingTwo').addClass('active_collapse')
             $('.active_collapse').not(this).removeClass('active_collapse')
             $('.active_collapse_text').not(this).removeClass('active_collapse_text')
+            $('#headingTwo').addClass('active_collapse')
             $('#buttonTwo').addClass('active_collapse_text')
         } else{
             $('#headingTwo').removeClass('active_collapse')

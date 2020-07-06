@@ -23,15 +23,15 @@ ob_start();
     <div class="row w-100 m-0" id="top_nav">
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-lg ">
-                <div class="row w-100 d-flex justify-content-around">
+                <div class="row w-100 d-flex d-lg-flex d-md-block justify-content-around">
                     <div class="row">
-                    <div class="col-lg-3">
+                        <div class="col-lg-12 d-flex justify-content-between d-lg-block">
 
-                            <div class="col-12 p-lg-3 text-center text-lg-left">
+                            <div class="col-7 col-lg-12 p-lg-3 text-left">
                                 <a class="navbar-brand" href="index.php">Little Blessings</a>
                             </div>
 
-                            <div class="col-lg-4 show_menu_toggle text-center">
+                            <div class="col-lg-4 col-6 col-md-4 show_menu_toggle text-right">
                                 <button class="navbar-toggler border-dark rounded" type="button" data-toggle="collapse"
                                         data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
                                         aria-expanded="false"
@@ -39,9 +39,10 @@ ob_start();
                                     <i class="fas fa-bars text-dark" id="bars-icon"></i>
                                 </button>
                             </div>
-                        <div class="row text-center">
-                            <div class="col-lg-8">
-                                <div class="col-lg-8">
+                        </div>
+                        <div class="row text-center w-100 pl-5">
+                            <div class="col-lg-12">
+                                <div class="col-lg-12 pl-5 pr-0">
                                     <div class="collapse navbar-collapse px-auto" id="navbarTogglerDemo02">
                                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-lg-none justify-content-around">
                                             <li class="nav-item active">
@@ -100,14 +101,13 @@ ob_start();
                                 </div>
                             </div>
                         </div>
-                        </div>
                     </div>
 
-                    <div class="row">
+                    <div class="row pl-5 pl-lg-0">
                         <div class="col-lg-12 d-lg-flex justify-content-between pt-3">
-                            <div class="row text-center">
-                                <div class="col-lg-8 d-none d-lg-block">
-                                    <div class="col-lg-8">
+                            <div class="row text-center" id="top_nav_items">
+                                <div class="col-lg-12 d-none d-lg-block">
+                                    <div class="col-lg-12">
                                         <div class="collapse navbar-collapse px-auto" id="navbarTogglerDemo02">
                                             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-lg-flex justify-content-around">
                                                 <li class="nav-item active">
@@ -167,7 +167,7 @@ ob_start();
                                 </div>
                             </div>
 
-                            <div class="col-lg-4">
+                            <div class="col-lg-4" id="search_bar">
                                 <form class="form-inline my-2 my-lg-0">
                                     <a href="#">
                                         <i class="fas fa-search pr-3 "></i>
@@ -176,7 +176,7 @@ ob_start();
                                 </form>
                             </div>
 
-                            <div class="row text-center d-flex justify-content-around">
+                            <div class="row text-center d-flex justify-content-around col-lg-2">
                                 <div class="col-3">
                                     <a href="login.php">
                                         <i class="fas fa-user-alt"></i>
@@ -189,7 +189,7 @@ ob_start();
                                 </div>
 
                                 <?php
-                                if ($session ->is_signed_in()){
+                                if ($session->is_signed_in()) {
                                     echo "  <div class=\"col-3\">
                                     <a href=\"admin/logout.php\">
                                         <i class=\"fas fa-sign-out-alt\"></i>
@@ -200,7 +200,7 @@ ob_start();
                                 ?>
 
                                 <?php
-                                if ($session->is_signed_in() && !empty(Admin::check_admin_exist($_SESSION['username']))){
+                                if ($session->is_signed_in() && !empty(Admin::check_admin_exist($_SESSION['username']))) {
                                     echo "<div class=\"col-3\">
                                     <a href=\"admin/index.php\">
                                         <i class=\"fas fa-tachometer-alt\"></i>
