@@ -14,8 +14,9 @@ $admins = Admin::find_all()
 <?php include("includes/content_top.php"); ?>
 <div class="container-fluid d-none d-lg-block">
     <div class="row">
-        <div class="col-12">
-            <h2>USERS</h2>
+        <div class="col-12 text-center pt-5">
+            <h1>USERS</h1>
+            <hr>
             <td><a href="add_User.php" class="btn btn-primary rounded-0 my-2"><i class="fas fa-user-plus"></i>Add
                     User</a></td>
             <table class="table table-hover">

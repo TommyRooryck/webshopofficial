@@ -38,19 +38,43 @@ $("#close-sidebar").click(function () {
     $("#sidenav-main").addClass('d-block')
 })
 
-$x = 0;
-$y = 0;
 
+$(function () {
 
+    $(".add_category_check").click(function () {
+        $(".add_category_form").toggle();
 
-$("#accordionExample_" + $x++).click(function () {
-    $i = document.getElementById('collapse');
-    if ($i.className ==='collapse'){
-        $($i).addClass('collapse-show').removeClass('collapse');
-    } else if ($i.className === 'collapse-show') {
-        $($i).addClass('collapse').removeClass('collapse-show');
-    }
+    })
+})
+
+$(function () {
+
+    $(".add_sub_category_check").click(function () {
+        $(".add_sub_category_form").toggle();
+
+    })
+})
+
+$(function () {
+
+    $("button.collapse_level_one").click(function () {
+        $(".add_category_form_label").toggle();
+        $(".add_category_check").toggle();
+    })
+
 
 })
+
+$(function () {
+
+    $("button.collapse_level_two").click(function () {
+        $(".add_sub_category_form_label").toggle();
+        $(".add_sub_category_check").toggle();
+    })
+
+})
+
+
+
 
 

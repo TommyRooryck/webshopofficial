@@ -23,6 +23,55 @@ body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container
     border: 1px solid #000000;
 }
 
+
+select option{
+    padding-left: 20px;
+}
+
+.accordion_header{
+    background: #235361;
+    color: #ffffff;
+}
+
+.accordion_header:hover{
+    color: #ff2200;
+    text-decoration: none;
+}
+
+.collapse_level_one{
+    background: #BD3C24;
+    color: #ffffff;
+}
+
+
+.collapse_level_one:hover{
+    color: #235361;
+    text-decoration: none;
+}
+
+.collapse_level_two{
+    background: #1D4A33;
+    color: #ffffff;
+}
+
+.collapse_level_two :hover{
+    color: #000000;
+    text-decoration: none;
+}
+
+.super_category_buttons{
+    display: flex;
+}
+
+.add_category_form{
+    display: none;
+}
+
+.add_sub_category_form{
+    display: none;
+}
+
+
 @media (min-width: 768px) {
     .dropdown-item{
         padding-left: 4rem !important;

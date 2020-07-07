@@ -13,5 +13,8 @@ defined('IMAGES_PATH') ? null : define('IMAGES_PATH', SITE_ROOT . DS . 'admin' .
 <?php require_once ("Session.php"); ?>
 <?php require_once ("Customer.php");?>
 <?php require_once ("Admin.php"); ?>
+<?php require_once ("Super_category.php"); ?>
+<?php require_once ("Category.php");?>
+<?php  require_once ("Sub_category.php");?>
 
 

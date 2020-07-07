@@ -44,7 +44,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="#">All Products</a>
                             <a class="dropdown-item" href="#">Add Product</a>
-                            <a class="dropdown-item" href="#">Categories</a>
+                            <a class="dropdown-item" href="categories.php">Categories</a>
                         </div>
                     </li>
 
