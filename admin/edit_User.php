@@ -1,18 +1,18 @@
 <?php
 include ("includes/header.php");
 
-if (!$session -> is_signed_in()){
-    redirect("login.php");
+ if (!$session -> is_signed_in()){
+    redirect("login");
 }
 
 if (empty(Admin::check_admin_exist($_SESSION['username']))) {
-    redirect("../access_denied.php");
+    redirect("../access_denied");
 }
 
 
 
-if (empty($_GET['id'])){
-    redirect('users.php');
+ if (empty($_GET['id'])){
+    redirect('../users');
 }
 
 $admin = Admin::find_by_id($_GET['id']);
@@ -29,7 +29,7 @@ if (isset($_POST['update_user'])){
         $admin->last_name = $_POST['last_name'];
         $admin->role = $_POST['role'];
         $admin->save();
-        redirect("users.php");
+        redirect("users");
     }
     else{
         $msg = "Update failed!";
@@ -44,7 +44,7 @@ if (isset($_POST['update_user'])){
 <div class="container-fluid main-content">
     <div class="row">
         <div class="col-12">
-            <h1>Edit User</h1>
+            <h1 class="pt-5">Edit User</h1>
             <div>
                 <h5 class="text-danger"><?php $msg; ?></h5>
             </div>
@@ -81,3 +81,6 @@ if (isset($_POST['update_user'])){
 </div>
 
 <?php include ("includes/footer.php"); ?>
+
+
+

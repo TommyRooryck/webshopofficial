@@ -41,7 +41,7 @@ $admins = Admin::find_all()
                         <td><?php echo $admin->first_name; ?></td>
                         <td><?php echo $admin->last_name; ?></td>
                         <td><?php echo $admin->role; ?></td>
-                        <td><a href="edit_User.php?id=<?php echo $admin->id; ?>" class="btn btn-danger rounded-0"><i
+                        <td><a href="edit_User?id=<?php echo $admin->id; ?>" class="btn btn-danger rounded-0"><i
                                         class="fas fa-user-edit"></i></a></td>
                         <td><a href="delete_User.php?id=<?php echo $admin->id; ?>" class="btn btn-danger rounded-0"><i
                                         class="fas fa-user-times"></i></a></td>
@@ -100,7 +100,7 @@ $admins = Admin::find_all()
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-around">
-                                    <a href="edit_User.php?id=<?php echo $admin->id; ?>" class="btn btn-primary">View or Edit User</a>
+                                    <a href="edit_User?id=<?php echo $admin->id; ?>" class="btn btn-primary">View or Edit User</a>
                                     <a href="delete_User.php?id=<?php echo $admin->id; ?>" class="btn btn-danger">Delete User</a>
                                 </div>
                             </div>

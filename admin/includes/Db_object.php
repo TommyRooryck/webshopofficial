@@ -133,4 +133,14 @@ class Db_object
 
         return array_shift($row);
     }
+
+
+    public static function find_the_key($foreign_key){
+        global $database;
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE " . static::$foreign_column . " = " . $database->escape_string($foreign_key);
+
+
+        return static::find_this_query($sql);
+    }
 }

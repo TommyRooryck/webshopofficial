@@ -10,6 +10,7 @@ class Sub_category extends Db_object
 
     protected static $db_table = "sub_category";
     protected static $db_table_fields = array('name', 'description', 'category_id');
+    protected static $foreign_column = "category_id";
 
     public static function create_sub_category($name, $description, $category_id)
     {
@@ -28,11 +29,4 @@ class Sub_category extends Db_object
         }
     }
 
-    public static function find_the_sub_categories($category_id){
-        global $database;
-        $sql = "SELECT * FROM " . self::$db_table;
-        $sql .= " WHERE category_id = " . $database->escape_string($category_id);
-
-        return self::find_this_query($sql);
-    }
 }

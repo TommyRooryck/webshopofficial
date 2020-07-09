@@ -6,9 +6,9 @@
 
 
     if (!$session->is_signed_in()){
-        redirect('login.php');
+        redirect('login');
     } elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
-        redirect("../access_denied.php");
+        redirect("../access_denied");
     }
 
 ?>

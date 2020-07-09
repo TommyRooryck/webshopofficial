@@ -72,6 +72,36 @@ select option{
 }
 
 
+.active_collapse{
+    background-color:  #235361 !important;
+}
+
+.inactive_collapse_text{
+    color: #000000;
+}
+
+.inactive_collapse_text:hover{
+    color: #000000;
+    text-decoration: none;
+}
+
+.active_collapse_text{
+    color: #ffffff !important;
+}
+
+
+
+.collapse_btn{
+    color: #2980b9;
+    font-family: roboto_bold;
+}
+
+.collapse_btn:hover{
+    text-decoration: none;
+    color: #94D5F5;
+}
+
+
 @media (min-width: 768px) {
     .dropdown-item{
         padding-left: 4rem !important;

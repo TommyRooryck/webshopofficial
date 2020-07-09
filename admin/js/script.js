@@ -74,6 +74,17 @@ $(function () {
 
 })
 
+$(function () {
+
+    $(".inactive_accordion_header").click(function () {
+        $(".inactive_accordion_header").toggleClass("active_collapse")
+        $(".inactive_collapse_text").toggleClass("active_collapse_text")
+    })
+})
+
+$("[name='author']").remove()
+$("[name='description']").remove()
+
 
 
 

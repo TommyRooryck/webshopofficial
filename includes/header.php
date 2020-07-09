@@ -28,7 +28,7 @@ ob_start();
                         <div class="col-lg-12 d-flex justify-content-between d-lg-block">
 
                             <div class="col-7 col-lg-12 p-lg-3 text-left">
-                                <a class="navbar-brand" href="index.php">Little Blessings</a>
+                                <a class="navbar-brand" href="index">Little Blessings</a>
                             </div>
 
                             <div class="col-lg-4 col-6 col-md-4 show_menu_toggle text-right">
@@ -178,7 +178,7 @@ ob_start();
 
                             <div class="row text-center d-flex justify-content-around col-lg-2">
                                 <div class="col-3">
-                                    <a href="login.php">
+                                    <a href="login">
                                         <i class="fas fa-user-alt"></i>
                                     </a>
                                 </div>
@@ -191,7 +191,7 @@ ob_start();
                                 <?php
                                 if ($session->is_signed_in()) {
                                     echo "  <div class=\"col-3\">
-                                    <a href=\"admin/logout.php\">
+                                    <a href=\"admin/logout\">
                                         <i class=\"fas fa-sign-out-alt\"></i>
                                     </a>
                                 </div>
@@ -202,7 +202,7 @@ ob_start();
                                 <?php
                                 if ($session->is_signed_in() && !empty(Admin::check_admin_exist($_SESSION['username']))) {
                                     echo "<div class=\"col-3\">
-                                    <a href=\"admin/index.php\">
+                                    <a href=\"admin/index\">
                                         <i class=\"fas fa-tachometer-alt\"></i>
                                     </a>
                                 </div>";

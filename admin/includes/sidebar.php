@@ -4,7 +4,7 @@
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header d-none d-lg-block align-items-center">
-            <a href="../index.php">
+            <a href="../index">
                 <img src="img/logo.png" style="height: 80px" alt="">
             </a>
         </div>
@@ -17,19 +17,19 @@
                 <!-- Nav items -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.php">
+                        <a class="nav-link active" href="index">
                             <i class="fas fa-desktop"></i>
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="customers.php">
+                        <a class="nav-link" href="customers">
                             <i class="fas fa-user-alt"></i>
                             <span class="nav-link-text">Customers</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="orders.php">
+                        <a class="nav-link" href="orders">
                             <i class="fas fa-box-open"></i>
                             <span class="nav-link-text">Orders</span>
                         </a>
@@ -42,9 +42,20 @@
                             <span class="nav-link-text">Products</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="#">All Products</a>
-                            <a class="dropdown-item" href="#">Add Product</a>
-                            <a class="dropdown-item" href="categories.php">Categories</a>
+                            <a class="dropdown-item" href="products">All Products</a>
+                            <a class="dropdown-item" href="add_Product">Add Product</a>
+                            <a class="dropdown-item" href="categories">Categories</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-images"></i>
+                            <span class="nav-link-text">Photos</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="photos">All Photos</a>
+                            <a class="dropdown-item" href="upload">Upload Photo</a>
                         </div>
                     </li>
 
@@ -54,8 +65,8 @@
                             <span class="nav-link-text">Users</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="users.php">All Users</a>
-                            <a class="dropdown-item" href="add_User.php">Create User</a>
+                            <a class="dropdown-item" href="users">All Users</a>
+                            <a class="dropdown-item" href="add_User">Create User</a>
                         </div>
                     </li>
 
@@ -67,3 +78,4 @@
         </div>
     </div>
 </nav>
+

@@ -1,7 +1,7 @@
 <?php include("includes/header.php");
 
 if (!empty(Admin::check_admin_exist($_SESSION['username']))) {
-    redirect("admin/users.php");
+    redirect("admin/users");
 }
 $msg = "";
 $customer = Customer::find_by_id($_SESSION['user_id']);
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
             $customer->shipping_region = trim($_POST['shipping_region']);
             $customer->shipping_country = trim($_POST['shipping_country']);
             $customer->save();
-            redirect("my_account.php");
+            redirect("my_account");
         } else {
             $msg = "There was an error updating - check error";
         }
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
             $customer->shipping_city = trim($_POST['city']);
             $customer->shipping_country = trim($_POST['country']);
             $customer->save();
-            redirect("my_account.php");
+            redirect("my_account");
         } else {
             $msg = "There was an error updating - no check error";
         }

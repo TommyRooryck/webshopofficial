@@ -5,7 +5,7 @@ $msg = '';
 
 
  if ($session->is_signed_in()){
-    redirect("index.php");
+    redirect("index");
 }
 
 if (isset($_POST['submit'])){
@@ -18,7 +18,7 @@ if (isset($_POST['submit'])){
     if ($admin_found){
         $session->login($admin_found);
         $_SESSION['username'] = $username;
-        redirect("index.php");
+        redirect("index");
     }  else{
         $msg = "Your password or username is invalid!";
     }
@@ -40,7 +40,7 @@ if (isset($_POST['submit'])){
         <div class="navbar-collapse-header">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="index.php">
+              <a href="index">
               </a>
             </div>
             <div class="col-6 collapse-close">
@@ -53,12 +53,12 @@ if (isset($_POST['submit'])){
         </div>
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a href="index.php" class="nav-link">
+            <a href="index" class="nav-link">
               <span class="nav-link-inner--text">Dashboard</span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="login.php" class="nav-link">
+            <a href="login" class="nav-link">
               <span class="nav-link-inner--text">Login</span>
             </a>
           </li>
@@ -75,7 +75,7 @@ if (isset($_POST['submit'])){
         <div class="header-body text-center mb-7">
           <div class="row justify-content-center">
             <div class="col-xl-5 col-lg-6 col-md-8 px-5 pl-lg-5">
-                <a href="../index.php">
+                <a href="../index">
                 <img src="img/logo.png" alt="">
                 </a>
             </div>

@@ -13,7 +13,7 @@ $msg = "";
 if (isset($_POST['submit'])) {
     if ($super_category) {
         $super_category->name = trim($_POST['name']);
-        $super_category->description = trim($_POST['description']);
+        $super_category->description = trim($_POST['desc']);
         $super_category->save();
         redirect("categories.php");
     } else {
@@ -61,8 +61,8 @@ if (isset($_POST['submit'])) {
                 </div>
 
                 <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea name="description" required class="form-control" cols="30" rows="10"></textarea>
+                    <label for="desc">Description</label>
+                    <textarea name="desc" required class="form-control" cols="30" rows="10"></textarea>
                 </div>
 
                 <button type="submit" name="submit" class="btn btn-primary float-right float-lg-left">Submit</button>
@@ -84,7 +84,7 @@ if (isset($_POST['submit'])) {
                     <div class="card">
                         <div class="card-header accordion_header" id="heading<?php echo $x; ?>">
                             <h2 class="mb-0">
-                                <button class="btn btn-link w-100 accordion_header" type="button" data-toggle="collapse"
+                                <button class="btn btn-link w-100 accordion_header " type="button" data-toggle="collapse"
                                         data-target="#collapse<?php echo $x; ?>" aria-expanded="true"
                                         aria-controls="collapse<?php echo $x; ?>">
                                     <?php echo $super_category->name; ?>
@@ -97,7 +97,7 @@ if (isset($_POST['submit'])) {
                             <div class="card-body">
                                 <?php
                                 $y = rand(1000, 1000000000000);
-                                $categories = Category::find_the_categories($super_category->id);
+                                $categories = Category::find_the_key($super_category->id);
                                 foreach ($categories
 
                                          as $category) :
@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="card-body">
                                                     <?php
                                                     $y = rand(1000, 1000000000000);
-                                                    $sub_categories = Sub_category::find_the_sub_categories($category->id);
+                                                    $sub_categories = Sub_category::find_the_key($category->id);
                                                     foreach ($sub_categories
 
                                                              as $sub_category) :
@@ -288,6 +288,8 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
+
+
 
 </body>
 </html>

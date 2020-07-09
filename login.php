@@ -2,7 +2,7 @@
 <?php
 
 if ($session->is_signed_in()) {
-    redirect("my_account.php");
+    redirect("my_account");
 }
 
 $msg = '';
@@ -19,11 +19,11 @@ if (isset($_POST['submit_login'])) {
     if ($admin_found) {
         $session->login($admin_found);
         $_SESSION['username'] = $username;
-        redirect("admin/index.php");
+        redirect("admin/index");
     } elseif ($customer_found) {
         $session->login($customer_found);
         $_SESSION ['username'] = $username;
-        redirect("index.php");
+        redirect("index");
     } else {
         $msg = "Uw gebruikersnaam en wachtwoorden komen niet overeen";
     }
@@ -52,7 +52,7 @@ if (isset($_POST['submit_register'])) {
         $customer->password = trim($_POST['password_register']);
         $customer->save();
         $session->login($customer);
-        redirect("my_account.php");
+        redirect("my_account");
         mail($email, $email_subject, $mail_content, $mail_header);
 
     } else {
