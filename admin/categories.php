@@ -206,26 +206,7 @@ if (isset($_POST['submit'])) {
                                 endforeach;
                                 ?>
 
-                                <?php
 
-                                if (isset($_POST['add_sub_category'])) {
-                                    $name = trim($_POST['sub_category_name']);
-                                    $description = trim($_POST['sub_category_description']);
-
-                                    $new_sub_category = Sub_category::create_sub_category($name, $description, $category->id);
-
-                                    if ($new_sub_category && $new_sub_category->save()) {
-                                        redirect("categories.php");
-                                    } else {
-                                        $msg = "Sub Category could not be saved";
-                                    }
-
-
-                                } else {
-                                    $name = "";
-                                    $description = "";
-                                }
-                                ?>
                                 <div class="div float-right d-flex pb-5">
                                     <label class="form-check-label add_category_form_label">Super Category Options</label>
                                     <input class="form-check-input add_category_check" type="checkbox"">
@@ -279,6 +260,27 @@ if (isset($_POST['submit'])) {
                 } else {
                     $msg = "Category could not be saved";
                 }
+            } else {
+                $name = "";
+                $description = "";
+            }
+            ?>
+
+            <?php
+
+            if (isset($_POST['add_sub_category'])) {
+                $name = trim($_POST['sub_category_name']);
+                $description = trim($_POST['sub_category_description']);
+
+                $new_sub_category = Sub_category::create_sub_category($name, $description, $category->id);
+
+                if ($new_sub_category && $new_sub_category->save()) {
+                    redirect("categories.php");
+                } else {
+                    $msg = "Sub Category could not be saved";
+                }
+
+
             } else {
                 $name = "";
                 $description = "";

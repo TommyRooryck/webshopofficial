@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
                                     ?>
                                     <div class="col-lg-3 col-6 text-center">
                                     <img src="<?php echo $photo->picture_path(); ?>" class="p-3 img-fluid" alt="">
-                                        <a href="delete_Photo_Product.php?id=<?php echo $photo->id; ?>&product=<?php echo $product->id; ?>"><i
+                                        <a onclick="" href="delete_Photo_Product.php?id=<?php echo $photo->id; ?>&product=<?php echo $product->id; ?>"><i
                                                     class="far fa-trash-alt fa-lg"></i></a>
                                     </div>
                                 <?php endforeach; ?>

@@ -11,9 +11,11 @@ if (empty($_GET['id'])){
 $product = Product::find_by_id($_GET['id']);
 $photos = Photo::find_the_key($_GET['id']);
 if ($product){
-    $product->delete_product();
-
-    // redirect('products');
+     $product->delete_product();
+    foreach ($photos as $photo){
+        $photo->delete_photo();
+    }
+     redirect('products');
 } else{
     redirect('products');
 }

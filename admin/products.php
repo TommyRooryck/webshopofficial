@@ -8,9 +8,10 @@ $products = Product::find_all();
 <?php include("includes/content_top.php"); ?>
 <div class="container-fluid d-none d-lg-block">
     <div class="row">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h2 class="pt-5">Products</h2>
-            <table class="table table-header">
+            <a href="add_Product.php" class="btn btn-primary my-3">Add Product</a>
+            <table class="table table-header table-hover">
                 <thead>
                 <tr>
 
@@ -60,7 +61,7 @@ $products = Product::find_all();
                         <td><?php echo $product->created_at; ?></td>
                         <td><a href="edit_Product.php?id=<?php echo $product->id; ?>"
                                class="btn btn-danger rounded-0"><i class="fas fa-user-edit"></i></a></td>
-                        <td><a href="delete_Product.php?id=<?php echo $product->id; ?>"
+                        <td><a onclick="confirm('Are you sure you want to delete this product?')" href="delete_Product.php?id=<?php echo $product->id; ?>"
                                class="btn btn-danger rounded-0"><i class="fas fa-user-times"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
@@ -72,8 +73,9 @@ $products = Product::find_all();
 
 <div class="container-fluid px-0 main-content d-lg-none">
     <div class="row w-100 mx-0">
-        <div class="col-12">
+        <div class="col-12 text-center">
             <h2 class="text-center pt-5">Products</h2>
+            <a href="add_Product.php" class="btn btn-primary my-3 text-center">Add Product</a>
             <hr>
             <?php
             $x = 0;
@@ -181,7 +183,7 @@ $products = Product::find_all();
                                 <div class="d-flex justify-content-around">
                                     <a href="edit_Product.php?id=<?php echo $product->id; ?>" class="btn btn-primary">View
                                         or Edit Product</a>
-                                    <a href="delete_Product.php?id=<?php echo $product->id; ?>" class="btn btn-danger">Delete
+                                    <a  onclick="confirm('Are you sure you want to delete this product?')" href="delete_Product.php?id=<?php echo $product->id; ?>" class="btn btn-danger">Delete
                                         Product</a>
                                 </div>
                             </div>

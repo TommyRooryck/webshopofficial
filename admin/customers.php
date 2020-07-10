@@ -14,10 +14,9 @@ $customers = Customer::find_all();
 <?php include("includes/content_top.php"); ?>
 
 <div class="container-fluid px-0 main-content d-none d-lg-block">
-    <div class="row w-100 pl-3">
+    <div class="row w-100">
         <div class="col-12 pr-0 pt-5 text-center">
             <h1>Customers</h1>
-            <hr>
             <table class="table table-hover">
                 <thead>
                 <tr>
