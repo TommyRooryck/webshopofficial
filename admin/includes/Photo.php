@@ -61,7 +61,7 @@ class Photo extends Db_object
         }
     }
 
-    public static function set_files_product($files,$product_id){;
+    public static function set_files_product($files,$product_id){
 
         $countfiles = count($files['name']);
         for ($x=0 ; $x<$countfiles; $x++){

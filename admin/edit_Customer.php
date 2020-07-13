@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
             <div>
                 <h5 class="text-danger"><?php $msg; ?></h5>
             </div>
-            <form method="post">
+            <form method="post" action="edit_Customer.php?id=<?php echo $customer->id; ?>">
                 <div class="form-group col-md-6 pl-0">
                     <label for="username">Username</label>
                     <input type="text" class="form-control" name="username"

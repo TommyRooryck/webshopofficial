@@ -51,12 +51,10 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="form-group">
-                            <input type="file" name="upload" class="form-control" multiple="multiple">
+                            <input type="file" name="upload" class="form-control-file" id="imgInp">
+                            <img src="#" id="placeholder_img" alt="">
                         </div>
 
-                        <div class="form-group">
-                            <input type="file" name="file[]" class="form-control" multiple="multiple">
-                        </div>
 
                         <input type="submit" name="submit" value="submit" class="btn btn-primary">
                     </div>

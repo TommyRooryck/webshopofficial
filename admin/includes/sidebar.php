@@ -1,6 +1,6 @@
 <body>
 <!-- Sidenav -->
-<nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white" id="sidenav-main">
+<nav class="sidenav navbar navbar-vertical fixed-left navbar-expand-xs navbar-light bg-white d-lg-block" id="sidenav-main">
     <div class="scrollbar-inner">
         <!-- Brand -->
         <div class="sidenav-header d-none d-lg-block align-items-center">
@@ -45,6 +45,7 @@
                             <a class="dropdown-item" href="products">All Products</a>
                             <a class="dropdown-item" href="add_Product">Add Product</a>
                             <a class="dropdown-item" href="categories">Categories</a>
+                            <a class="dropdown-item" href="attributes">Attributes</a>
                         </div>
                     </li>
 

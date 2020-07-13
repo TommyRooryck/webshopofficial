@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
     <div class="row">
         <div class="col-lg-6 pt-5 pt-lg-0">
             <h2 class="text-center">Add New Super Category</h2>
-            <form method="post">
+            <form method="post" action="categories.php">
                 <div class="form-group">
                     <label for="name">Super Category Name</label>
                     <input type="text" required name="name" class="form-control" placeholder="Enter Super Category">
@@ -173,7 +173,7 @@ if (isset($_POST['submit'])) {
                                                         <div>
                                                             <h6 class="text-center">Add New Sub Category</h6>
                                                         </div>
-                                                        <form method="post" class="w-75 m-auto">
+                                                        <form method="post" action="categories.php" class="w-75 m-auto">
                                                             <div class="form-group">
                                                                 <input type="text" name="sub_category_name" required
                                                                        placeholder="Enter Sub Category Name"
@@ -216,7 +216,7 @@ if (isset($_POST['submit'])) {
                                     <div>
                                         <h6 class="text-center">Add New Category</h6>
                                     </div>
-                                    <form method="post" class="w-75 m-auto">
+                                    <form method="post" action="categories.php" class="w-75 m-auto">
                                         <div class="form-group">
                                             <input type="text" name="category_name" required
                                                    placeholder="Enter Category Name"

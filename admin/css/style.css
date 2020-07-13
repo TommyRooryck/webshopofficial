@@ -1,3 +1,29 @@
+/*BEGIN NAVBAR*/
+#navbar-main > div > a > img{
+    height: 5rem;
+}
+
+#navbarSupportedContent > ul.navbar-nav.align-items-center.ml-auto.ml-md-0 > li > div{
+    background: #ffffff;
+    border: 1px solid #000000;
+}
+
+/*END NAVBAR*/
+
+/*BEGIN SIDEBAR*/
+#sidenav-collapse-main > i{
+    height: 10rem;
+}
+/*END SIDEBAR*/
+
+/*BEGIN MAIN BODY OPTIONS*/
+body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container > div > div > div > a > img{
+    height: 18rem;
+}
+/*END MAIN BODY OPTIONS*/
+
+/*BEGIN CATEGORIES PAGE*/
+
 #collapseOne > div > a:nth-child(1),
 #collapseOne > div > a:nth-child(2),
 #collapseOne > div > a:nth-child(3),
@@ -6,27 +32,6 @@
     color: rgba(0,0,0,.5);
 }
 
-#sidenav-collapse-main > i{
-    height: 10rem;
-}
-
-#navbar-main > div > a > img{
-    height: 5rem;
-}
-
-body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container > div > div > div > a > img{
-    height: 18rem;
-}
-
-#navbarSupportedContent > ul.navbar-nav.align-items-center.ml-auto.ml-md-0 > li > div{
-    background: #ffffff;
-    border: 1px solid #000000;
-}
-
-
-select option{
-    padding-left: 20px;
-}
 
 .accordion_header{
     background: #235361;
@@ -89,11 +94,8 @@ select option{
     color: #ffffff !important;
 }
 
-
-
 .collapse_btn{
     color: #2980b9;
-    font-family: roboto_bold;
 }
 
 .collapse_btn:hover{
@@ -101,8 +103,26 @@ select option{
     color: #94D5F5;
 }
 
+/*END CATEGORIES PAGE*/
+
+/*ADD CATEGORIES PAGE*/
+.gallery img{
+    width: 25%;
+    padding: 10px;
+}
+
+#placeholder_img{
+    width: 25%;
+    padding: 10px;
+}
+
+
+/*END ADD CATEGORIES PAGE*/
+
+
 
 @media (min-width: 768px) {
+    /*BEGIN DROPDOWNS*/
     .dropdown-item{
         padding-left: 4rem !important;
     }
@@ -112,6 +132,7 @@ select option{
         box-shadow: none;
         border: none;
     }
+    /*END DROPDOWNS*/
 
 }
 

@@ -43,7 +43,11 @@ $products = Product::find_all();
                         <td>
                             <?php
                             $category = Category::find_by_id($product->category_id);
-                            echo $category->name;
+                            if ($category == false){
+                                echo "Category does not exist";
+                            } else{
+                                echo $category->name;
+                            }
                             ?>
                         </td>
                         <td>

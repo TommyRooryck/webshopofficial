@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    /**NAVBAR**/
   /*   $('#navbarDropdownMenuLink0').on('click', function(){
          if (!$('#dropdown_menu0').hasClass('show')){
              $('#navbarDropdownMenuLink0').addClass('active_dropdown');
@@ -34,11 +35,14 @@ $(document).ready(function () {
         $('#navbar-toggler').toggleClass('active_dropdown_border')
     });
 
+    /**LOGIN**/
     $('#register_button').click(function () {
         $('#register').addClass('d-none')
         $('#registration').removeClass('d-none')
     })
 
+
+    /**MY ACCOUNT**/
     $("#shipping_adress_check").click(function () {
 
         $('#shipping_adress_form').toggleClass('d-block')

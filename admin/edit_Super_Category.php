@@ -29,7 +29,7 @@ if (isset($_POST['edit'])){
             <div>
                 <h5 class="text-danger"><?php $msg; ?></h5>
             </div>
-            <form method="post">
+            <form method="post" action="edit_Super_Category.php?id=<?php echo $super_category->id; ?>">
                 <div class="form-group">
                     <label for="sub_category_name">Super Category Name</label>
                     <input type="text" name="super_category_name" class="form-control" value="<?php echo $super_category->name; ?>">

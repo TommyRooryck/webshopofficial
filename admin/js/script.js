@@ -1,3 +1,4 @@
+/**Auto-login function**/
 $(function() {
 
     function timeChecker() {
@@ -34,11 +35,16 @@ $(function() {
     }
 })
 
-$("#close-sidebar").click(function () {
-    $("#sidenav-main").addClass('d-block')
+/**SIDEBAR TOGGLE FUNCTION**/
+$("#sidenav-collapse-main").click(function () {
+    $("#sidenav-main").toggleClass('d-none')
 })
 
+$('.sidenav-toggler-inner').click(function () {
+    $("#sidenav-main").toggleClass('d-block')
+})
 
+/**ADD CATEGORIES FORM FUNCTIONS**/
 $(function () {
 
     $(".add_category_check").click(function () {
@@ -82,8 +88,71 @@ $(function () {
     })
 })
 
+/**META TAGS HIDE**/
 $("[name='author']").remove()
 $("[name='description']").remove()
+
+
+/**IMAGE PREVIEW FUNCTIONS**/
+
+
+
+
+$(function() {
+
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#gallery-photo-add').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+    });
+});
+
+function readURL(input) {
+    if (input.files && input.files[0]){
+        var reader = new FileReader();
+
+        reader.onload = function(e){
+            $("#placeholder_img").attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#imgInp").change(function () {
+    readURL(this);
+})
+
+/**Create input**/
+
+$(document).ready(function () {
+
+    var fieldHML = ' <input type="text" name="value[]" class="form-control my-2">';
+
+    $('#add_element').click(function () {
+        $("#new_value").append(fieldHML);
+    })
+
+})
+
+
+
 
 
 

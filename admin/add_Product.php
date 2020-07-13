@@ -57,7 +57,8 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="form-group">
                             <label for="placeholder">Product Image</label>
-                            <input type="file" name="placeholder" class="form-control">
+                            <input type="file" name="placeholder" id="imgInp" class="form-control">
+                            <img src="#" id="placeholder_img" alt="">
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
@@ -91,7 +92,10 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group">
                             <label for="upload[]">More Photos: </label>
-                            <input type="file" name="file[]" multiple="multiple" class="form-control-file">
+                            <input type="file" name="file[]" id="gallery-photo-add" multiple="multiple" class="form-control-file">
+                            <div class="gallery">
+
+                            </div>
                         </div>
                         <input type="submit" name="submit" value="Add Product" class="btn btn-primary mb-5 float-right">
                     </div>
