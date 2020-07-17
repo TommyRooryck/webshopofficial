@@ -64,9 +64,9 @@ $products = Product::find_all();
                         </td>
                         <td><?php echo $product->created_at; ?></td>
                         <td><a href="edit_Product.php?id=<?php echo $product->id; ?>"
-                               class="btn btn-danger rounded-0"><i class="fas fa-user-edit"></i></a></td>
+                               class="btn btn-danger rounded-0"><i class="fas fa-edit"></i></a></td>
                         <td><a onclick="confirm('Are you sure you want to delete this product?')" href="delete_Product.php?id=<?php echo $product->id; ?>"
-                               class="btn btn-danger rounded-0"><i class="fas fa-user-times"></i></a></td>
+                               class="btn btn-danger rounded-0"><i class="fas fa-trash-alt"></i></a></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
@@ -154,7 +154,11 @@ $products = Product::find_all();
                                     <div class="col-6 text-center">
                                         <?php
                                         $category = Category::find_by_id($product->category_id);
-                                        echo $category->name;
+                                        if ($category == false){
+                                            echo "Category does not exist";
+                                        } else{
+                                            echo $category->name;
+                                        }
                                         ?>
                                     </div>
                                 </div>

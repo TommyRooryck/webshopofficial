@@ -124,3 +124,41 @@ class Product extends Db_object
         }
     }
 }
+
+
+
+class Specific_product extends Db_object
+{
+    public $id;
+    public $attribute_id;
+    public $attribute_values_id;
+    public $product_id;
+
+    protected static $db_table = "specific_product";
+    protected static $db_table_fields = array('attribute_id','attribute_values_id', 'product_id');
+    protected static $foreign_column = 'product_id';
+
+
+    public static function find_specific_product_attribute($attribute_id, $product_id)
+    {
+        global $database;
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE attribute_id =  " . $database->escape_string($attribute_id);
+        $sql .= " AND product_id = " . $database->escape_string($product_id);
+
+        return static::find_this_query($sql);
+    }
+
+    public static function find_specific_product_attribute_value($attribute_value_id, $product_id)
+    {
+        global $database;
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE attribute_values_id =  " . $database->escape_string($attribute_value_id);
+        $sql .= " AND product_id = " . $database->escape_string($product_id);
+
+        return static::find_this_query($sql);
+    }
+
+
+}
+

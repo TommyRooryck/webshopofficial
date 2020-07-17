@@ -1,5 +1,5 @@
 /**Auto-login function**/
-$(function() {
+$(function () {
 
     function timeChecker() {
         setInterval(function () {
@@ -10,7 +10,7 @@ $(function() {
 
 
     function timeCompare(timeString) {
-        var maxMinutes = 10 ;
+        var maxMinutes = 10;
         var currentTime = new Date();
         var pastTime = new Date(timeString);
         var timeDiff = currentTime - pastTime;
@@ -95,39 +95,36 @@ $("[name='description']").remove()
 
 /**IMAGE PREVIEW FUNCTIONS**/
 
+$(function () {
 
-
-
-$(function() {
-
-    var imagesPreview = function(input, placeToInsertImagePreview) {
+    var imagesPreview = function (input, placeToInsertImagePreview) {
 
         if (input.files) {
             var filesAmount = input.files.length;
 
-            for (i = 0; i < filesAmount; i++) {
+            for (o = 0; o < filesAmount; o++) {
                 var reader = new FileReader();
 
-                reader.onload = function(event) {
+                reader.onload = function (event) {
                     $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
                 }
 
-                reader.readAsDataURL(input.files[i]);
+                reader.readAsDataURL(input.files[o]);
             }
         }
 
     };
 
-    $('#gallery-photo-add').on('change', function() {
-        imagesPreview(this, 'div.gallery');
+    $('#gallery-photo-add').on('change', function () {
+        $(".gallery").append(imagesPreview(this, 'div.gallery'));
     });
 });
 
 function readURL(input) {
-    if (input.files && input.files[0]){
+    if (input.files && input.files[0]) {
         var reader = new FileReader();
 
-        reader.onload = function(e){
+        reader.onload = function (e) {
             $("#placeholder_img").attr('src', e.target.result);
         }
 
@@ -143,13 +140,15 @@ $("#imgInp").change(function () {
 
 $(document).ready(function () {
 
-    var fieldHML = ' <input type="text" name="value[]" class="form-control my-2">';
+    var fieldHML = ' <input type="text" name="value[]" class="form-control my-2" placeholder="Enter Attribute Value">';
 
     $('#add_element').click(function () {
         $("#new_value").append(fieldHML);
     })
 
 })
+
+
 
 
 
