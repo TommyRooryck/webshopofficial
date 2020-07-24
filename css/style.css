@@ -73,7 +73,9 @@ h1{
     margin: 0;
 }
 
-
+html{
+    height: 100%;
+}
 
 body{
     background: linear-gradient(to bottom, #ffffff, #ffffff, #fef1f3, #fef1f3, #f5d0e2);

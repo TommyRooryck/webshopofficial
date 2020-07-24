@@ -52,6 +52,7 @@ if (isset($_POST['submit_register'])) {
         $customer->password = trim($_POST['password_register']);
         $customer->save();
         $session->login($customer);
+        $_SESSION['username'] = $username;
         redirect("my_account");
         mail($email, $email_subject, $mail_content, $mail_header);
 

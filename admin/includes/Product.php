@@ -30,14 +30,16 @@ class Product extends Db_object
     {
         return empty($this->product_placeholder) ? $this->image_placeholder : $this->upload_directory . DS . $this->product_placeholder;
     }
-    /*
-         * Wanneer we geen image vinden dan geven we de standaard locatie als default terug, nl. image_placeholder die de link bevat naar http://place-holt.it
-         * In Het andere geval wordt de echte image teruggegeven.
-    */
+
+    /**Locatie van afbeeldingen voor front-end**/
+    public function image_path_and_placeholder_front(){
+        return empty($this->product_placeholder) ? $this->image_placeholder : 'admin' . DS . $this->upload_directory . DS . $this->product_placeholder;
+    }
+
 
     /**Methods uit Photo() class**/
 
-    public function set_file($file) //Zie Photo() class
+    public function set_file($file)
     {
         // print $file;
 
@@ -89,25 +91,25 @@ class Product extends Db_object
     {
         $target_path = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->product_placeholder;
 
-        if ($this->id){ //Als er een id opgevangen wordt:
+        if ($this->id){
             move_uploaded_file($this->tmp_path,$target_path);
-            $this->update(); //voer method update() uit
-            unset($this->tmp_path); //tmp_path wordt leeggemaakt
-            return true; //return true
-        }else{ //anders:
-            if (!empty($this->errors)){ //als errors niet leeg zijn return false
+            $this->update();
+            unset($this->tmp_path);
+            return true;
+        }else{
+            if (!empty($this->errors)){
                 return false;
             }
-            if (empty($this->user_image) || empty($this->tmp_path)){ //als er geen user_image is of geen tmp_path (file) aanwezig is:
-                $this->errors[] = "File not available"; //Steek deze string in de errors[] array
-                return false; //return false
+            if (empty($this->user_image) || empty($this->tmp_path)){
+                $this->errors[] = "File not available";
+                return false;
             }
-            if (move_uploaded_file($this->tmp_path, $target_path)){ //Indien de file successvol verplaats werd naar de target_path:
-                if ($this->create()){ //indien de create() method wordt uigevoerd unset de tmp_path(file) en return true
+            if (move_uploaded_file($this->tmp_path, $target_path)){
+                if ($this->create()){
                     unset($this->tmp_path);
                     return true;
                 }
-            } else{ //Anders steek de error in de array en return false
+            } else{
                 $this->errors[] = "This folder has no write rights!";
                 return false;
             }
