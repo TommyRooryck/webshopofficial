@@ -73,7 +73,7 @@ $super_categories = Super_category::find_all();
                     }
                     ?>
                     "><i class="fas fa-user-circle"></i></a>
-                    <a href=""><i class="fas fa-shopping-cart"></i></a>
+                    <a href="cart"><i class="fas fa-shopping-cart"></i></a>
                     <?php
                     if ($session->is_signed_in()) {
                         echo " <a href=\"admin/logout\"><i class=\"fas fa-sign-out-alt\"></i></a>";

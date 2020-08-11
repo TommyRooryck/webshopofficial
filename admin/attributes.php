@@ -85,7 +85,9 @@ if (isset($_POST['add_attribute'])) {
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($attributes as $attribute) : ?>
+                <?php
+                usort($attributes, array("Attributes", "order_by_name"));
+                foreach ($attributes as $attribute) : ?>
                     <tr>
                         <td ><?php echo $attribute->id; ?></td>
                         <td ><?php echo $attribute->name; ?></td>
@@ -93,6 +95,7 @@ if (isset($_POST['add_attribute'])) {
                             <?php
                             $attribute_values = Attribute_values::find_the_key($attribute->id);
                             $myArray = array();
+                            usort($attribute_values, array("Attribute_values", "order_by_name"));
                             foreach ($attribute_values as $attribute_value) {
                                 $myArray[] = $attribute_value->name;
                             }

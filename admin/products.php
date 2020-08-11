@@ -18,7 +18,6 @@ $products = Product::find_all();
                     <th>Product Image</th>
                     <th>Id</th>
                     <th>Name</th>
-                    <th>Description</th>
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Category</th>
@@ -36,7 +35,6 @@ $products = Product::find_all();
                         <td><img src="<?php echo $product->image_path_and_placeholder(); ?>" height="100" alt=""></td>
                         <td><?php echo $product->id; ?></td>
                         <td><?php echo $product->name; ?></td>
-                        <td><?php echo $product->description; ?></td>
                         <td><?php echo $product->price; ?></td>
                         <td><?php echo $product->stock; ?></td>
 
@@ -117,15 +115,6 @@ $products = Product::find_all();
                                     </div>
                                     <div class="col-6 text-center">
                                         <?php echo $product->name; ?>
-                                    </div>
-                                </div>
-                                <hr>
-                                <div class="d-flex justify-content-around row">
-                                    <div class="col-6 text-center">
-                                        <h6>Description: </h6>
-                                    </div>
-                                    <div class="col-6 text-center">
-                                        <?php echo $product->description; ?>
                                     </div>
                                 </div>
                                 <hr>

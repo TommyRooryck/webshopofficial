@@ -7,6 +7,10 @@ class Db_object
         return static::find_this_query("SELECT * FROM " . static::$db_table . " ");
     }
 
+    public static function order_by_name ($a, $b) {
+        return strcmp($a ->name, $b->name);
+    }
+
     public static function find_by_id($id){
         global $database;
         $the_result_array = static::find_this_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1" );

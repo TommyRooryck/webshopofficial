@@ -28,16 +28,20 @@ if (isset($_POST['submit'])) {
     $product->created_at = date("Y/m/d");
     $product->category_id = trim($_POST['category']);
     $product->sub_category_id = trim($_POST['sub']);
-    $product->set_file($_FILES['placeholder']);
+    var_dump($product->set_file($_FILES['placeholder']));
     $product->save_image();
     $product->save();
     Photo::set_files_product($_FILES['file'], $product->id);
+
+
+
 
      foreach ($specific_products as $specific_product){
           $specific_product->delete();
       }
       if (isset($_POST['attribute_value'])){
           $all_values = count($_POST['attribute_value']);
+          var_dump($all_values);
           for ($i = 0; $i < $all_values; $i++) {
               $specific_product = new Specific_product();
               $specific_product->attribute_id = trim($_POST['attribute'][$i]);
@@ -48,12 +52,12 @@ if (isset($_POST['submit'])) {
       }
 
 
-    redirect("products");
+     redirect("products");
 
 }
 ?>
 
-<?php // include("includes/sidebar.php"); ?>
+<?php include("includes/sidebar.php"); ?>
 <?php include("includes/content_top.php"); ?>
 
 <div class="container-fluid">
@@ -120,6 +124,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <?php
                             $y = 0;
+                            usort($attributes, array("Attributes", "order_by_name"));
                             foreach ($attributes
                                      as $attribute) :
                                 $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
@@ -131,11 +136,10 @@ if (isset($_POST['submit'])) {
                                            value="<?php echo $attribute->id; ?>"
                                            name="attribute[]"
                                         <?php
-                                        if ($specific_attribute) {
+                                           if ($specific_attribute) {
                                             echo "checked";
                                         }
                                         ?> data-toggle="collapse" data-target="#collapse<?php echo $y; ?>"">
-                                    <input type="hidden" name="attribute[]" value="0">
                                     <div
                                             class="
                                             row
@@ -150,6 +154,8 @@ if (isset($_POST['submit'])) {
                                             id="collapse<?php echo $y; ?>">
                                         <?php
                                         $attribute_values = Attribute_values::find_the_key($attribute->id);
+                                        usort($attribute_values, array("Attribute_values", "order_by_name"));
+
                                         foreach ($attribute_values
 
                                                  as $attribute_value) :
@@ -172,7 +178,6 @@ if (isset($_POST['submit'])) {
                                                             }
                                                             ?>
                                                         >
-                                                        <input type="hidden" name="attribute_value[]" value="0">
                                                     </td>
                                                 </tr>
                                             </table>

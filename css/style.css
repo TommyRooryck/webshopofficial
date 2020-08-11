@@ -63,7 +63,7 @@ a{
 
 h1{
     font-family: roboto_black;
-    background:linear-gradient(160deg, #7a1036, #ff7ebe);
+    background:linear-gradient(160deg, #FF53C2, #ff7ebe);
     color: transparent !important;
     -webkit-background-clip: text;
 }
@@ -73,30 +73,40 @@ h1{
     margin: 0;
 }
 
-html{
-    height: 100%;
-}
 
 body{
-    background: linear-gradient(to bottom, #ffffff, #ffffff, #fef1f3, #fef1f3, #f5d0e2);
+    background: linear-gradient(to bottom, #ffffff, #f5d0e2);
+}
+
+img{
+    vertical-align: middle;
+    border-style: none;
 }
 
 footer{
     height: 200px;
 }
 
+/**CLASSES**/
+.mb-50{
+    margin-bottom: 3.125rem;
+}
+
+
+/**END CLASSES**/
+
 /**HEADER**/
 
 .navbar-brand{
     font-family: roboto_black;
-    background:linear-gradient(#7a1036, #ff7ebe);
+    background:linear-gradient(#FF53C2, #ff7ebe);
     color: transparent !important;
     -webkit-background-clip: text;
 }
 
 
 .navbar a{
-    color: #7a1036;
+    color: #FF53C2;
 }
 
 .navbar a:hover{
@@ -108,7 +118,7 @@ footer{
 }
 
 nav i{
-    color: #7a1036;
+    color: #FF53C2;
 }
 
 nav i:hover{
@@ -234,16 +244,66 @@ nav i:hover{
     color: #94D5F5;
 }
 
-
 /**END MY_ACCOUNT**/
 
 
+/**SHOP**/
+.popular-items, .single-popular-items .popular-img{
+    overflow: hidden;
+    border-bottom: 0.1875rem solid #FF53C2;
+    margin-bottom: 1.1875rem;
+    position: relative;
+    background: white;
+}
+
+.popular-items .single-popular-items .popular-img img {
+    width: 100%;
+}
 
 
+.popular-items, .single-popular-items, .popular-items, .popular-caption h3 a{
+    color: #444444;
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+/**END SHOP**/
+
+/**PRODUCT DETAILS**/
+.product_details h1{
+    color: #FF53C2 !important;
+}
+/**PRODUCT DETAILS**/
+
+/**CART PAGE**/
+
+/**END CART PAGE**/
+
+
+/******MEDIA QUERIES*******/
+
+/**PHONES**/
+
+@media (max-width: 414px) {
+    #search_bar{
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 575px) {
+    /**SHOP**/
+    .latest-padding{
+        padding-top: 3.75rem ;
+        padding-bottom: 0.3125rem ;
+    }
+    /**END SHOP**/
+}
+
+
+/**IPAD**/
 @media (min-width: 768px) {
     /**NAV**/
-
-
 
     /**END NAV**/
 
@@ -260,12 +320,13 @@ nav i:hover{
     /**END LOGIN AND REGISTRATION**/
 }
 
-
-
-@media (min-width: 1700px) {
-    #top_nav_items{
-        padding-right: 11rem;
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+    /**SHOP**/
+    .latest-padding{
+        padding-top: 3.75rem;
+        padding-bottom: 0.3125rem;
     }
+    /**END SHOP**/
 }
 
 @media (max-width: 1023px) {
@@ -274,10 +335,56 @@ nav i:hover{
     }
 }
 
-@media (max-width: 414px) {
-    #search_bar{
-        margin-left: 0px;
+
+/**IPAD PRO**/
+@media only screen and (max-width: 1199px) and (min-width: 992px) {
+    .latest-padding{
+        padding-top: 11.875rem;
+        padding-bottom: 8.4375rem;
     }
 }
+
+/**PC**/
+@media only screen and (max-width: 1600px) and (min-width: 1200px) {
+    /**CLASSES**/
+    .pt-6{
+        padding-top: 5rem;
+    }
+    /**END CLASSES**/
+
+    /**SHOP**/
+    .latest-padding{
+        padding-top: 11.875rem;
+        padding-bottom: 8.4375rem;
+    }
+    /**END SHOP**/
+}
+
+
+
+@media (min-width: 1700px) {
+    /**CLASSES**/
+    .pt-6{
+        padding-top: 5rem;
+    }
+    /**END CLASSES**/
+
+    /**HEADER**/
+    #top_nav_items{
+        padding-right: 11rem;
+    }
+    /**END HEADER**/
+
+    /**SHOP**/
+    .latest-padding{
+        padding-top: 11.875rem;
+        padding-bottom: 8.4375rem;
+    }
+    /**END SHOP**/
+
+}
+
+
+
 
 

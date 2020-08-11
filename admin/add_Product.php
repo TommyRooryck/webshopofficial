@@ -41,14 +41,15 @@ if (isset($_POST['submit'])) {
             $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
             $specific_product->product_id = $product->id;
             $specific_product->save();
-            redirect("products");
+
+           redirect("products");
         }
     }
 
 }
 
 ?>
-<?php include("includes/sidebar.php"); ?>
+<?php  include("includes/sidebar.php"); ?>
 <?php include("includes/content_top.php"); ?>
 <div class="container-fluid">
     <div class="row">
@@ -82,7 +83,9 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label for="category">Select category</label>
                             <select name="category">
-                                <?php foreach ($categories as $category) : ?>
+                                <?php
+                                usort($categories, array("Category", "order_by_name"));
+                                foreach ($categories as $category) : ?>
                                     <option value="<?php echo $category->id; ?>"><?php echo $category->name; ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -92,7 +95,9 @@ if (isset($_POST['submit'])) {
                             <label for="sub">Select Sub Category (if needed)</label>
                             <select name="sub">
                                 <option value="0">None</option>
-                                <?php foreach ($sub_categories as $sub_category) : ?>
+                                <?php
+                                usort($sub_categories, array("Sub_category", "order_by_name"));
+                                foreach ($sub_categories as $sub_category) : ?>
                                     <option value="<?php echo $sub_category->id; ?>"><?php echo $sub_category->name; ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -109,6 +114,7 @@ if (isset($_POST['submit'])) {
 
                         <?php
                         $y=0;
+                        usort($attributes, array("Attributes", "order_by_name"));
                         foreach ($attributes
                                        as $attribute) : ?>
                             <div class="form-group">
@@ -120,6 +126,7 @@ if (isset($_POST['submit'])) {
                                 <div class="row values collapse"  id="collapse<?php echo $y; ?>">
                                     <?php
                                     $attribute_values = Attribute_values::find_the_key($attribute->id);
+                                    usort($attribute_values, array("Attribute_values", "order_by_name"));
                                     foreach ($attribute_values
 
                                              as $attribute_value) :

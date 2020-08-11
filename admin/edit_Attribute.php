@@ -21,7 +21,11 @@ if (isset($_POST['edit_name'])){
     $attribute->save();
     redirect("edit_Attribute.php?id=" . $attribute->id);}
 
+
+
 ?>
+
+
 
 <?php  include ("includes/sidebar.php"); ?>
 <?php include ("includes/content_top.php"); ?>
@@ -60,7 +64,10 @@ if (isset($_POST['edit_name'])){
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($attribute_values as $attribute_value) : ?>
+        <?php
+        usort($attribute_values, array("Attribute_values", 'order_by_name'));
+        foreach ($attribute_values as $attribute_value) :
+            ?>
             <tr>
                 <td><?php echo $attribute_value->id; ?></td>
                 <td><?php echo $attribute_value->name; ?></td>

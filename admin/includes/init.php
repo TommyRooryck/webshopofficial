@@ -1,7 +1,7 @@
 <?php
 /**Constanten voor Siteroot**/
 defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
-define('SITE_ROOT', 'C:' . DS . 'wamp64' . DS . 'www' . DS  . 'webshop2');
+define('SITE_ROOT', 'C:' . DS . 'xampp' . DS . 'htdocs' . DS  . 'webshop2');
 defined('INCLUDES_PATH') ? null : define('INCLUDES_PATH', SITE_ROOT . DS . 'admin' . DS . 'includes');
 defined('IMAGES_PATH') ? null : define('IMAGES_PATH', SITE_ROOT . DS . 'admin' . DS . 'img');
 ?>

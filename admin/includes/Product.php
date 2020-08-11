@@ -45,10 +45,10 @@ class Product extends Db_object
 
         if (empty($file) || !$file || !is_array($file)){
             $this->errors[] = "There was no file uploaded here";
-            return false;
+            return $this->errors;
         } elseif ($file['error'] != 0){
             $this->errors[] = $this->upload_errors_array[$file['error']];
-            return false;
+            return $this->errors;
         } else{
             $this->product_placeholder = basename($file['name']);
             $this->tmp_path = $file['tmp_name'];
