@@ -30,6 +30,7 @@ if (isset($_SESSION["cart"])) :
 
                 <?php
                 $i = 0;
+                $total_price = 0;
                 foreach ($_SESSION['cart'] as $cart_product):
                 echo "<br>";
                 $product_id = array_shift($cart_product);
@@ -53,18 +54,27 @@ if (isset($_SESSION["cart"])) :
                             }
                         ?>
                     </td>
-                    <td>€<?php echo $product->price; ?></td>
+                    <td>
+                        <?php
+                        echo "€" . $product->price;
+                        $total_price += $product->price + 0;
+                        ?>
+
+                    </td>
                     <?php
-                    var_dump($_SESSION['cart'][0]);
-                    var_dump($product_id);
                     $key = array_search("$product_id", $cart_product);
-                    var_dump($key);
                     ;?>
                     <td><a href="?delete=<?php echo $i?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
                 <?php
                 $i++;
                 endforeach; ?>
+                <tr>
+                    <th>Total Price: </th>
+                    <td>
+                        <?php echo "€" . $total_price; ?>
+                    </td>
+                </tr>
             </table>
 
             <div class="row justify-content-around">

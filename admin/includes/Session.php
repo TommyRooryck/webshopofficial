@@ -47,8 +47,7 @@ class Session
     /**Logout methode**/
     public function logout()
     {
-        unset($_SESSION['user_id']);
-        unset($this->user_id);
+        session_destroy();
         $this->signed_in = false;
     }
 
