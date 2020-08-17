@@ -4,6 +4,7 @@
 class Orders extends Db_object
 {
     public $id;
+    public $customer_id;
     public $created_at;
     public $status;
     public $first_name;
@@ -21,10 +22,12 @@ class Orders extends Db_object
     public $shipping_region;
     public $shipping_country;
     public $total_price;
+    public $payment_id;
 
     protected static $db_table = "orders";
     protected static $db_table_fields = array(
         'id',
+        'customer_id',
         'created_at',
         'status',
         'first_name',
@@ -41,6 +44,7 @@ class Orders extends Db_object
         'shipping_postal_code',
         'shipping_region',
         'shipping_country',
-        'total_price'
+        'total_price',
+        'payment_id',
     );
 }

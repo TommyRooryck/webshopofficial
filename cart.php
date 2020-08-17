@@ -29,7 +29,6 @@ if (isset($_SESSION["cart"])) :
                 </tr>
 
                 <?php
-                $i = 0;
                 $total_price = 0;
                 foreach ($_SESSION['cart'] as $cart_product):
                 echo "<br>";
@@ -67,12 +66,11 @@ if (isset($_SESSION["cart"])) :
                     <td><a href="?delete=<?php echo $i?>" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a></td>
                 </tr>
                 <?php
-                $i++;
                 endforeach; ?>
                 <tr>
-                    <th>Total Price: </th>
+                    <th colspan="2" class="text-right">Total Price: </th>
                     <td>
-                        <?php echo "€" . $total_price; ?>
+                        <?php echo "<b>" . "€" . $total_price . "</b>"; ?>
                     </td>
                 </tr>
             </table>
@@ -84,7 +82,7 @@ if (isset($_SESSION["cart"])) :
 
                 </form>
 
-                <a href="checkout" class="btn-primary btn">Go To Checkout</a>
+                <a href="checkout_form.php" class="btn-primary btn">Go To Checkout</a>
             </div>
 
         </div>

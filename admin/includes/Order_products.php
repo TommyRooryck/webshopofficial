@@ -18,5 +18,5 @@ class Order_products extends Db_object
         'attribute_values_id'
     );
 
-    protected static $foreign_column = "product_id";
+    protected static $foreign_column = "order_id";
 }
