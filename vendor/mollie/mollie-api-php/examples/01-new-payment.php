@@ -3,6 +3,12 @@
  * How to prepare a new payment with the Mollie API.
  */
 
+include ("../../../../admin/includes/init.php");
+
+$order = Orders::find_by_id($_GET['id']);
+
+
+
 use Mollie\Api\Exceptions\ApiException;
 
 try {
@@ -17,15 +23,12 @@ try {
      * Generate a unique order id for this example. It is important to include this unique attribute
      * in the redirectUrl (below) so a proper return page can be shown to the customer.
      */
-    $orderId = time();
+    $orderId = $order->id;
+
 
     /*
      * Determine the url parts to these example files.
      */
-    $protocol = isset($_SERVER['HTTPS']) && strcasecmp('off', $_SERVER['HTTPS']) !== 0 ? "https" : "http";
-    $hostname = $_SERVER['HTTP_HOST'];
-    $path = dirname(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF']);
-
     /*
      * Payment parameters:
      *   amount        Amount in EUROs. This example creates a € 10,- payment.
@@ -34,23 +37,23 @@ try {
      *   webhookUrl    Webhook location, used to report when the payment changes state.
      *   metadata      Custom metadata that is stored with the payment.
      */
+    $protocol = isset($_SERVER['HTTPS']) && strcasecmp('off', $_SERVER['HTTPS']) !== 0 ? "https" : "http";
+    $hostname = $_SERVER['HTTP_HOST'];
+    $path = dirname(isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['PHP_SELF']);
+
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",
-            "value" => "10.00"
+            "value" => "{$order->total_price}"
         ],
         "description" => "Order #{$orderId}",
-        "redirectUrl" => "{$protocol}://{$hostname}{$path}/03-return-page.php?order_id={$orderId}",
-        "webhookUrl" => "{$protocol}://{$hostname}{$path}/02-webhook-verification.php",
-        "metadata" => [
-            "order_id" => $orderId,
-        ],
+        "redirectUrl" => "{$protocol}://{$hostname}{$path}/orders/03-return-page.php?order_id={$orderId}",
     ]);
 
     /*
      * In this example we store the order with its payment status in a database.
      */
-    database_write($orderId, $payment->status);
+    $order->payment_id = $payment->id;
 
     /*
      * Send the customer off to complete the payment.

@@ -16,7 +16,6 @@ if (isset($_POST['submit'])) {
         if ($customer) {
             $order->customer_id = $customer->id;
         }
-        $order->status = 'Waiting for payment';
         $order->first_name = trim($_POST['first_name']);
         $order->last_name = trim($_POST['last_name']);
         $order->email = trim($_POST['email']);
@@ -78,7 +77,7 @@ if (isset($_POST['submit'])) {
             unset($_SESSION['cart']);
 
 
-            redirect("checkout_form.php");
+            redirect("checkout.php?id=" . $order->id);
         }
     }
 

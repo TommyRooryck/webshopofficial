@@ -16,5 +16,10 @@ require_once __DIR__ . "/../../../autoload.php";
  *
  * See: https://www.mollie.com/dashboard/settings/profiles
  */
-$mollie = new MollieApiClient();
+
+$mollie = new \Mollie\Api\MollieApiClient();
 $mollie->setApiKey("test_zAEBcgkvS9FA9KnJFcjn5mhKp9be7J");
+
+
+
+
