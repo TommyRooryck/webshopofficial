@@ -19,4 +19,5 @@ class Order_products extends Db_object
     );
 
     protected static $foreign_column = "order_id";
+
 }

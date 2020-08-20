@@ -1,6 +1,12 @@
 <?php
 include ("includes/header.php");
 
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
+}
+
 $category = Category::find_by_id($_GET['id']);
 $sub_categories = Sub_category::find_the_key($_GET['id']);
 if ($category){

@@ -3,9 +3,15 @@
 <?php
 
 
-if (isset($_SESSION['username'])) {
-    $customer = Customer::check_customer_exist($_SESSION ['username']);
+if (isset($_SESSION['user_id'])) {
+    $customer = Customer::find_by_id($_SESSION['user_id']);
 }
+
+if (!isset($_SESSION['cart'])) {
+    redirect("index");
+}
+
+$shipping_zones = Shipping::find_all();
 
 $order = new Orders();
 
@@ -13,7 +19,7 @@ $order = new Orders();
 if (isset($_POST['submit'])) {
     if ($order) {
         $order->created_at = date("Y/m/d");
-        if ($customer) {
+        if (isset($_SESSION['username']) && $customer) {
             $order->customer_id = $customer->id;
         }
         $order->first_name = trim($_POST['first_name']);
@@ -37,14 +43,13 @@ if (isset($_POST['submit'])) {
             $order->shipping_city = trim($_POST['city']);
             $order->shipping_postal_code = trim($_POST['postal_code']);
             $order->shipping_region = trim($_POST['region']);
-            $order->shipping_country = trim($_POST['country']);
+            $order->shipping_country = trim($_POST['shipping_country']);
         }
 
         $order->save();
 
 
-        $total_price = 0;
-        $total_products = count($_SESSION['cart']);
+        $total_price = 0.00;
 
         foreach ($_SESSION['cart'] as $cart_product) {
 
@@ -71,14 +76,46 @@ if (isset($_POST['submit'])) {
             }
 
             $order->total_price = $total_price;
+            $order->bestelcode = uniqid(date("Ymd"), true);
 
             $order->save();
 
-            unset($_SESSION['cart']);
 
-
-            redirect("checkout.php?id=" . $order->id);
         }
+
+        $products_total_price = $order->total_price + 0.00;
+
+        if ( isset($_SESSION['username']) && $customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
+            $zone_array = array();
+            $price_array = array();
+            foreach ($shipping_zones as $shipping_zone) {
+                $zone = strtolower($shipping_zone->shipping_zone);
+                $price = $shipping_zone->shipping_price;
+                array_push($zone_array, $zone);
+                array_push($price_array, $price);
+            }
+
+            if (isset($_SESSION['username']) && $customer && $customer->shipping_country) {
+                $shipping_zone = strtolower($customer->shipping_country);
+            } else {
+                $shipping_zone = strtolower($_SESSION['shipping_country']);
+            }
+
+
+            $zone_key = array_search($shipping_zone, $zone_array);
+            if ($zone_key !== false):
+                $price = $price_array[$zone_key];
+                $products_total_price += $price + 0.00;
+            endif;
+        endif;
+
+        $order->total_price = $products_total_price;
+        $order->save();
+
+        unset($_SESSION['cart']);
+
+
+        redirect("checkout.php?id=" . $order->id);
     }
 
 }
@@ -102,14 +139,14 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-6">
                         <label for="first_name">Voornaam</label>
                         <input type="text" required class="form-control" name="first_name"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->first_name;
                                } ?>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="last_name">Familienaam</label>
                         <input type="text" required class="form-control" name="last_name"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->last_name;
                                } ?>">
                     </div>
@@ -119,14 +156,14 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-6">
                         <label for="email">Email</label>
                         <input type="text" required class="form-control" name="email"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->email;
                                } ?>">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="phone">Telefoonnummer</label>
                         <input type="text" class="form-control" name="phone"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->phone;
                                } ?>">
                     </div>
@@ -136,14 +173,14 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-5">
                         <label for="billing_adress">Adres</label>
                         <input type="text" required class="form-control" name="adress"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->adress;
                                } ?>">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="postal_code">Postcode</label>
                         <input type="text" required class="form-control" name="postal_code"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->postal_code;
                                } ?>">
                     </div>
@@ -151,7 +188,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-5">
                         <label for="city">Stad</label>
                         <input type="text" required class="form-control" name="city"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->city;
                                } ?>">
                     </div>
@@ -163,7 +200,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-6">
                         <label for="region">Regio</label>
                         <input type="text" required class="form-control" name="region"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->region;
                                } ?>">
                     </div>
@@ -171,7 +208,7 @@ if (isset($_POST['submit'])) {
                     <div class="form-group col-md-6">
                         <label for="country">Land</label>
                         <input type="text" required class="form-control" name="country"
-                               value="<?php if (isset($_SESSION['username'])) {
+                               value="<?php if (isset($_SESSION['username']) && $customer) {
                                    echo $customer->country;
                                } ?>">
                     </div>
@@ -195,14 +232,14 @@ if (isset($_POST['submit'])) {
                         <div class="form-group col-md-5">
                             <label for="shipping_adress">Adres</label>
                             <input type="text" class="form-control" name="shipping_adress"
-                                   value="<?php if (isset($_SESSION['username'])) {
+                                   value="<?php if (isset($_SESSION['username']) && $customer) {
                                        echo $customer->shipping_adress;
                                    } ?>">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="shipping_postal_code">Postcode</label>
                             <input type="text" class="form-control" name="shipping_postal_code"
-                                   value="<?php if (isset($_SESSION['username'])) {
+                                   value="<?php if (isset($_SESSION['username']) && $customer) {
                                        echo $customer->shipping_postal_code;
                                    } ?>">
                         </div>
@@ -211,7 +248,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group col-md-5">
                             <label for="shipping_city">Stad</label>
                             <input type="text" class="form-control" name="shipping_city"
-                                   value="<?php if (isset($_SESSION['username'])) {
+                                   value="<?php if (isset($_SESSION['username']) && $customer) {
                                        echo $customer->shipping_city;
                                    } ?>">
                         </div>
@@ -223,7 +260,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group col-md-6">
                             <label for="shipping_region">Regio</label>
                             <input type="text" class="form-control" name="shipping_region"
-                                   value="<?php if (isset($_SESSION['username'])) {
+                                   value="<?php if (isset($_SESSION['username']) && $customer) {
                                        echo $customer->shipping_region;
                                    } ?>">
                         </div>
@@ -231,9 +268,11 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group col-md-6">
                             <label for="shipping_country">Land</label>
-                            <input type="text" class="form-control" name="shipping_country"
-                                   value="<?php if (isset($_SESSION['username'])) {
+                            <input type="text" class="form-control" readonly name="shipping_country"
+                                   value="<?php if ( isset($_SESSION['username']) && $customer) {
                                        echo $customer->shipping_country;
+                                   } elseif (isset($_SESSION['shipping_country'])) {
+                                       echo $_SESSION['shipping_country'];
                                    } ?>">
                         </div>
                     </div>
@@ -243,7 +282,7 @@ if (isset($_POST['submit'])) {
                     <div class="col-lg-10">
                         <table class="table table-hover">
                             <tr>
-                                <th>Product</th>
+                                <th colspan="2" >Product</th>
                                 <th>Price</th>
                             </tr>
 
@@ -258,7 +297,7 @@ if (isset($_POST['submit'])) {
                                 ?>
 
                                 <tr>
-                                    <td>
+                                    <td colspan="2">
                                         <?php
                                         echo $product->name . "<br>";
                                         foreach ($cart_product as $values) {
@@ -273,6 +312,7 @@ if (isset($_POST['submit'])) {
                                         }
                                         ?>
                                     </td>
+
                                     <td>
                                         <?php
                                         echo "€" . $product->price;
@@ -285,6 +325,44 @@ if (isset($_POST['submit'])) {
                                 <?php
                                 $i++;
                             endforeach; ?>
+                            <?php
+                            if ( isset($_SESSION['username']) && $customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
+                                $zone_array = array();
+                                $price_array = array();
+                                foreach ($shipping_zones as $shipping_zone) {
+                                    $zone = strtolower($shipping_zone->shipping_zone);
+                                    $price = $shipping_zone->shipping_price;
+                                    array_push($zone_array, $zone);
+                                    array_push($price_array, $price);
+                                }
+
+                                if (isset($_SESSION['username']) && $customer && $customer->shipping_country) {
+                                    $shipping_zone = strtolower($customer->shipping_country);
+                                } else {
+                                    $shipping_zone = strtolower($_SESSION['shipping_country']);
+                                }
+
+
+                                $zone_key = array_search($shipping_zone, $zone_array);
+                                if ($zone_key !== false):
+                                    $price = $price_array[$zone_key];
+                                    ?>
+                                    <td> Shipping Price:</td>
+                                    <td> Jouw Zone: <br>
+                                        <?php if (isset($_SESSION['username']) && $customer->shipping_country){
+                                            echo $customer->shipping_country;
+                                        } elseif (isset($_SESSION['shipping_country'])){
+                                            echo $_SESSION['shipping_country'];
+                                        }?>
+                                    </td>
+                                    <td><?php echo "€" . $price; ?></td>
+                                    <?php
+                                    $total_price += $price + 0.00;
+                                endif;
+                            endif;
+                            ?>
+
+
                             <tr>
                                 <th class="text-right">Total Price:</th>
                                 <td>

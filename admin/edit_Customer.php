@@ -2,37 +2,45 @@
 
 <?php
 
-if (empty(Admin::check_admin_exist($_SESSION['username']))) {
-    redirect("customers.php");
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
 }
 
 $msg = "";
 
 $customer = Customer::find_by_id($_GET['id']);
 
-if (isset($_POST['submit'])) {
-    if ($customer) {
-        $customer->username = trim($_POST['username']);
-        $customer->first_name = trim($_POST['first_name']);
-        $customer->last_name = trim($_POST['last_name']);
-        $customer->email = trim($_POST['email']);
-        $customer->phone = trim($_POST['phone']);
-        $customer->adress = trim($_POST['adress']);
-        $customer->postal_code = trim($_POST['postal_code']);
-        $customer->city = trim($_POST['city']);
-        $customer->region = trim($_POST['region']);
-        $customer->country = trim($_POST['country']);
-        $customer->shipping_adress = trim($_POST['shipping_adress']);
-        $customer->shipping_postal_code = trim($_POST['shipping_postal_code']);
-        $customer->shipping_city = trim($_POST['shipping_city']);
-        $customer->shipping_region = trim($_POST['shipping_region']);
-        $customer->shipping_country = trim($_POST['shipping_country']);
-        $customer->save();
-        redirect("customers.php");
-    } else {
-        $msg = "There was an error updating - check error";
+if ($customer){
+    if (isset($_POST['submit'])) {
+        if ($customer) {
+            $customer->username = trim($_POST['username']);
+            $customer->first_name = trim($_POST['first_name']);
+            $customer->last_name = trim($_POST['last_name']);
+            $customer->email = trim($_POST['email']);
+            $customer->phone = trim($_POST['phone']);
+            $customer->adress = trim($_POST['adress']);
+            $customer->postal_code = trim($_POST['postal_code']);
+            $customer->city = trim($_POST['city']);
+            $customer->region = trim($_POST['region']);
+            $customer->country = trim($_POST['country']);
+            $customer->shipping_adress = trim($_POST['shipping_adress']);
+            $customer->shipping_postal_code = trim($_POST['shipping_postal_code']);
+            $customer->shipping_city = trim($_POST['shipping_city']);
+            $customer->shipping_region = trim($_POST['shipping_region']);
+            $customer->shipping_country = trim($_POST['shipping_country']);
+            $customer->save();
+            redirect("customers.php");
+        } else {
+            $msg = "There was an error updating - check error";
+        }
     }
+} else{
+    redirect("customers");
 }
+
+
 
 ?>
 

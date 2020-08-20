@@ -7,6 +7,10 @@ include ("admin/includes/init.php");
 
 $order = Orders::find_by_id($_GET['id']);
 
+if (!$order){
+    redirect("index");
+}
+
 
 
 use Mollie\Api\Exceptions\ApiException;
@@ -21,17 +25,16 @@ try {
 
 
 
-
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",
             "value" => "{$order->total_price}"
         ],
-        "description" => "Order #{$order->id}",
-        "redirectUrl" => "http://littleblessings.test/order_details?id=" . $order->id,
-        "webhookUrl" =>  "https://1808fb8cde55.ngrok.io/?order_id={$order->id}",
+        "description" => "Order {$order->bestelcode}",
+        "redirectUrl" => "http://littleblessings.test/order_details?id=" . $order->bestelcode,
+        "webhookUrl" =>  " http://b26c09ad5214.ngrok.io/?order_id={$order->bestelcode}",
         "metadata" => [
-            "order_id" => $order->id
+            "order_id" => $order->bestelcode
     ]
     ]);
 

@@ -1,7 +1,9 @@
 <?php include ("includes/header.php"); ?>
 <?php
 if (!$session->is_signed_in()){
-    redirect('login.php');
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
 }
 
 if (empty($_GET['id'])){

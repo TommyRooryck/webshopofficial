@@ -6,6 +6,12 @@ if (!empty(Admin::check_admin_exist($_SESSION['username']))) {
 $msg = "";
 $customer = Customer::find_by_id($_SESSION['user_id']);
 
+$customer_orders = Orders::find_the_key($customer->id);
+$descending_customer_orders = array_reverse($customer_orders);
+
+
+//$customer_order_products = Order_products::find_the_key($customer_orders->id);
+
 if (isset($_POST['submit'])) {
     if (isset($_POST['shipping_adress_check'])) {
         if ($customer) {
@@ -64,7 +70,8 @@ if (isset($_POST['submit'])) {
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapse_btn text-center dropdown-toggle " id="buttonOne" type="button" data-toggle="collapse"
+                    <button class="btn btn-link btn-block text-left collapse_btn text-center dropdown-toggle "
+                            id="buttonOne" type="button" data-toggle="collapse"
                             data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Mijn Gegevens
                     </button>
@@ -198,7 +205,8 @@ if (isset($_POST['submit'])) {
         <div class="card">
             <div class="card-header" id="headingTwo">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapsed collapse_btn dropdown-toggle text-center" id="buttonTwo" type="button" data-toggle="collapse"
+                    <button class="btn btn-link btn-block text-left collapsed collapse_btn dropdown-toggle text-center"
+                            id="buttonTwo" type="button" data-toggle="collapse"
                             data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         Mijn Bestellingen
                     </button>
@@ -206,6 +214,51 @@ if (isset($_POST['submit'])) {
             </div>
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
+
+                    <?php if ($descending_customer_orders) : ?>
+                        <?php foreach ($descending_customer_orders as $customer_order) : ?>
+                            <p class="pl-5  mt-5 mt-lg-0"><?php echo $customer_order->created_at . " | " . "Bestelnummer " . $customer_order->bestelcode; ?></p>
+                            <?php
+                            $customer_order_products = Order_products::find_the_key($customer_order->id);
+                            $array = array();
+                            foreach ($customer_order_products as $customer_order_product) :
+                                ?>
+
+
+                                <?php
+
+                                $product = Product::find_by_id($customer_order_product->product_id);
+                                if (!in_array($product->id, $array)) :
+                                    ?>
+                                    <a class="text-black-50" href="my_order.php?id=<?php echo $customer_order->bestelcode; ?>">
+                                        <div class="row shadow p-lg-5 m-lg-5 m-2">
+                                            <div class="col-12 d-flex align-items-center">
+                                                <div class="col-lg-4 text-center">
+                                                    <img class="img-fluid"
+                                                         src="<?php echo $product->image_path_and_placeholder_front(); ?>"
+                                                         style="height: 100px;" alt="">
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <p class="font-weight-bolder my-auto"><?php echo $product->name; ?></p>
+                                                </div>
+                                                <div class="col-lg-2 text-right">
+                                                    <i class="fas fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <?php
+                                    array_push($array, $product->id);
+                                endif;
+                                ?>
+                            <?php
+                            endforeach;
+                        endforeach;
+                    else :
+                    ?>
+                    <p class="text-center">U hebt nog geen bestellingen. </p>
+                    <?php endif; ?>
+
 
                 </div>
             </div>

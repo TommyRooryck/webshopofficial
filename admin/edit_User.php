@@ -1,13 +1,12 @@
 <?php
 include ("includes/header.php");
 
- if (!$session -> is_signed_in()){
-    redirect("login");
-}
-
-if (empty(Admin::check_admin_exist($_SESSION['username']))) {
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
     redirect("../access_denied");
 }
+
 
 
 
@@ -22,7 +21,6 @@ include ("includes/sidebar.php");
 include ("includes/content_top.php");
 
 if (isset($_POST['update_user'])){
-    if (empty(Admin::check_admin_exist(trim($_POST['username']))) && empty(Customer::check_customer_exist(trim($_POST['username']))));
     if ($admin){
         $admin->username = $_POST['username'];
         $admin->first_name = $_POST['first_name'];

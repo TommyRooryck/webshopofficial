@@ -3,29 +3,29 @@
 include ("includes/header.php");
 
 
-
-if (!$session->is_signed_in()){
-    redirect("login.php");
-}
+//if (!$session->is_signed_in()){
+//    redirect('login');
+//} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+//    redirect("../access_denied");
+//}
 
 $admin= new Admin(); //Creëer een niewe instantie van het object user met de naam $user
 $msg = "";
 
 
 if (isset($_POST['add_user'])){
-    if (empty(Admin::check_admin_exist(trim($_POST['username']))) && empty(Customer::check_customer_exist(trim($_POST['username']))) ) {
+    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         if ($admin) {
             $admin->role = trim($_POST['role']);
             $admin->first_name = trim($_POST['first_name']);
             $admin->last_name = trim($_POST['last_name']);
             $admin->username = trim($_POST['username']);
-            $admin->password = trim($_POST['password']);
+            $admin->password = $hashed_password;
             $admin->save();
             redirect('users.php');
         }
     } else{
         $msg = "Username already taken";
-    }
 }
 
 

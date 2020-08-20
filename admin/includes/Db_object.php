@@ -11,6 +11,10 @@ class Db_object
         return strcmp($a ->name, $b->name);
     }
 
+    public static function order_by_date ($a, $b) {
+        return strcmp($a->created_at, $b->created_at);
+    }
+
     public static function find_by_id($id){
         global $database;
         $the_result_array = static::find_this_query("SELECT * FROM " . static::$db_table . " WHERE id = $id LIMIT 1" );
@@ -19,8 +23,12 @@ class Db_object
 
     public static function find_by_username($username){
         global $database;
-        $the_result_array = static::find_this_query("SELECT * FROM " . static::$db_table . " WHERE username = $username LIMIT 1" );
-        return !empty($the_result_array) ? array_shift($the_result_array): false;
+        $username = $database->escape_string($username);
+
+        $sql = "SELECT * FROM " . static::$db_table . " WHERE username = '{$username}'";
+
+        $the_result_array = self::find_this_query($sql);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
     }
 
 
@@ -147,4 +155,5 @@ class Db_object
 
             return static::find_this_query($sql);
         }
+
 }

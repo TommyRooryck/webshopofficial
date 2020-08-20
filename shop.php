@@ -15,7 +15,7 @@
                                 <div class="mb-50 text-center single-popular-items">
                                     <div class="popular-img">
                                         <img class="img-fluid"
-                                             src="<?php echo $product->image_path_and_placeholder_front(); ?>" style="height:380px" alt="">
+                                             src="<?php echo $product->image_path_and_placeholder_front(); ?>" style="height: 360px;" alt="">
                                     </div>
                                     <div class="popular-caption">
                                         <h3>

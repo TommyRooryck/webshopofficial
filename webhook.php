@@ -20,9 +20,16 @@ try {
     /*
      * Retrieve the payment's current state.
      */
+
+
     $payment = $mollie->payments->get($_POST["id"]);
+    if (!$payment){
+        redirect("index");
+    }
     $orderId = $payment->metadata->order_id;
-    $order = Orders::find_by_id($orderId);
+
+    $order = Orders::find_by_bestelnummer($orderId);
+
 
     $order->payment_id = $payment;
     $order->save();

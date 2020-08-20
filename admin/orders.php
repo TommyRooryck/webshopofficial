@@ -2,10 +2,24 @@
 <?php require_once("includes/sidebar.php"); ?>
 <?php require_once("includes/content_top.php"); ?>
 
-<?php $orders = Orders::find_all(); ?>
+<?php
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
+}
+
+
+$orders = Orders::find_all();
+
+$descending_orders = array_reverse($orders);
+
+
+?>
+
 
 <div class="container">
-    <?php foreach ($orders
+    <?php foreach ($descending_orders
 
     as $order) : ?>
     <div class="row shadow-lg p-5 m-5">
@@ -26,7 +40,7 @@
                     <td><?php echo $order->total_price; ?></td>
                 </tr>
             </table>
-            <a href="order_details.php?id=<?php echo $order->id; ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
+            <a href="order_details.php?id=<?php echo $order->bestelcode; ?>" class="btn btn-primary"><i class="fas fa-eye"></i></a>
         </div>
     </div>
     <?php endforeach; ?>

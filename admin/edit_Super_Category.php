@@ -2,20 +2,32 @@
 
 <?php
 
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
+}
+
 $super_category = Super_category::find_by_id($_GET['id']);
 $msg = "";
 
-
-if (isset($_POST['edit'])){
-    if ($super_category){
-        $super_category->name = trim($_POST['super_category_name']);
-        $super_category->description = trim($_POST['super_category_name']);
-        $super_category->save();
-        redirect("categories.php");
-    } else{
-        $msg = "Update Failed";
+if ($super_category){
+    if (isset($_POST['edit'])){
+        if ($super_category){
+            $super_category->name = trim($_POST['super_category_name']);
+            $super_category->description = trim($_POST['super_category_name']);
+            $super_category->save();
+            redirect("categories.php");
+        } else{
+            $msg = "Update Failed";
+        }
     }
+} else{
+    redirect("categories");
 }
+
+
+
 ?>
 
 <?php include "includes/sidebar.php"; ?>

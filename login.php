@@ -12,21 +12,49 @@ if (isset($_POST['submit_login'])) {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-    $admin_found = Admin::verify_admin($username, $password);
-    $customer_found = Customer::verify_customer($username, $password);
+    if (Customer::find_by_username($_POST['username'])) {
+        $customer = Customer::find_by_username($_POST['username']);
+        $hashed_password = $customer->password;
 
+        if (password_verify($password, $hashed_password)) {
+            if (!empty($_POST['remember_me'])) {
+                setcookie("customer_username", $_POST['username'], time() + (86400 * 30), "/");
+                setcookie("customer_password", $_POST['password'], time() + (86400 * 30), "/");
+            } else {
+                if (isset($_COOKIE['customer_username'])) {
+                    setcookie("customer_login", "");
+                }
+                if (isset($_COOKIE['customer_password'])) {
+                    setcookie("customer_password", "");
+                }
+            }
+            $session->login($customer);
+            redirect("index");
+        }
+    } elseif (Admin::find_by_username($_POST['username'])) {
+        $admin = Admin::find_by_username($_POST['username']);
+        $hashed_password = $admin->password;
+        var_dump($hashed_password);
 
-    if ($admin_found) {
-        $session->login($admin_found);
-        $_SESSION['username'] = $username;
-        redirect("admin/index");
-    } elseif ($customer_found) {
-        $session->login($customer_found);
-        $_SESSION ['username'] = $username;
-        redirect("index");
+        if (password_verify($password, $hashed_password)) {
+            if (!empty($_POST['remember_me'])) {
+                setcookie("customer_username", $_POST['username'], time() + (86400 * 30), "/");
+                setcookie("customer_password", $_POST['password'], time() + (86400 * 30), "/");
+            } else {
+                if (isset($_COOKIE['customer_username'])) {
+                    setcookie("customer_login", "");
+                }
+                if (isset($_COOKIE['customer_password'])) {
+                    setcookie("customer_password", "");
+                }
+            }
+            $session->login($admin);
+            redirect("admin/index");
+        }
     } else {
         $msg = "Uw gebruikersnaam en wachtwoorden komen niet overeen";
     }
+
 } else {
     $username = "";
     $password = "";
@@ -41,15 +69,17 @@ if (isset($_POST['submit_register'])) {
     $email_register = trim($_POST['email_register']);
     $username_register = trim($_POST['username_register']);
     $password_register = trim($_POST['password_register']);
+    $hashed_password_register = password_hash($password_register);
     $email = trim($_POST['email_register']);
+
     $email_subject = 'Test Registration';
     $mail_content = 'Test Mail';
     $mail_header = "From: localhost";
 
     if (empty($customer->check_customer_exist(trim($_POST['username_register']))) && empty(Admin::check_admin_exist(trim($_POST['username_register'])))) {
-        $customer->email = trim($_POST['email_register']);
-        $customer->username = trim($_POST['username_register']);
-        $customer->password = trim($_POST['password_register']);
+        $customer->email = $email;
+        $customer->username = $username_register;
+        $customer->password = $hashed_password_register;
         $customer->save();
         $session->login($customer);
         $_SESSION['username'] = $username;
@@ -83,19 +113,28 @@ if (isset($_POST['submit_register'])) {
                     <h5 class="text-danger"><?php echo $msg; ?></h5>
                     <form method="post" class="form_input">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Gebruikersnaam" value="<?php echo htmlentities($username); ?>">
+                            <input type="text" class="form-control" name="username" placeholder="Gebruikersnaam"
+                                   value="<?php if (isset($_COOKIE['customer_username'])){
+                                       echo $_COOKIE['customer_username'];
+                                   } echo htmlentities($username); ?>">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control " name="password" placeholder="Wachtwoord" value="<?php htmlentities($password); ?>">
+                            <input type="password" class="form-control " name="password" placeholder="Wachtwoord"
+                                   value="<?php if (isset($_COOKIE['customer_password'])) {
+                                       echo $_COOKIE['customer_password'];
+                                   }htmlentities($password); ?>">
                         </div>
                         <div class="d-flex align-items-center">
-                            <span class="px-2"><input type="checkbox" name="checkbox"></span>
-                            <span class="text-secondary remember_me"><label class="mb-0" for="checkbox">Remember me</label></span>
+                            <span class="px-2"><input type="checkbox" <?php if (isset($_COOKIE['customer_username'])) {
+                                    echo "checked";
+                                } ?> name="remember_me"></span>
+                            <span class="text-secondary remember_me"><label class="mb-0"
+                                                                            for="checkbox">Remember me</label></span>
                         </div>
                         <div class="col-12 pt-3 px-0">
-                        <button type="submit" name="submit_login" value="submit" class="btn w-100 mt-lg-4">
-                            log in
-                        </button>
+                            <button type="submit" name="submit_login" value="submit" class="btn w-100 mt-lg-4">
+                                log in
+                            </button>
                         </div>
                         <div class="col-12 pt-3 px-0">
                             <a class="float-right" href="">Forget Password?</a>
@@ -105,25 +144,31 @@ if (isset($_POST['submit_register'])) {
             </div>
 
 
-            <div class="col-md-6 text-white text-center mt-5 pt-5 mt-lg-0 <?php if ($message){ echo "d-none"; } ?>" id="register">
+            <div class="col-md-6 text-white text-center mt-5 pt-5 mt-lg-0 <?php if ($message) {
+                echo "d-none";
+            } ?>" id="register">
                 <div class="registration_form text-center bg-dark">
                     <div class="login_part_text text-center">
                         <h2 class="pt-lg-5">Nieuw bij onze winkel?</h2>
                         <p class="pt-5">Maak je account aan en geniet van tal van
-                        voordelen tijdens promotiedagen!</p>
+                            voordelen tijdens promotiedagen!</p>
                         <button class="btn mt-lg-5" id="register_button">Maak je account aan</button>
                     </div>
 
                 </div>
             </div>
 
-            <div class="col-md-6 login_form text-center text-lg-left mt-5 mt-sm-0 <?php if (!$message){echo "d-none";}else{echo "d-block"; }?>" id="registration">
+            <div class="col-md-6 login_form text-center text-lg-left mt-5 mt-sm-0 <?php if (!$message) {
+                echo "d-none";
+            } else {
+                echo "d-block";
+            } ?>" id="registration">
                 <div class="registration_part_form">
                     <div class="login_part_form_iner">
                         <h3>Maak Account aan</h3>
                         <form class="row contact_form" method="post">
                             <div class="col-md-12 form-group p_star">
-                                <input  type="text" class="rounded form-control" required id="email_register"
+                                <input type="text" class="rounded form-control" required id="email_register"
                                        name="email_register" value="<?php echo htmlentities($email_register); ?>"
                                        placeholder="Email">
                             </div>
@@ -141,7 +186,8 @@ if (isset($_POST['submit_register'])) {
                             </div>
                             <div class="col-md-12 text-right">
                                 <h5 class="text-danger text-left"><?php echo $message; ?></h5>
-                                <button type="submit" name="submit_register" value="submit"  class="btn w-100 mt-4 mt-lg-0">
+                                <button type="submit" name="submit_register" value="submit"
+                                        class="btn w-100 mt-4 mt-lg-0">
                                     maak account aan
                                 </button>
                             </div>

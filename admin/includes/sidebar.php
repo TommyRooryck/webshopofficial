@@ -22,12 +22,7 @@
                             <span class="nav-link-text">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="customers">
-                            <i class="fas fa-user-alt"></i>
-                            <span class="nav-link-text">Customers</span>
-                        </a>
-                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="orders">
                             <i class="fas fa-box-open"></i>
@@ -47,6 +42,13 @@
                             <a class="dropdown-item" href="categories">Categories</a>
                             <a class="dropdown-item" href="attributes">Attributes</a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="shipping">
+                            <i class="fas fa-dolly"></i>
+                            <span class="nav-link-text">Shipping</span>
+                        </a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -69,6 +71,13 @@
                             <a class="dropdown-item" href="users">All Users</a>
                             <a class="dropdown-item" href="add_User">Create User</a>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="customers">
+                            <i class="fas fa-user-alt"></i>
+                            <span class="nav-link-text">Customers</span>
+                        </a>
                     </li>
 
 

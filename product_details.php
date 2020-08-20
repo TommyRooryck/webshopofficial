@@ -2,13 +2,9 @@
 include("includes/header.php");
 
 $product = Product::find_by_id($_GET['id']);
-// var_dump($product);
+
 $specific_products = Specific_product::find_the_key($product->id);
-// var_dump(count($specific_product));
-// $attribute_values = Attribute_values::find_by_id($specific_product->attribute_values_id);
-// var_dump($attribute_values);
-// $attributes = Attributes::find_by_id($attribute_values->attribute_id);
-//var_dump($attributes);
+
 
 
 if (isset($_POST['submit'])){

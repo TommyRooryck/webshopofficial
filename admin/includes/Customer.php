@@ -55,13 +55,5 @@ class Customer extends Db_object
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
     }
 
-    public static function check_customer_exist($username){
-        global $database;
-        $username = $database->escape_string($username);
 
-        $sql = "SELECT * FROM " . self::$db_table . " WHERE username = '{$username}'";
-
-        $the_result_array = self::find_this_query($sql);
-        return !empty($the_result_array) ? array_shift($the_result_array) : false;
-    }
 }

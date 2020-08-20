@@ -3,8 +3,10 @@
 include("includes/header.php");
 
 
-if (!$session->is_signed_in()) {
-    redirect("login.php");
+if (!$session->is_signed_in()){
+    redirect('login');
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+    redirect("../access_denied");
 }
 
 $product = new Product(); //Creëer een niewe instantie van het object user met de naam $user

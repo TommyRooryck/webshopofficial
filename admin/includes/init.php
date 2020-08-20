@@ -19,6 +19,7 @@ defined('IMAGES_PATH') ? null : define('IMAGES_PATH', SITE_ROOT . DS . 'admin' .
 <?php require_once("Attribute_values.php"); ?>
 <?php require_once ("Orders.php"); ?>
 <?php require_once ("Order_products.php"); ?>
+<?php require_once ("Shipping.php"); ?>
 
 
 
