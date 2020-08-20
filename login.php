@@ -69,7 +69,7 @@ if (isset($_POST['submit_register'])) {
     $email_register = trim($_POST['email_register']);
     $username_register = trim($_POST['username_register']);
     $password_register = trim($_POST['password_register']);
-    $hashed_password_register = password_hash($password_register);
+    $hashed_password_register = password_hash($password_register, PASSWORD_DEFAULT);
     $email = trim($_POST['email_register']);
 
     $email_subject = 'Test Registration';
@@ -113,13 +113,13 @@ if (isset($_POST['submit_register'])) {
                     <h5 class="text-danger"><?php echo $msg; ?></h5>
                     <form method="post" class="form_input">
                         <div class="form-group">
-                            <input type="text" class="form-control" name="username" placeholder="Gebruikersnaam"
+                            <input type="text" required  class="form-control" name="username" placeholder="Gebruikersnaam"
                                    value="<?php if (isset($_COOKIE['customer_username'])){
                                        echo $_COOKIE['customer_username'];
                                    } echo htmlentities($username); ?>">
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control " name="password" placeholder="Wachtwoord"
+                            <input type="password" required class="form-control " name="password" placeholder="Wachtwoord"
                                    value="<?php if (isset($_COOKIE['customer_password'])) {
                                        echo $_COOKIE['customer_password'];
                                    }htmlentities($password); ?>">

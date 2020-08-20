@@ -14,8 +14,8 @@ $msg = "";
 
 
 if (isset($_POST['add_user'])){
-    $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         if ($admin) {
+            $hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $admin->role = trim($_POST['role']);
             $admin->first_name = trim($_POST['first_name']);
             $admin->last_name = trim($_POST['last_name']);
@@ -23,10 +23,10 @@ if (isset($_POST['add_user'])){
             $admin->password = $hashed_password;
             $admin->save();
             redirect('users.php');
+        } else{
+            $msg = "Username already taken";
         }
-    } else{
-        $msg = "Username already taken";
-}
+    }
 
 
 

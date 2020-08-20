@@ -278,6 +278,18 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
 
+                <?php if (isset($_SESSION['username']) && $customer) : ?>
+                <div class="form-group float-right">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               name="remember_me" id="remember_me">
+                        <label class="form-check-label" for="remember_me">
+                            Save info
+                        </label>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
                         <table class="table table-hover">

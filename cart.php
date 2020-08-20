@@ -211,7 +211,13 @@ if (isset($_SESSION["cart"])) :
 
                     </form>
 
+                    <?php
+                    if ($customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
+                    ?>
                     <a href="checkout_form.php" class="btn-primary btn">Go To Checkout</a>
+                    <?php else: ?>
+                    <p class="btn btn-warning">Please select a shipping zone</p>
+                    <?php endif; ?>
                 </div>
 
             </div>

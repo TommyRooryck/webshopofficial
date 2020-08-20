@@ -1,3 +1,8 @@
+<?php
+
+$shipping_zones = Shipping::find_all();
+
+?>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-lg-12 text-center p-lg-5 pt-5">
@@ -108,6 +113,42 @@
                             } ?></td>
                     </tr>
                 <?php endforeach; ?>
+                <?php
+                $customer = Customer::find_by_id($order->customer_id);
+                if ( isset($_SESSION['username']) && $customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
+                    $zone_array = array();
+                    $price_array = array();
+                    foreach ($shipping_zones as $shipping_zone) {
+                        $zone = strtolower($shipping_zone->shipping_zone);
+                        $price = $shipping_zone->shipping_price;
+                        array_push($zone_array, $zone);
+                        array_push($price_array, $price);
+                    }
+
+                    if (isset($_SESSION['username']) && $customer && $customer->shipping_country) {
+                        $shipping_zone = strtolower($customer->shipping_country);
+                    } else {
+                        $shipping_zone = strtolower($_SESSION['shipping_country']);
+                    }
+
+
+                    $zone_key = array_search($shipping_zone, $zone_array);
+                    if ($zone_key !== false):
+                        $price = $price_array[$zone_key];
+                        ?>
+                        <td> Shipping Price:</td>
+                        <td> Jouw Zone: <br>
+                            <?php if (isset($_SESSION['username']) && $customer->shipping_country){
+                                echo $customer->shipping_country;
+                            } elseif (isset($_SESSION['shipping_country'])){
+                                echo $_SESSION['shipping_country'];
+                            }?>
+                        </td>
+                        <td><?php echo "€" . $price; ?></td>
+                        <?php
+                    endif;
+                endif;
+                ?>
                 <tr>
                     <th colspan="2" class="text-right">Total Price:</th>
                     <td><?php echo "<b>" . "€" . $order->total_price . "</b>"; ?></td>

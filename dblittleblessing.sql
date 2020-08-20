@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 11 aug 2020 om 22:45
--- Serverversie: 10.4.13-MariaDB
--- PHP-versie: 7.4.8
+-- Gegenereerd op: 20 aug 2020 om 19:46
+-- Serverversie: 10.4.14-MariaDB
+-- PHP-versie: 7.4.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -157,8 +157,51 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`) VALUES
-(1, 'TommyR', 'kek', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat 36', 'Gistel', '8470', 'West-Vlaanderen', 'België'),
-(18, 'Tyeishav', 'Ikbencool1', 'Tyeisha', 'Vansevenhant', 'Tyeishav@hotmail.com', '0491 59 03 50', 'Guldensporenlaan 16', 'Oostende', '8400', 'West-Vlaanderen', 'België', 'Guldensporenlaan 16', 'Oostende', '8400', 'West-Vlaanderen', 'België');
+(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `created_at` date NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `adress` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `postal_code` varchar(255) NOT NULL,
+  `region` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `shipping_adress` varchar(255) NOT NULL,
+  `shipping_city` varchar(255) NOT NULL,
+  `shipping_postal_code` varchar(255) NOT NULL,
+  `shipping_region` varchar(255) NOT NULL,
+  `shipping_country` varchar(255) NOT NULL,
+  `total_price` varchar(255) NOT NULL,
+  `payment_id` varchar(255) NOT NULL,
+  `bestelcode` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `order_products`
+--
+
+CREATE TABLE `order_products` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `attribute_id` int(11) NOT NULL,
+  `attribute_values_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -228,6 +271,26 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `stock`, `created_
 (64, 'Pinky Patch Bear', '– size: 16”\r\n– Pink plush with cute patch on ears, heart and paws\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nPink is the new black – at least for the girls. This fine lady is adorable and has the beauty of a real princess. This means she can wear every kind of clothes and everything looks good on her.', 16.99, 3, '2020-07-27', 'pinky patch bear.jpg', 38, 0),
 (65, 'Racoon', '– size: 16”\r\n– High quality soft plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes and nose\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nLook at the soft, warm fur of this cute animal. We love to cuddle and hug it! It can see in the dark and is extremely cleaver which makes it is a very good friend to have.', 16.99, 6, '2020-07-27', 'Racoon.png', 38, 0),
 (66, 'Unicorn', '– size: 16”\r\n– Soft, white plush with pink horn, mane and hairy feet.\r\n– Zip with Velcro on the back\r\n– Embroidered eyes eyes\r\n– 100% Polyester Cotton\r\n– Sitting position\r\n\r\nThis is an adorable and mysterious friend of ours. Maybe that is why it is so popular. You get to use your imagination when you play with it and dress it up with beautiful outfits. Besides it is very good at keeping secrets!', 16.99, 3, '2020-07-27', 'Unicorn.png', 38, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `shipping`
+--
+
+CREATE TABLE `shipping` (
+  `id` int(11) NOT NULL,
+  `shipping_zone` varchar(255) NOT NULL,
+  `shipping_price` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `shipping`
+--
+
+INSERT INTO `shipping` (`id`, `shipping_zone`, `shipping_price`) VALUES
+(1, 'België', 5),
+(2, 'Nederland', 10);
 
 -- --------------------------------------------------------
 
@@ -362,8 +425,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `password`, `role`) VALUES
-(2, 'Tommy', 'Rooryck', 'TommyRooryck', 'lol', 'Admin'),
-(3, 'Wendy', 'Vanwelssenaers', 'Wienababy', 'Tequila-baby1', 'Owner');
+(1, 'Tommy', 'Rooryck', 'TommyRooryck', '$2y$10$r7Njn7f3UyUVfIX5p81NEuE/QbDnWvtUNFuYwUunbq89MM72d1DU2', 'Admin');
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -396,6 +458,23 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexen voor tabel `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexen voor tabel `order_products`
+--
+ALTER TABLE `order_products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `attribute_id` (`attribute_id`),
+  ADD KEY `attribute_values_id` (`attribute_values_id`);
+
+--
 -- Indexen voor tabel `photos`
 --
 ALTER TABLE `photos`
@@ -409,6 +488,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `category_id` (`category_id`),
   ADD KEY `sub_category_id` (`sub_category_id`);
+
+--
+-- Indexen voor tabel `shipping`
+--
+ALTER TABLE `shipping`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `specific_product`
@@ -464,7 +549,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT voor een tabel `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT voor een tabel `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT voor een tabel `order_products`
+--
+ALTER TABLE `order_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT voor een tabel `photos`
@@ -477,6 +574,12 @@ ALTER TABLE `photos`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+
+--
+-- AUTO_INCREMENT voor een tabel `shipping`
+--
+ALTER TABLE `shipping`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT voor een tabel `specific_product`
@@ -500,7 +603,7 @@ ALTER TABLE `super_category`
 -- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
