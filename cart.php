@@ -62,7 +62,6 @@ if (isset($_SESSION["cart"])) :
                     $total_price = 0;
                     $i = 0;
                     foreach ($_SESSION['cart'] as $cart_product):
-                        echo "<br>";
                         $product_id = array_shift($cart_product);
                         $product = Product::find_by_id($product_id);
                         ?>
