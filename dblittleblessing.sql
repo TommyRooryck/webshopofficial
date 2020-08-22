@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 20 aug 2020 om 19:46
+-- Gegenereerd op: 22 aug 2020 om 12:55
 -- Serverversie: 10.4.14-MariaDB
 -- PHP-versie: 7.4.9
 
@@ -157,7 +157,9 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`) VALUES
-(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', '');
+(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', 'België'),
+(2, 'TommyR2', '$2y$10$7dxLAO2SYpk5YNClZ.Wn1.RfJbZUiXbT4vDtQYXGSr6TP2Sw33Lim', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', ''),
+(3, 'TommyR3', '$2y$10$4XBC9GAiRATy1TQIT5zL.eCJz58Mpqbl9QKr61C8IBwxDx78.hxD.', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -189,6 +191,16 @@ CREATE TABLE `orders` (
   `bestelcode` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Gegevens worden geëxporteerd voor tabel `orders`
+--
+
+INSERT INTO `orders` (`id`, `customer_id`, `created_at`, `status`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`, `total_price`, `payment_id`, `bestelcode`) VALUES
+(1, 1, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '39.99', 'tr_Q2EQ3TBj3h', '202008205f3eb7d7b838e6.81395704'),
+(2, 1, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '20.99', 'tr_SavnfPMB4a', '202008205f3eb98698a1d1.33307048'),
+(3, 0, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '21.99', 'tr_CGufGWzpgn', '202008205f3eb9a228a5b7.94612196'),
+(4, 0, '2020-08-21', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '94.97', 'tr_kHWukA6Uyh', '202008215f3ff22cd027a4.73103199');
+
 -- --------------------------------------------------------
 
 --
@@ -202,6 +214,30 @@ CREATE TABLE `order_products` (
   `attribute_id` int(11) NOT NULL,
   `attribute_values_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `order_products`
+--
+
+INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `attribute_id`, `attribute_values_id`) VALUES
+(1, 1, 46, 27, 103),
+(2, 1, 57, 27, 104),
+(3, 2, 45, 27, 107),
+(4, 2, 45, 24, 78),
+(5, 2, 45, 23, 90),
+(6, 3, 60, 26, 87),
+(7, 4, 46, 27, 103),
+(8, 4, 46, 27, 103),
+(9, 4, 46, 27, 103),
+(10, 4, 45, 27, 107),
+(11, 4, 45, 24, 78),
+(12, 4, 45, 23, 90),
+(13, 4, 45, 27, 107),
+(14, 4, 45, 24, 78),
+(15, 4, 45, 23, 90),
+(16, 4, 45, 27, 107),
+(17, 4, 45, 24, 78),
+(18, 4, 45, 23, 90);
 
 -- --------------------------------------------------------
 
@@ -549,19 +585,19 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT voor een tabel `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT voor een tabel `photos`
