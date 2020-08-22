@@ -94,6 +94,8 @@ $shipping_zones = Shipping::find_all();
                 </tr>
                 <?php
                 $array = array();
+                $products = array();
+                $products_and_attributes_array = array();
                 foreach ($order_products as $order_product) :
                     ?>
                     <?php
@@ -101,7 +103,11 @@ $shipping_zones = Shipping::find_all();
                     $attribute = Attributes::find_by_id($order_product->attribute_id);
                     $attribute_values = Attribute_values::find_by_id($order_product->attribute_values_id);
 
+                    array_push($products_and_attributes_array, $product, $attribute, $attribute_values);
+
+                    array_push($products, $products_and_attributes_array);
                     ?>
+
                     <tr class="border-0">
                         <td><?php if (!in_array($product->id, $array)) {
                                 echo $product->name;
@@ -113,6 +119,8 @@ $shipping_zones = Shipping::find_all();
                             } ?></td>
                     </tr>
                 <?php endforeach; ?>
+
+
                 <?php
                 $customer = Customer::find_by_id($order->customer_id);
                 if ( isset($_SESSION['username']) && $customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
