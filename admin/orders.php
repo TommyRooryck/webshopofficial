@@ -28,7 +28,8 @@ $descending_orders = array_reverse($orders);
     <?php if ($orders) : ?>
         <?php foreach ($descending_orders
 
-                       as $order) : ?>
+                       as $order) :
+            ?>
             <div class="row shadow-lg p-5 m-5">
                 <div class="col-12 text-center">
                     <table class="table table-hover">

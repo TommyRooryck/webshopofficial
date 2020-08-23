@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 23 aug 2020 om 12:59
+-- Gegenereerd op: 23 aug 2020 om 15:21
 -- Serverversie: 10.4.14-MariaDB
 -- PHP-versie: 7.4.9
 
@@ -157,9 +157,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`) VALUES
-(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België'),
-(2, 'TommyR2', '$2y$10$7dxLAO2SYpk5YNClZ.Wn1.RfJbZUiXbT4vDtQYXGSr6TP2Sw33Lim', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', ''),
-(3, 'TommyR3', '$2y$10$4XBC9GAiRATy1TQIT5zL.eCJz58Mpqbl9QKr61C8IBwxDx78.hxD.', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', '');
+(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België');
 
 -- --------------------------------------------------------
 
@@ -173,6 +171,7 @@ CREATE TABLE `orders` (
   `created_at` date NOT NULL,
   `products` text NOT NULL,
   `status` varchar(255) NOT NULL,
+  `order_status_id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -196,11 +195,10 @@ CREATE TABLE `orders` (
 -- Gegevens worden geëxporteerd voor tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_id`, `created_at`, `products`, `status`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`, `total_price`, `payment_id`, `bestelcode`) VALUES
-(1, 1, '2020-08-23', 'a:4:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:3;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '68.96', 'tr_2awkDe85mS', '202008235f4240eb97f253.73611794'),
-(2, 1, '2020-08-23', 'a:3:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"104\";i:1;s:2:\"79\";i:2;s:2:\"92\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"105\";i:1;s:2:\"81\";i:2;s:2:\"96\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"105\";i:1;s:2:\"81\";i:2;s:2:\"96\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '52.97', 'tr_bKaeqVk5Tz', '202008235f424657556381.26095412'),
-(3, 1, '2020-08-23', 'a:4:{i:0;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:1;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:2;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:3;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '61', 'tr_Sg8wq9brf9', '202008235f424afecd6ae4.03862650'),
-(4, 1, '2020-08-23', 'a:5:{i:0;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:3;a:2:{i:0;s:2:\"57\";i:1;a:1:{i:0;s:3:\"101\";}}i:4;a:2:{i:0;s:2:\"57\";i:1;a:1:{i:0;s:3:\"101\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '92.96', 'tr_5pKFdTm9MS', '202008235f424b892da451.75793990');
+INSERT INTO `orders` (`id`, `customer_id`, `created_at`, `products`, `status`, `order_status_id`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`, `total_price`, `payment_id`, `bestelcode`) VALUES
+(1, 1, '2020-08-23', 'a:1:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}}', 'paid', 1, 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '20.99', 'tr_w9JmtNMkDd', '202008235f426bfa9d3104-82996821'),
+(2, 1, '2020-08-23', 'a:1:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}}', 'paid', 1, 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '20.99', 'tr_fszunFHcyF', '202008235f426c98157b12.26171782'),
+(3, 1, '2020-08-23', 'a:1:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}}', 'paid', 1, 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '20.99', 'tr_wbHnbPrJgD', '202008235f426d2dc86a09.67082310');
 
 -- --------------------------------------------------------
 
@@ -224,37 +222,32 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `attribute_id`, `a
 (1, 1, 45, 27, 107),
 (2, 1, 45, 24, 78),
 (3, 1, 45, 23, 90),
-(4, 1, 45, 27, 107),
-(5, 1, 45, 24, 78),
-(6, 1, 45, 23, 90),
-(7, 1, 45, 27, 107),
-(8, 1, 45, 24, 78),
-(9, 1, 45, 23, 90),
-(10, 1, 45, 27, 107),
-(11, 1, 45, 24, 78),
-(12, 1, 45, 23, 90),
-(13, 2, 45, 27, 104),
-(14, 2, 45, 24, 79),
-(15, 2, 45, 23, 92),
-(16, 2, 45, 27, 105),
-(17, 2, 45, 24, 81),
-(18, 2, 45, 23, 96),
-(19, 2, 45, 27, 105),
-(20, 2, 45, 24, 81),
-(21, 2, 45, 23, 96),
-(22, 3, 46, 27, 103),
-(23, 3, 46, 27, 103),
-(24, 3, 46, 27, 103),
-(25, 3, 46, 27, 103),
-(26, 4, 46, 27, 103),
-(27, 4, 45, 27, 107),
-(28, 4, 45, 24, 78),
-(29, 4, 45, 23, 90),
-(30, 4, 45, 27, 107),
-(31, 4, 45, 24, 78),
-(32, 4, 45, 23, 90),
-(33, 4, 57, 27, 101),
-(34, 4, 57, 27, 101);
+(4, 2, 45, 27, 107),
+(5, 2, 45, 24, 78),
+(6, 2, 45, 23, 90),
+(7, 3, 45, 27, 107),
+(8, 3, 45, 24, 78),
+(9, 3, 45, 23, 90);
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `order_status`
+--
+
+CREATE TABLE `order_status` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `order_status`
+--
+
+INSERT INTO `order_status` (`id`, `name`) VALUES
+(1, 'Processing delivery '),
+(2, 'Delivery sent'),
+(3, 'Devlivered');
 
 -- --------------------------------------------------------
 
@@ -300,7 +293,7 @@ CREATE TABLE `products` (
   `name` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `price` float NOT NULL,
-  `stock` int(11) NOT NULL,
+  `stock` int(11) UNSIGNED NOT NULL,
   `created_at` date NOT NULL,
   `product_placeholder` varchar(255) NOT NULL,
   `category_id` int(11) NOT NULL,
@@ -312,12 +305,12 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `stock`, `created_at`, `product_placeholder`, `category_id`, `sub_category_id`) VALUES
-(45, 'Lunchdoos', 'Lunchdoos met bijhorend, herbruikbaar, plastic bestek en tekst naar keuze.', 15.99, 15, '2020-07-28', 'Mint.jpg', 27, 0),
-(46, 'Mushi Silicone Slab', 'Silicone Slab met opvangbakje van Mushie.', 14, 20, '2020-08-23', 'Raw Sienna.jpg', 27, 0),
-(57, 'Dekentje', 'Dekentje met naam', 20.99, 3, '2020-07-27', 'dekentje.jpg', 25, 0),
+(45, 'Lunchdoos', 'Lunchdoos met bijhorend, herbruikbaar, plastic bestek en tekst naar keuze.', 15.99, 8, '2020-08-23', 'Mint.jpg', 27, 0),
+(46, 'Mushi Silicone Slab', 'Silicone Slab met opvangbakje van Mushie.', 14, 18, '2020-08-23', 'Raw Sienna.jpg', 27, 0),
+(57, 'Dekentje', 'Dekentje met naam', 20.99, 5, '2020-08-23', 'dekentje.jpg', 25, 0),
 (58, 'Donkey', '– size: 16”\r\n– Curly, soft plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\n*HEE-HAW* It’s the sound of a happy donkey. The skin is so soft you might want to cuddle it all day long. Enjoy the time with your new best friend.', 16.99, 5, '2020-07-27', 'Donkey.jpg', 38, 0),
-(59, 'Flopsy The Grey Buny', '– size: 16”\r\n– Soft, grey plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nEverybody loves rabbits – especially this cuddly friend because of its unusually soft ears and cute, bushy tail. Don’t forget to dress it up when it is cold outside or it will start to sneeze and have a wet snout.', 16.99, 6, '2020-07-27', 'flopsy the grey bunny pink nose.jpg', 38, 0),
-(60, 'Giraffe', '– size: 16”\r\n– Soft plush with dotted pattern\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nA giraffe-friend is a good friend! They can reach the highest top of every tree, and help you reach the top shelf with the best book and adventures. The big, soft stomach is nice to cuddle up to.', 16.99, 0, '2020-07-27', 'Giraffe.png', 38, 0),
+(59, 'Flopsy The Grey Buny', '– size: 16”\r\n– Soft, grey plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nEverybody loves rabbits – especially this cuddly friend because of its unusually soft ears and cute, bushy tail. Don’t forget to dress it up when it is cold outside or it will start to sneeze and have a wet snout.', 16.99, 5, '2020-08-23', 'flopsy the grey bunny pink nose.jpg', 38, 0),
+(60, 'Giraffe', '– size: 16”\r\n– Soft plush with dotted pattern\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nA giraffe-friend is a good friend! They can reach the highest top of every tree, and help you reach the top shelf with the best book and adventures. The big, soft stomach is nice to cuddle up to.', 16.99, 5, '2020-08-23', 'Giraffe.png', 38, 0),
 (61, 'Golden Retriever', '– size: 16”\r\n– Golden, soft plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Sitting position\r\nWho is up for playing and having fun all day long? With this golden friend, you will laugh so much your stomach might hurt. It loves walking on lead with you and sniff around. Remember to give your new best friend a fantastic name.', 16.99, 6, '2020-07-27', 'Golden Retriever.jpg', 38, 0),
 (62, 'Monkey', '– size: 16”\r\n– Soft, brown plush\r\n– Zip with Velcro on the back\r\n– Embroidered eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nMeet a very popular friend of ours. It loves swinging around in the trees and make funny noises with you. If you give it a tasty banana it will also love to dress up and play funny games with you.', 16.99, 2, '2020-07-27', 'Monkey.png', 38, 0),
 (63, 'Patch Dog', '– size: 16”\r\n– Soft white plush with brown patch\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Sitting position\r\n\r\nMeet the wonderful Patch Dog that will show you steadfast loyalty every day. It loves to learn cool tricks from you and play all day long. Just remember to give it a treat once in a while.', 16.99, 1, '2020-07-27', 'Patch dog.png', 38, 0),
@@ -367,14 +360,8 @@ INSERT INTO `specific_product` (`id`, `attribute_id`, `attribute_values_id`, `pr
 (668, 0, 104, 56),
 (669, 0, 105, 56),
 (670, 0, 102, 56),
-(741, 27, 104, 57),
-(742, 0, 105, 57),
-(743, 0, 101, 57),
-(744, 0, 102, 57),
 (745, 26, 87, 58),
 (746, 0, 88, 58),
-(747, 26, 87, 59),
-(748, 0, 88, 59),
 (753, 26, 87, 62),
 (754, 0, 88, 62),
 (755, 26, 87, 63),
@@ -385,31 +372,37 @@ INSERT INTO `specific_product` (`id`, `attribute_id`, `attribute_values_id`, `pr
 (760, 0, 88, 65),
 (761, 26, 87, 66),
 (762, 0, 88, 66),
-(763, 26, 87, 60),
-(764, 0, 88, 60),
 (765, 26, 87, 61),
 (766, 0, 88, 61),
-(775, 27, 107, 45),
-(776, 24, 104, 45),
-(777, 23, 105, 45),
-(778, 0, 106, 45),
-(779, 0, 78, 45),
-(780, 0, 79, 45),
-(781, 0, 80, 45),
-(782, 0, 81, 45),
-(783, 0, 90, 45),
-(784, 0, 91, 45),
-(785, 0, 92, 45),
-(786, 0, 93, 45),
-(787, 0, 94, 45),
-(788, 0, 95, 45),
-(789, 0, 96, 45),
-(802, 27, 103, 46),
-(803, 0, 104, 46),
-(804, 0, 105, 46),
-(805, 0, 99, 46),
-(806, 0, 106, 46),
-(807, 0, 100, 46);
+(808, 27, 103, 46),
+(809, 0, 104, 46),
+(810, 0, 105, 46),
+(811, 0, 99, 46),
+(812, 0, 106, 46),
+(813, 0, 100, 46),
+(814, 27, 107, 45),
+(815, 24, 104, 45),
+(816, 23, 105, 45),
+(817, 0, 106, 45),
+(818, 0, 78, 45),
+(819, 0, 79, 45),
+(820, 0, 80, 45),
+(821, 0, 81, 45),
+(822, 0, 90, 45),
+(823, 0, 91, 45),
+(824, 0, 92, 45),
+(825, 0, 93, 45),
+(826, 0, 94, 45),
+(827, 0, 95, 45),
+(828, 0, 96, 45),
+(829, 27, 104, 57),
+(830, 0, 105, 57),
+(831, 0, 101, 57),
+(832, 0, 102, 57),
+(833, 26, 87, 59),
+(834, 0, 88, 59),
+(835, 26, 87, 60),
+(836, 0, 88, 60);
 
 -- --------------------------------------------------------
 
@@ -515,7 +508,8 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `customer_id` (`customer_id`);
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `order_status_id` (`order_status_id`);
 
 --
 -- Indexen voor tabel `order_products`
@@ -526,6 +520,12 @@ ALTER TABLE `order_products`
   ADD KEY `product_id` (`product_id`),
   ADD KEY `attribute_id` (`attribute_id`),
   ADD KEY `attribute_values_id` (`attribute_values_id`);
+
+--
+-- Indexen voor tabel `order_status`
+--
+ALTER TABLE `order_status`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexen voor tabel `photos`
@@ -608,13 +608,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT voor een tabel `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT voor een tabel `order_status`
+--
+ALTER TABLE `order_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT voor een tabel `photos`
@@ -638,7 +644,7 @@ ALTER TABLE `shipping`
 -- AUTO_INCREMENT voor een tabel `specific_product`
 --
 ALTER TABLE `specific_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=808;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=837;
 
 --
 -- AUTO_INCREMENT voor een tabel `sub_category`

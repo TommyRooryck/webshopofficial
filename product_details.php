@@ -99,10 +99,19 @@ if (isset($_POST['submit'])) {
                             <?php endforeach; ?>
                             <tr>
                                 <th><label for="quantity">Quantity</label></th>
-                                <td><input name="quantity" min="1" value="1" type="number"></td>
+                                <td><input name="quantity" min="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" max="<?php echo $product->stock; ?>" value="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" type="number"></td>
                             </tr>
                         </table>
-                        <input type="submit" class="btn btn-primary" name="submit" value="Add To Cart">
+                        <?php if ($product->stock > 0): ?>
+                        <input type="submit" class="btn btn-primary float-right" name="submit" value="Add To Cart">
+                        <?php else: ?>
+                            <div class='alert alert-warning alert-dismissible fade show text-center' role='alert'>
+                                <strong>Sorry, product is out of stock</strong>
+                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+                                    <span aria-hidden='true'>&times;</span>
+                                </button>
+                            </div>
+                        <?php endif; ?>
                     </form>
                 </div>
             </div>
