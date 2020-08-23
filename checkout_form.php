@@ -22,6 +22,7 @@ if (isset($_POST['submit'])) {
         if (isset($_SESSION['username']) && $customer) {
             $order->customer_id = $customer->id;
         }
+        $order->products = serialize($_SESSION['cart']);
         $order->first_name = trim($_POST['first_name']);
         $order->last_name = trim($_POST['last_name']);
         $order->email = trim($_POST['email']);
@@ -114,10 +115,13 @@ if (isset($_POST['submit'])) {
 
         unset($_SESSION['cart']);
 
-
-        redirect("checkout.php?id=" . $order->id);
     }
 
+    if (isset($_POST['remember_me'])){
+        include ("includes/add_customer_details.php");
+    }
+
+    redirect("checkout.php?id=" . $order->id);
 }
 
 
@@ -376,7 +380,7 @@ if (isset($_POST['submit'])) {
 
 
                             <tr>
-                                <th class="text-right">Total Price:</th>
+                                <th colspan="2" class="text-right">Total Price:</th>
                                 <td>
                                     <?php
                                     echo "<b>" . "€" . $total_price . "</b>";

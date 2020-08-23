@@ -24,11 +24,12 @@ try {
     require "vendor/mollie/mollie-api-php/examples/initialize.php";
 
 
+    $total_price = number_format($order->total_price, 2);
 
     $payment = $mollie->payments->create([
         "amount" => [
             "currency" => "EUR",
-            "value" => "{$order->total_price}"
+            "value" => "{$total_price}"
         ],
         "description" => "Order {$order->bestelcode}",
         "redirectUrl" => "http://littleblessings.test/order_details?id=" . $order->bestelcode,

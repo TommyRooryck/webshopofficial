@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 22 aug 2020 om 12:55
+-- Gegenereerd op: 23 aug 2020 om 12:59
 -- Serverversie: 10.4.14-MariaDB
 -- PHP-versie: 7.4.9
 
@@ -157,7 +157,7 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`id`, `username`, `password`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`) VALUES
-(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', 'België'),
+(1, 'TommyR', '$2y$10$VASGocOFip1vZ3BXUvMireOYoNmdd6RMMEYBiLoId3XfSIlCAEkrm', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België'),
 (2, 'TommyR2', '$2y$10$7dxLAO2SYpk5YNClZ.Wn1.RfJbZUiXbT4vDtQYXGSr6TP2Sw33Lim', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', ''),
 (3, 'TommyR3', '$2y$10$4XBC9GAiRATy1TQIT5zL.eCJz58Mpqbl9QKr61C8IBwxDx78.hxD.', '', '', 'tommy_rooryck@hotmail.com', '', '', '', '', '', '', '', '', '', '', '');
 
@@ -171,6 +171,7 @@ CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `created_at` date NOT NULL,
+  `products` text NOT NULL,
   `status` varchar(255) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
@@ -195,11 +196,11 @@ CREATE TABLE `orders` (
 -- Gegevens worden geëxporteerd voor tabel `orders`
 --
 
-INSERT INTO `orders` (`id`, `customer_id`, `created_at`, `status`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`, `total_price`, `payment_id`, `bestelcode`) VALUES
-(1, 1, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '39.99', 'tr_Q2EQ3TBj3h', '202008205f3eb7d7b838e6.81395704'),
-(2, 1, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '20.99', 'tr_SavnfPMB4a', '202008205f3eb98698a1d1.33307048'),
-(3, 0, '2020-08-20', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '21.99', 'tr_CGufGWzpgn', '202008205f3eb9a228a5b7.94612196'),
-(4, 0, '2020-08-21', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '94.97', 'tr_kHWukA6Uyh', '202008215f3ff22cd027a4.73103199');
+INSERT INTO `orders` (`id`, `customer_id`, `created_at`, `products`, `status`, `first_name`, `last_name`, `email`, `phone`, `adress`, `city`, `postal_code`, `region`, `country`, `shipping_adress`, `shipping_city`, `shipping_postal_code`, `shipping_region`, `shipping_country`, `total_price`, `payment_id`, `bestelcode`) VALUES
+(1, 1, '2020-08-23', 'a:4:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:3;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '68.96', 'tr_2awkDe85mS', '202008235f4240eb97f253.73611794'),
+(2, 1, '2020-08-23', 'a:3:{i:0;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"104\";i:1;s:2:\"79\";i:2;s:2:\"92\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"105\";i:1;s:2:\"81\";i:2;s:2:\"96\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"105\";i:1;s:2:\"81\";i:2;s:2:\"96\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '52.97', 'tr_bKaeqVk5Tz', '202008235f424657556381.26095412'),
+(3, 1, '2020-08-23', 'a:4:{i:0;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:1;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:2;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:3;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '61', 'tr_Sg8wq9brf9', '202008235f424afecd6ae4.03862650'),
+(4, 1, '2020-08-23', 'a:5:{i:0;a:2:{i:0;s:2:\"46\";i:1;a:1:{i:0;s:3:\"103\";}}i:1;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:2;a:2:{i:0;s:2:\"45\";i:1;a:3:{i:0;s:3:\"107\";i:1;s:2:\"78\";i:2;s:2:\"90\";}}i:3;a:2:{i:0;s:2:\"57\";i:1;a:1:{i:0;s:3:\"101\";}}i:4;a:2:{i:0;s:2:\"57\";i:1;a:1:{i:0;s:3:\"101\";}}}', 'paid', 'Tommy', 'Rooryck', 'tommy_rooryck@hotmail.com', '0476755659', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', 'Ellestraat, 36', 'Gistel', '8470', 'West-Vlaanderen', 'België', '92.96', 'tr_5pKFdTm9MS', '202008235f424b892da451.75793990');
 
 -- --------------------------------------------------------
 
@@ -220,24 +221,40 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `attribute_id`, `attribute_values_id`) VALUES
-(1, 1, 46, 27, 103),
-(2, 1, 57, 27, 104),
-(3, 2, 45, 27, 107),
-(4, 2, 45, 24, 78),
-(5, 2, 45, 23, 90),
-(6, 3, 60, 26, 87),
-(7, 4, 46, 27, 103),
-(8, 4, 46, 27, 103),
-(9, 4, 46, 27, 103),
-(10, 4, 45, 27, 107),
-(11, 4, 45, 24, 78),
-(12, 4, 45, 23, 90),
-(13, 4, 45, 27, 107),
-(14, 4, 45, 24, 78),
-(15, 4, 45, 23, 90),
-(16, 4, 45, 27, 107),
-(17, 4, 45, 24, 78),
-(18, 4, 45, 23, 90);
+(1, 1, 45, 27, 107),
+(2, 1, 45, 24, 78),
+(3, 1, 45, 23, 90),
+(4, 1, 45, 27, 107),
+(5, 1, 45, 24, 78),
+(6, 1, 45, 23, 90),
+(7, 1, 45, 27, 107),
+(8, 1, 45, 24, 78),
+(9, 1, 45, 23, 90),
+(10, 1, 45, 27, 107),
+(11, 1, 45, 24, 78),
+(12, 1, 45, 23, 90),
+(13, 2, 45, 27, 104),
+(14, 2, 45, 24, 79),
+(15, 2, 45, 23, 92),
+(16, 2, 45, 27, 105),
+(17, 2, 45, 24, 81),
+(18, 2, 45, 23, 96),
+(19, 2, 45, 27, 105),
+(20, 2, 45, 24, 81),
+(21, 2, 45, 23, 96),
+(22, 3, 46, 27, 103),
+(23, 3, 46, 27, 103),
+(24, 3, 46, 27, 103),
+(25, 3, 46, 27, 103),
+(26, 4, 46, 27, 103),
+(27, 4, 45, 27, 107),
+(28, 4, 45, 24, 78),
+(29, 4, 45, 23, 90),
+(30, 4, 45, 27, 107),
+(31, 4, 45, 24, 78),
+(32, 4, 45, 23, 90),
+(33, 4, 57, 27, 101),
+(34, 4, 57, 27, 101);
 
 -- --------------------------------------------------------
 
@@ -296,7 +313,7 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `stock`, `created_at`, `product_placeholder`, `category_id`, `sub_category_id`) VALUES
 (45, 'Lunchdoos', 'Lunchdoos met bijhorend, herbruikbaar, plastic bestek en tekst naar keuze.', 15.99, 15, '2020-07-28', 'Mint.jpg', 27, 0),
-(46, 'Mushi Silicone Slab', 'Silicone Slab met opvangbakje van Mushie.', 14, 20, '2020-07-27', 'Raw Sienna.jpg', 27, 47),
+(46, 'Mushi Silicone Slab', 'Silicone Slab met opvangbakje van Mushie.', 14, 20, '2020-08-23', 'Raw Sienna.jpg', 27, 0),
 (57, 'Dekentje', 'Dekentje met naam', 20.99, 3, '2020-07-27', 'dekentje.jpg', 25, 0),
 (58, 'Donkey', '– size: 16”\r\n– Curly, soft plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\n*HEE-HAW* It’s the sound of a happy donkey. The skin is so soft you might want to cuddle it all day long. Enjoy the time with your new best friend.', 16.99, 5, '2020-07-27', 'Donkey.jpg', 38, 0),
 (59, 'Flopsy The Grey Buny', '– size: 16”\r\n– Soft, grey plush\r\n– Zip with Velcro on the back\r\n– Plastic eyes\r\n– 100% Polyester Cotton\r\n– Standing position\r\n\r\nEverybody loves rabbits – especially this cuddly friend because of its unusually soft ears and cute, bushy tail. Don’t forget to dress it up when it is cold outside or it will start to sneeze and have a wet snout.', 16.99, 6, '2020-07-27', 'flopsy the grey bunny pink nose.jpg', 38, 0),
@@ -346,12 +363,6 @@ CREATE TABLE `specific_product` (
 --
 
 INSERT INTO `specific_product` (`id`, `attribute_id`, `attribute_values_id`, `product_id`) VALUES
-(308, 27, 103, 46),
-(309, 0, 104, 46),
-(310, 0, 105, 46),
-(311, 0, 99, 46),
-(312, 0, 106, 46),
-(313, 0, 100, 46),
 (667, 27, 107, 56),
 (668, 0, 104, 56),
 (669, 0, 105, 56),
@@ -392,7 +403,13 @@ INSERT INTO `specific_product` (`id`, `attribute_id`, `attribute_values_id`, `pr
 (786, 0, 93, 45),
 (787, 0, 94, 45),
 (788, 0, 95, 45),
-(789, 0, 96, 45);
+(789, 0, 96, 45),
+(802, 27, 103, 46),
+(803, 0, 104, 46),
+(804, 0, 105, 46),
+(805, 0, 99, 46),
+(806, 0, 106, 46),
+(807, 0, 100, 46);
 
 -- --------------------------------------------------------
 
@@ -597,7 +614,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT voor een tabel `order_products`
 --
 ALTER TABLE `order_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT voor een tabel `photos`
@@ -621,7 +638,7 @@ ALTER TABLE `shipping`
 -- AUTO_INCREMENT voor een tabel `specific_product`
 --
 ALTER TABLE `specific_product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=790;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=808;
 
 --
 -- AUTO_INCREMENT voor een tabel `sub_category`

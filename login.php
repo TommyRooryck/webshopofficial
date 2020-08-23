@@ -34,7 +34,6 @@ if (isset($_POST['submit_login'])) {
     } elseif (Admin::find_by_username($_POST['username'])) {
         $admin = Admin::find_by_username($_POST['username']);
         $hashed_password = $admin->password;
-        var_dump($hashed_password);
 
         if (password_verify($password, $hashed_password)) {
             if (!empty($_POST['remember_me'])) {

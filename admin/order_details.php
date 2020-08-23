@@ -11,8 +11,7 @@ if (!$session->is_signed_in()){
 }
 
 
-$order = Orders::find_by_bestelnummer($_GET['id']);
-$order_products = Order_products::find_the_key($order->id);
+
 ?>
 
 <?php include ("../templates/order_details_template.php")?>

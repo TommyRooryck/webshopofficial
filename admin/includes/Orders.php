@@ -6,6 +6,7 @@ class Orders extends Db_object
     public $id;
     public $customer_id;
     public $created_at;
+    public $products;
     public $status;
     public $first_name;
     public $last_name;
@@ -30,6 +31,7 @@ class Orders extends Db_object
         'id',
         'customer_id',
         'created_at',
+        'products',
         'status',
         'first_name',
         'last_name',
