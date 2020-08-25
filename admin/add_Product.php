@@ -1,8 +1,9 @@
+<?php include("includes/header.php"); ?>
+
+<?php   include("includes/sidebar.php"); ?>
+<?php include("includes/content_top.php"); ?>
+
 <?php
-
-include("includes/header.php");
-
-
 if (!$session->is_signed_in()){
     redirect('login');
 } elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
@@ -44,15 +45,26 @@ if (isset($_POST['submit'])) {
             $specific_product->product_id = $product->id;
             $specific_product->save();
 
-           redirect("products");
         }
     }
+
+    echo "
+         <div class='row align-content-center justify-content-center w-100 mt-5 mx-auto'>
+             <div class='col-lg-6'>
+                <div class='alert alert-success alert-dismissible fade show text-center' role='alert'>
+                    <strong>Products added to shop!</strong>
+                    <button type='button' class='close mt-lg-3' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                     </button>
+                </div>
+            </div>
+        </div>
+        ";
 
 }
 
 ?>
-<?php  include("includes/sidebar.php"); ?>
-<?php include("includes/content_top.php"); ?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 m-auto">

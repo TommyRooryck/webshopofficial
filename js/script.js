@@ -1,39 +1,24 @@
 $(document).ready(function () {
 
     /**NAVBAR**/
-  /*   $('#navbarDropdownMenuLink0').on('click', function(){
-         if (!$('#dropdown_menu0').hasClass('show')){
-             $('#navbarDropdownMenuLink0').addClass('active_dropdown');
-         } else{
-             $('#navbarDropdownMenuLink0').removeClass('active_dropdown');
-         }
-    });
 
-    $('body').on('click', function(){
-        if ($('#dropdown_menu0').hasClass('show')){
-            $('#navbarDropdownMenuLink0').removeClass('active_dropdown');
+    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+        if (!$(this).next().hasClass('show')) {
+            $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
         }
+        var $subMenu = $(this).next(".dropdown-menu");
+        $subMenu.toggleClass('show');
+
+
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+            $('.dropdown-submenu .show').removeClass("show");
+        });
+
+
+        return false;
     });
 
-    $('#navbarDropdownMenuLink1').on('click', function(){
-        if (!$('#dropdown_menu1').hasClass('show')){
-            $('#navbarDropdownMenuLink1').addClass('active_dropdown');
-        } else{
-            $('#navbarDropdownMenuLink1').removeClass('active_dropdown');
-        }
-    });
 
-    $('body').on('click', function(){
-        if ($('#dropdown_menu1').hasClass('show')){
-            $('#navbarDropdownMenuLink1').removeClass('active_dropdown');
-        }
-    });*/
-
-
-    $('#navbar-toggler').click(function () {
-        $("#bars-icon").toggleClass('active_dropdown')
-        $('#navbar-toggler').toggleClass('active_dropdown_border')
-    });
 
     /**LOGIN**/
     $('#register_button').click(function () {
@@ -50,24 +35,24 @@ $(document).ready(function () {
 
 
     $('#buttonOne').click(function () {
-        if (!$('#collapseOne').hasClass('show')){
+        if (!$('#collapseOne').hasClass('show')) {
             $('.active_collapse').not(this).removeClass('active_collapse')
             $('.active_collapse_text').not(this).removeClass('active_collapse_text')
             $('#headingOne').addClass('active_collapse')
             $('#buttonOne').addClass('active_collapse_text')
-        } else{
+        } else {
             $('#buttonOne').removeClass('active_collapse_text')
             $('#headingOne').removeClass('active_collapse')
         }
     })
 
     $('#buttonTwo').click(function () {
-        if (!$('#collapseTwo').hasClass('show')){
+        if (!$('#collapseTwo').hasClass('show')) {
             $('.active_collapse').not(this).removeClass('active_collapse')
             $('.active_collapse_text').not(this).removeClass('active_collapse_text')
             $('#headingTwo').addClass('active_collapse')
             $('#buttonTwo').addClass('active_collapse_text')
-        } else{
+        } else {
             $('#headingTwo').removeClass('active_collapse')
             $('#buttonTwo').removeClass('active_collapse_text')
         }

@@ -1,3 +1,10 @@
+/*Variables*/
+
+:root{
+    --main-color: #ff7ebe;
+    --secundary-color: #FF53C2;
+}
+
 /*FONTS*/
 
 @font-face {
@@ -51,7 +58,10 @@
     src: url("../admin/fonts/Roboto-BlackItalic.ttf");
 }
 
-
+*{
+    padding: 0;
+    margin: 0;
+}
 
 p{
     font-family: roboto_regular;
@@ -61,69 +71,116 @@ a{
     font-family: roboto_bold;
 }
 
-h1{
-    font-family: roboto_black;
-    background:linear-gradient(160deg, #FF53C2, #ff7ebe);
-    color: transparent !important;
-    -webkit-background-clip: text;
-}
-
-*{
-    padding: 0;
-    margin: 0;
-}
 
 
-body{
-    background: linear-gradient(to bottom, #ffffff, #f5d0e2);
-}
 
-img{
-    vertical-align: middle;
-    border-style: none;
-}
 
-footer{
-    height: 200px;
-}
 
 /**CLASSES**/
 .mb-50{
     margin-bottom: 3.125rem;
 }
 
+.main-color{
+    color: var(--main-color);
+}
+
+.bg-main-color{
+    background-color: var(--main-color);
+}
+
+.custom-nav-link{
+    padding: .5rem 1rem;
+    display: block;
+    font-weight: 1200;
+    color: #000000;
+    border-bottom: 2px solid transparent;
+}
+
+.pagination-link{
+    color: #1d2124;
+}
+
+.pagination-link:hover{
+    color: #000000;
+}
+
+.active-pagination-link{
+    color: #000000;
+    text-decoration: underline;
+}
 
 /**END CLASSES**/
 
 /**HEADER**/
 
-.navbar-brand{
-    font-family: roboto_black;
-    background:linear-gradient(#FF53C2, #ff7ebe);
-    color: transparent !important;
-    -webkit-background-clip: text;
+#horizontalImg{
+    height: 5rem;
+}
+
+#searchButton{
+    background-color: var(--main-color) ;
+}
+
+#searchButton:hover{
+    background-color: var(--secundary-color);
+}
+
+.i-hover i:hover{
+    color: var(--secundary-color) ;
+}
+
+.navbar{
+   min-height: 4.6875rem
+}
+
+.dropdown-menu{
+    background-color: var(--main-color);
+    border: none;
+}
+
+.dropdown-item:active, .dropdown-item:hover, .dropdown-item:focus{
+    background:none;
 }
 
 
-.navbar a{
-    color: #FF53C2;
+.sub-dropdown-menu{
+    position: relative;
+    width: auto;
 }
 
-.navbar a:hover{
-    color: #ff7ebe;
+.dropdown-toggle .dropdown-item{
+    background-color: var(--main-color);
 }
 
-.navbar img{
-    height: 40px;
+.sub-dropdown-menu a:after{
+    transform: rotate(-90deg);
+    position: absolute;
+    right: 6px;
+    top: .8em
 }
 
-nav i{
-    color: #FF53C2;
+.sub-dropdown-menu .dropdown-menu{
+    top: 0;
+    left: 100%;
+    margin-left: 0.1rem;
+    margin-right: 0.1rem;
 }
 
-nav i:hover{
-    color: #ff7ebe;
+.sub-dropdown:active .sub-dropdown-menu{
+    visibility: visible;
 }
+
+
+
+
+.custom-nav-link:hover, .custom-nav-link:active{
+    color: #000000;
+    text-decoration: none;
+    border-bottom: 2px solid var(--secundary-color);
+}
+
+
 /**NAV END**/
 
 /**LOGIN AND REGISTRATION**/
@@ -337,30 +394,38 @@ nav i:hover{
 
 
 /**IPAD PRO**/
-@media only screen and (max-width: 1199px) and (min-width: 992px) {
+@media (min-width: 1024px) {
+
+    /*NAV*/
+    .dropdown-menu{
+        background:#fdfefe;
+        border-width: 0px 2px 2px 2px;
+        border-style: solid;
+        border-color: var(--main-color);
+        width: 156px;
+    }
+
+    .sub-dropdown-menu{
+        border-width: 2px 2px 2px 0px;
+        border-style: solid;
+        border-color: var(--main-color);
+
+    }
+
+    .dropdown-toggle .dropdown-item{
+        background:none;
+    }
+
+    .dropdown-item:hover{
+        background-color: #fcc7d1;
+    }
+    /*END NAV*/
+
     .latest-padding{
         padding-top: 11.875rem;
         padding-bottom: 8.4375rem;
     }
 }
-
-/**PC**/
-@media only screen and (max-width: 1600px) and (min-width: 1200px) {
-    /**CLASSES**/
-    .pt-6{
-        padding-top: 5rem;
-    }
-    /**END CLASSES**/
-
-    /**SHOP**/
-    .latest-padding{
-        padding-top: 11.875rem;
-        padding-bottom: 8.4375rem;
-    }
-    /**END SHOP**/
-}
-
-
 
 @media (min-width: 1700px) {
     /**CLASSES**/

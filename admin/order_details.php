@@ -14,6 +14,6 @@ if (!$session->is_signed_in()){
 
 ?>
 
-<?php include ("../templates/order_details_template.php")?>
+<?php include("../templates/order_details_template.php") ?>
 
 <?php require_once("includes/footer.php"); ?>

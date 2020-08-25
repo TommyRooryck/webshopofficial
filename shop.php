@@ -1,9 +1,22 @@
 <?php include("includes/header.php"); ?>
 
-<?php $products = Product::find_all(); ?>
+<?php
 
-<section class="latest-padding">
-    <div class="container">
+$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$items_per_page = 6;
+
+$product_total_count = Product::count_all();
+
+$paginate = new Paginate($page, $items_per_page, $product_total_count);
+
+$products = Product::paginate($items_per_page, $paginate->offset());
+
+
+?>
+
+
+    <div class="container pt-5">
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <div class="row">
@@ -21,17 +34,50 @@
                                         <h3>
                                             <a href="product_details?id=<?php echo $product->id; ?>"> <?php echo $product->name; ?></a>
                                         </h3>
-                                        <span>€<?php echo $product->price; ?></span>
+                                        <span>€<?php $price = number_format($product->price, 2); echo $price; ?></span>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     <?php endforeach; ?>
                 </div>
+                <div class="row flex-row pt-4">
+                    <div class="col-lg-12 text-center d-flex justify-content-center">
+                        <div class="col-lg-4">
+                            <ul class="pager d-flex flex-fill list-unstyled">
+                                <?php
+
+                                if ($page == 1 ){
+                                    for ($i = 1; $i <= $paginate->page_total(); $i++) {
+                                        if ($i == $paginate->current_page) {
+                                            echo "<li class='active flex-fill '><a class='pagination-link active-pagination-link' href='shop?page={$i}'>{$i}</a></li>";
+                                        } else {
+                                            echo "<li class='flex-fill '><a class='pagination-link' href='shop?page={$i}'>{$i}</a></li>";
+                                        }
+                                    }
+                                    echo "<li class= 'next flex-fill '> <a class='pagination-link' href='shop?page={$paginate->next()}'>Next</a></li>";
+                                } else{
+                                    echo "<li class='previous flex-fill'><a class='pagination-link' href='shop?page={$paginate->previous()}'>Previous</a></li>";
+
+                                    for ($i = 1; $i <= $paginate->page_total(); $i++) {
+                                        if ($i == $paginate->current_page) {
+                                            echo "<li class='active flex-fill '><a class='pagination-link active-pagination-link'  href='shop?page={$i}'>{$i}</a></li>";
+                                        } else {
+                                            echo "<li class='flex-fill '><a class='pagination-link' href='shop?page={$i}'>{$i}</a></li>";
+                                        }
+                                    }
+                                    echo "<li class= 'next flex-fill '> <a class='pagination-link' href='shop?page={$paginate->next()}'>Next</a></li>";
+                                }
+
+                                ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</section>
+
 
 <?php include("includes/footer.php"); ?>
 

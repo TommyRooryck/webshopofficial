@@ -259,8 +259,6 @@ if (isset($order->customer_id)){
                         <?php echo "<b>" . "€" . $total_price . "</b>"; ?>
                     </td>
                 </tr>
-
-
         </div>
     </div>
 

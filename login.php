@@ -69,11 +69,8 @@ if (isset($_POST['submit_register'])) {
     $username_register = trim($_POST['username_register']);
     $password_register = trim($_POST['password_register']);
     $hashed_password_register = password_hash($password_register, PASSWORD_DEFAULT);
-    $email = trim($_POST['email_register']);
 
-    $email_subject = 'Test Registration';
-    $mail_content = 'Test Mail';
-    $mail_header = "From: localhost";
+    $email = trim($_POST['email_register']);
 
     if (empty($customer->check_customer_exist(trim($_POST['username_register']))) && empty(Admin::check_admin_exist(trim($_POST['username_register'])))) {
         $customer->email = $email;
@@ -83,7 +80,8 @@ if (isset($_POST['submit_register'])) {
         $session->login($customer);
         $_SESSION['username'] = $username;
         redirect("my_account");
-        mail($email, $email_subject, $mail_content, $mail_header);
+
+        include("templates/mail/registration_email.php");
 
     } else {
         $message = "Username is already taken!";
@@ -136,7 +134,7 @@ if (isset($_POST['submit_register'])) {
                             </button>
                         </div>
                         <div class="col-12 pt-3 px-0">
-                            <a class="float-right" href="">Forget Password?</a>
+                            <a class="float-right" href="password_reset">Forget Password?</a>
                         </div>
                     </form>
                 </div>

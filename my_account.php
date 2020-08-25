@@ -1,8 +1,14 @@
 <?php include("includes/header.php");
 
+if (!isset($_SESSION['user_id'])){
+ redirect("login");
+}
+
+
 if (!empty(Admin::check_admin_exist($_SESSION['username']))) {
     redirect("admin/users");
 }
+
 $msg = "";
 $customer = Customer::find_by_id($_SESSION['user_id']);
 

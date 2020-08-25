@@ -23,12 +23,7 @@ try {
     require "vendor/mollie/mollie-api-php/examples/initialize.php";
     $order = Orders::find_by_bestelnummer($_GET['id']);
     $customer = Customer::find_by_id($order->customer_id);
-    if (isset($_SESSION['user_id'])) {
-        if ($_SESSION['user_id'] !== $customer->id) {
-            redirect("access_denied");
 
-        }
-    }
 
     $order_products = Order_products::find_the_key($order->id);
     $payment = $payment = $mollie->payments->get($order->payment_id);
@@ -58,7 +53,10 @@ try {
             $product->stock = $total_stock;
             $product->save();
         }
+        include ("templates/mail/order_confirmation_mail.php");
     }
+
+
 
 
 } catch (ApiException $e) {

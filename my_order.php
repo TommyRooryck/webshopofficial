@@ -12,6 +12,6 @@ if ($order->customer_id !== $_SESSION['user_id']){
 ?>
 
 
-<?php include ("templates/order_details_template.php")?>
+<?php include("templates/order_details_template.php") ?>
 
 <?php include ("includes/footer.php"); ?>

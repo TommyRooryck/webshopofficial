@@ -4,6 +4,7 @@
 class Customer extends Db_object
 {
     public $id;
+    public $user_code;
     public $username;
     public $password;
     public $first_name;
@@ -23,6 +24,7 @@ class Customer extends Db_object
 
     protected static $db_table = "customers";
     protected static $db_table_fields = array(
+        'user_code',
         'username',
         'password',
         'first_name',
@@ -41,7 +43,8 @@ class Customer extends Db_object
         'shipping_country'
         );
 
-    public static function verify_customer($username, $password){
+    public static function verify_customer($username, $password)
+    {
         global $database;
         $username = $database->escape_string($username);
         $password = $database->escape_string($password);
@@ -55,7 +58,8 @@ class Customer extends Db_object
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
     }
 
-    public static function check_customer_exist($username){
+    public static function check_customer_exist($username)
+    {
         global $database;
         $username = $database->escape_string($username);
 
@@ -63,6 +67,30 @@ class Customer extends Db_object
 
         $the_result_array = self::find_this_query($sql);
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
+    }
+
+    public static function find_by_user_code($user_code)
+    {
+        global $database;
+        $user_code = $database->escape_string($user_code);
+
+        $sql = "SELECT * FROM " . self::$db_table . " WHERE user_code = '{$user_code}'";
+
+        $the_result_array = self::find_this_query($sql);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+    }
+
+    public static function forgot_password_check($username, $email)
+    {
+        global $database;
+        $username = $database->escape_string($username);
+        $email = $database->escape_string($email);
+
+        $sql = "SELECT * FROM " . self::$db_table . " WHERE username = '{$username}' AND email = '{$email}'";
+
+        $the_result_array = self::find_this_query($sql);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+
     }
 
 }
