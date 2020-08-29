@@ -36,6 +36,18 @@ class Db_object
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
     }
 
+    public static function find_by($column, $parameter)
+    {
+        global $database;
+        $parameter = $database->escape_string($parameter);
+        $column = $database->escape_string($column);
+
+        $sql = "SELECT * FROM " . static::$db_table . " WHERE {$column} = '{$parameter}'";
+
+        $the_result_array = self::find_this_query($sql);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+    }
+
 
     private function has_the_attribute($the_attribute)
     {
@@ -155,6 +167,19 @@ class Db_object
     {
         global $database;
         $sql = "SELECT COUNT(*) FROM " . static::$db_table;
+        $result_set = $database->query($sql);
+        $row = mysqli_fetch_array(($result_set));
+
+        return array_shift($row);
+    }
+
+    public static function count_by_column($column, $parameter)
+    {
+        global $database;
+
+
+        $sql = "SELECT COUNT(*) FROM " . static::$db_table;
+        $sql .= " WHERE {$column}= " . $database->escape_string($parameter);
         $result_set = $database->query($sql);
         $row = mysqli_fetch_array(($result_set));
 

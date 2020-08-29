@@ -80,14 +80,14 @@ $super_categories = Super_category::find_all();
                                                      aria-labelledby="dropdownMenuLink">
                                                     <?php foreach ($sub_categories as $sub_category): ?>
                                                         <a class="dropdown-item"
-                                                           href="#"><?php echo $sub_category->name; ?></a>
+                                                           href="<?php echo "shop?sub_category={$sub_category->name}";?>"><?php echo $sub_category->name; ?></a>
                                                     <?php endforeach; ?>
                                                 </div>
                                             </div>
 
                                         </div>
                                     <?php else: ?>
-                                        <a class="dropdown-item" href="#">
+                                        <a class="dropdown-item" href="<?php echo "shop?category={$category->name}"; ?>">
                                             <?php echo $category->name; ?>
                                         </a>
                                     <?php endif; ?>

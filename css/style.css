@@ -81,6 +81,10 @@ a{
     margin-bottom: 3.125rem;
 }
 
+.ml-6{
+
+}
+
 .main-color{
     color: var(--main-color);
 }
@@ -425,6 +429,12 @@ a{
         padding-top: 11.875rem;
         padding-bottom: 8.4375rem;
     }
+
+    /*PRODUCT_DETAILS*/
+    .product-details-image{
+        height: 600px;
+    }
+    /*END PRODUCT_DETAILS*/
 }
 
 @media (min-width: 1700px) {

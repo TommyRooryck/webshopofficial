@@ -91,12 +91,12 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="text" name="stock" class="form-control">
+                            <input type="number" name="stock" class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label for="category">Select category</label>
-                            <select name="category">
+                            <select name="category" class="form-control">
                                 <?php
                                 usort($categories, array("Category", "order_by_name"));
                                 foreach ($categories as $category) : ?>
@@ -107,7 +107,7 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group">
                             <label for="sub">Select Sub Category (if needed)</label>
-                            <select name="sub">
+                            <select name="sub" class="form-control">
                                 <option value="0">None</option>
                                 <?php
                                 usort($sub_categories, array("Sub_category", "order_by_name"));

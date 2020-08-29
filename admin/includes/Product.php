@@ -125,6 +125,32 @@ class Product extends Db_object
             return false;
         }
     }
+
+    public static function paginate_categories($items_per_page, $offset, $category_id)
+    {
+        global $database;
+        $items_per_page = $database->escape_string($items_per_page);
+        $offset = $database->escape_string($offset);
+
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE category_id= " . $database->escape_string($category_id);
+        $sql .= " LIMIT " . $items_per_page . " OFFSET " . $offset;
+
+        return static::find_this_query($sql);
+    }
+
+    public static function paginate_sub_categories($items_per_page, $offset, $sub_category_id)
+    {
+        global $database;
+        $items_per_page = $database->escape_string($items_per_page);
+        $offset = $database->escape_string($offset);
+
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE sub_category_id= " . $database->escape_string($sub_category_id);
+        $sql .= " LIMIT " . $items_per_page . " OFFSET " . $offset;
+
+        return static::find_this_query($sql);
+    }
 }
 
 

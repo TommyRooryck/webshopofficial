@@ -11,11 +11,21 @@ if (isset($_POST['submit'])) {
         $_SESSION["cart"] = array();
     }
 
+    if ($_POST['text']){
+        $text_attribute = Attributes::find_by('name', 'Text');
+        $new_attribute_value = new Attribute_values();
+        $new_attribute_value->name = $_POST['text'];
+        $new_attribute_value->attribute_id = $text_attribute->id;
+        $new_attribute_value->save();
+
+        array_push($_POST['attribute_value'], $new_attribute_value->id);
+    }
 
     $quantity = $_POST['quantity'];
     $y = 0;
     for ($x = 0; $x < $quantity; $x++) {
         $order_product = array();
+
         array_push($order_product, $product->id, $_POST['attribute_value']);
         $_SESSION["cart"][] = $order_product;
         $y++;
@@ -56,10 +66,25 @@ if (isset($_POST['submit'])) {
     <div class="product_details">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6 text-center">
-                    <img class="img-fluid" src="<?php echo $product->image_path_and_placeholder_front(); ?>" alt="">
+                <div class="col-lg-6 m-auto">
+                    <div class="col-12 text-center">
+                        <img class="img-fluid product-details-image" src="<?php echo $product->image_path_and_placeholder_front(); ?>" alt="">
+                    </div>
+                    <div class="col-12">
+                        <div class="col-lg-6 m-auto">
+                            Description: <br>
+                            <?php
+                            if ($product->description){
+                                echo $product->description;
+                            } else{
+                                echo "No description available";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="col-lg-6 pt-6">
+                <div class="col-lg-4 text-center pt-6 m-auto">
                     <h1><?php echo $product->name; ?></h1>
                     <h3>€<?php echo $product->price; ?></h3>
                     <form action="" method="post">
@@ -84,10 +109,20 @@ if (isset($_POST['submit'])) {
                             foreach ($specific_attributes as $specific_attribute):
                                 ?>
 
+
+
+                                    <?php if ($specific_attribute->name == 'Text') : ?>
                                 <tr>
                                     <th><?php echo $specific_attribute->name; ?></th>
                                     <td>
-                                        <select name="attribute_value[]" id="">
+                                        <textarea name="text" class="form-control" cols="30" rows="10"></textarea>
+                                    </td>
+                                </tr>
+                                    <?php else: ?>
+                                <tr>
+                                    <th><?php echo $specific_attribute->name; ?></th>
+                                    <td>
+                                        <select name="attribute_value[]" class="form-control" id="">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id) {
                                                     echo "<option value=\"$specific_attributes_value->id\">" . $specific_attributes_value->name . "</option>";
@@ -96,10 +131,12 @@ if (isset($_POST['submit'])) {
                                         </select>
                                     </td>
                                 </tr>
+                                    <?php endif; ?>
+
                             <?php endforeach; ?>
                             <tr>
                                 <th><label for="quantity">Quantity</label></th>
-                                <td><input name="quantity" min="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" max="<?php echo $product->stock; ?>" value="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" type="number"></td>
+                                <td><input type="number" name="quantity" class="form-control" min="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" max="<?php echo $product->stock; ?>" value="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" ></td>
                             </tr>
                         </table>
                         <?php if ($product->stock > 0): ?>

@@ -16,55 +16,57 @@ if (isset($_COOKIE["{$official_cookie_name}"])){
     redirect("index");
 } else{
     setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
-}
+    try {
+        require "vendor/mollie/mollie-api-php/examples/initialize.php";
+        $order = Orders::find_by_bestelnummer($_GET['id']);
+        $customer = Customer::find_by_id($order->customer_id);
 
 
-try {
-    require "vendor/mollie/mollie-api-php/examples/initialize.php";
-    $order = Orders::find_by_bestelnummer($_GET['id']);
-    $customer = Customer::find_by_id($order->customer_id);
+        $order_products = Order_products::find_the_key($order->id);
+        $payment = $payment = $mollie->payments->get($order->payment_id);
 
-
-    $order_products = Order_products::find_the_key($order->id);
-    $payment = $payment = $mollie->payments->get($order->payment_id);
-
-    $status = $payment->status;
-    $order->status = $status;
-    $order->save();
-
-    if ($order->status == "paid") {
-        $order->order_status_id = 1;
-
-    }
-
-
-    include("templates/order_details_template.php");
-
-
-
-    if ($order->status == "paid") {
-        $order->order_status_id = 1;
+        $status = $payment->status;
+        $order->status = $status;
         $order->save();
-        $all_products = unserialize($order->products);
-        foreach ($all_products as $all_product) {
-            $product_id = array_shift($all_product);
-            $product = Product::find_by_id($product_id);
-            $total_stock = $product->stock - 1;
-            $product->stock = $total_stock;
-            $product->save();
+
+        if ($order->status == "paid") {
+            $order->order_status_id = 1;
         }
-        include ("templates/mail/order_confirmation_mail.php");
+
+
+        include("templates/order_details_template.php");
+
+
+
+        if ($order->status == "paid") {
+            $order->order_status_id = 1;
+            $order->save();
+            $all_products = unserialize($order->products);
+            foreach ($all_products as $all_product) {
+                $product_id = array_shift($all_product);
+                $product = Product::find_by_id($product_id);
+                $total_stock = $product->stock - 1;
+                $product->stock = $total_stock;
+                $product->save();
+            }
+            include ("templates/mail/order_confirmation_mail.php");
+        }
+
+        include("includes/footer.php");
+
+
+
+
+    } catch (ApiException $e) {
+        echo "API call failed: " . htmlspecialchars($e->getMessage());
     }
 
-
-
-
-} catch (ApiException $e) {
-    echo "API call failed: " . htmlspecialchars($e->getMessage());
 }
 
 
-include("includes/footer.php");
+
+
+
 
 
 

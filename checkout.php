@@ -33,7 +33,7 @@ try {
         ],
         "description" => "Order {$order->bestelcode}",
         "redirectUrl" => "http://littleblessings.test/order_details?id=" . $order->bestelcode,
-        "webhookUrl" =>  " http://b26c09ad5214.ngrok.io/?order_id={$order->bestelcode}",
+        "webhookUrl" =>  "http://b26c09ad5214.ngrok.io/?order_id={$order->bestelcode}",
         "metadata" => [
             "order_id" => $order->bestelcode
     ]
@@ -56,5 +56,4 @@ try {
 } catch (ApiException $e) {
     echo "API call failed: " . htmlspecialchars($e->getMessage());
 }
-
 

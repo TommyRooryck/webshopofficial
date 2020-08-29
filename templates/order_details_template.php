@@ -3,7 +3,7 @@
 $shipping_zones = Shipping::find_all();
 $order = Orders::find_by_bestelnummer($_GET['id']);
 
-if (isset($order->customer_id)){
+if (isset($order->customer_id)) {
     $customer = Customer::find_by_id($order->customer_id);
 }
 
@@ -90,96 +90,18 @@ if (isset($order->customer_id)){
     </div>
 
 
-
     <div class="row">
         <div class="col-12">
             <div class="col-12 text-center">
                 <h4 class="pt-5">Factuur</h4>
             </div>
-            <!--            <table class="table table-borderless mt-5">-->
-            <!--                <tr>-->
-            <!--                    <th>Products</th>-->
-            <!--                    <th>Attributes</th>-->
-            <!--                    <th>Price</th>-->
-            <!--                </tr>-->
-            <!--                --><?php
-            //                $array = array();
-            //                $products = array();
-            //                $products_and_attributes_array = array();
-            //                foreach ($order_products as $order_product) :
-            //                    ?>
-            <!--                    --><?php
-            //                    $product = Product::find_by_id($order_product->product_id);
-            //                    $attribute = Attributes::find_by_id($order_product->attribute_id);
-            //                    $attribute_values = Attribute_values::find_by_id($order_product->attribute_values_id);
-            //
-            //                    array_push($products_and_attributes_array, $product, $attribute, $attribute_values);
-            //
-            //                    array_push($products, $products_and_attributes_array);
-            //                    ?>
-            <!---->
-            <!--                    <tr class="border-0">-->
-            <!--                        <td>--><?php //if (!in_array($product->id, $array)) {
-            //                                echo $product->name;
-            //                            } ?><!--</td>-->
-            <!--                        <td>-->
-            <?php //echo $attribute->name . ' : ' . $attribute_values->name; ?><!--</td>-->
-            <!--                        <td>--><?php //if (!in_array($product->id, $array)) {
-            //                                echo "€" . $product->price;
-            //                                array_push($array, $product->id);
-            //                            } ?><!--</td>-->
-            <!--                    </tr>-->
-            <!--                --><?php //endforeach; ?>
-            <!---->
-            <!---->
-            <!--                --><?php
-            //                $customer = Customer::find_by_id($order->customer_id);
-            //                if ( isset($_SESSION['username']) && $customer && $customer->shipping_country || isset($_SESSION['shipping_country'])) :
-            //                    $zone_array = array();
-            //                    $price_array = array();
-            //                    foreach ($shipping_zones as $shipping_zone) {
-            //                        $zone = strtolower($shipping_zone->shipping_zone);
-            //                        $price = $shipping_zone->shipping_price;
-            //                        array_push($zone_array, $zone);
-            //                        array_push($price_array, $price);
-            //                    }
-            //
-            //                    if (isset($_SESSION['username']) && $customer && $customer->shipping_country) {
-            //                        $shipping_zone = strtolower($customer->shipping_country);
-            //                    } else {
-            //                        $shipping_zone = strtolower($_SESSION['shipping_country']);
-            //                    }
-            //
-            //
-            //                    $zone_key = array_search($shipping_zone, $zone_array);
-            //                    if ($zone_key !== false):
-            //                        $price = $price_array[$zone_key];
-            //                        ?>
-            <!--                        <td> Shipping Price:</td>-->
-            <!--                        <td> Jouw Zone: <br>-->
-            <!--                            --><?php //if (isset($_SESSION['username']) && $customer->shipping_country){
-            //                                echo $customer->shipping_country;
-            //                            } elseif (isset($_SESSION['shipping_country'])){
-            //                                echo $_SESSION['shipping_country'];
-            //                            }?>
-            <!--                        </td>-->
-            <!--                        <td>--><?php //echo "€" . $price; ?><!--</td>-->
-            <!--                        --><?php
-            //                    endif;
-            //                endif;
-            //                ?>
-            <!--                <tr>-->
-            <!--                    <th colspan="2" class="text-right">Total Price:</th>-->
-            <!--                    <td>--><?php //echo "<b>" . "€" . $order->total_price . "</b>"; ?><!--</td>-->
-            <!--                </tr>-->
-            <!--            </table>-->
-
+        </div>
+        <div class="col-12">
             <table class="table table-hover">
                 <tr>
                     <th colspan="2">Product</th>
                     <th>Price</th>
                 </tr>
-
                 <?php
                 $total_price = 0;
                 $i = 0;
@@ -259,6 +181,9 @@ if (isset($order->customer_id)){
                         <?php echo "<b>" . "€" . $total_price . "</b>"; ?>
                     </td>
                 </tr>
+            </table>
         </div>
     </div>
+</div>
+
 

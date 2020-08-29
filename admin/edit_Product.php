@@ -93,13 +93,13 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="text" name="stock" class="form-control" value="<?php echo $product->stock; ?>">
+                            <input type="number" name="stock" class="form-control" value="<?php echo $product->stock; ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="category">Select category</label>
                             <select name="category" class="form-control">
-                                <option value="<?php echo $category->id ?>"><?php echo $category->name; ?></option>
+                                <option value="<?php echo $category->id ?>" style='background: #cfe3f1'><?php echo $category->name; ?></option>
                                 <?php foreach ($categories as $category_option) : ?>
                                     <option value="<?php echo $category_option->id; ?>"><?php echo $category_option->name; ?></option>
                                 <?php endforeach; ?>
@@ -108,12 +108,12 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group">
                             <label for="sub">Select Sub Category (if needed)</label>
-                            <select name="sub">
+                            <select name="sub" class='form-control'>
                                 <?php
-                                if ($sub_category->id = 0) {
+                                if ($sub_category->id == 0) {
                                     echo "   <option value=\"0\">None</option>";
                                 } else {
-                                    echo " <option value=\"$sub_category->id>\"> $sub_category->name </option>";
+                                    echo " <option value=\"$sub_category->id>\"  style='background: #cfe3f1'> $sub_category->name </option>";
                                 }
                                 ?>
                                 <option value="0">None</option>

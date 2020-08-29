@@ -1,7 +1,7 @@
 <?php include("includes/header.php");
 
 if (!isset($_SESSION['user_id'])){
- redirect("login");
+    redirect("login");
 }
 
 
@@ -19,8 +19,8 @@ $descending_customer_orders = array_reverse($customer_orders);
 //$customer_order_products = Order_products::find_the_key($customer_orders->id);
 
 if (isset($_POST['submit'])) {
-   include ("includes/add_customer_details.php");
-   redirect("my_account");
+    include ("includes/add_customer_details.php");
+    redirect("my_account");
 }
 ?>
 
@@ -35,9 +35,9 @@ if (isset($_POST['submit'])) {
         <div class="card">
             <div class="card-header" id="headingOne">
                 <h2 class="mb-0">
-                    <button class="btn btn-link btn-block text-left collapse_btn text-center dropdown-toggle "
+                    <button class="btn btn-link btn-block text-left collapse_btn text-center dropdown-toggle"
                             id="buttonOne" type="button" data-toggle="collapse"
-                            data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            data-target="collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Mijn Gegevens
                     </button>
                 </h2>
@@ -106,8 +106,8 @@ if (isset($_POST['submit'])) {
                                 <input type="text" class="form-control" name="country"
                                        value="<?php echo $customer->country; ?>">
                             </div>
-
                         </div>
+
                         <div class="form-group">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox"
@@ -220,19 +220,14 @@ if (isset($_POST['submit'])) {
                             endforeach;
                         endforeach;
                     else :
-                    ?>
-                    <p class="text-center">U hebt nog geen bestellingen. </p>
+                        ?>
+                        <p class="text-center">U hebt nog geen bestellingen. </p>
                     <?php endif; ?>
-
-
                 </div>
             </div>
         </div>
-
     </div>
-</div>
 
 
-<?php include("includes/footer.php"); ?>
 
-
+<?php include ("includes/footer.php")?>

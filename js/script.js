@@ -36,6 +36,7 @@ $(document).ready(function () {
 
     $('#buttonOne').click(function () {
         if (!$('#collapseOne').hasClass('show')) {
+            $('#collapseOne').addClass('show');
             $('.active_collapse').not(this).removeClass('active_collapse')
             $('.active_collapse_text').not(this).removeClass('active_collapse_text')
             $('#headingOne').addClass('active_collapse')
