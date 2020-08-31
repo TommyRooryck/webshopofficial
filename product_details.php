@@ -38,9 +38,8 @@ if (isset($_POST['submit'])) {
     }
 
     $total_attributes = count($_POST['attribute_value']);
-    var_dump($total_attributes);
     $total_safe_attributes = count($safe_array);
-    var_dump($safe_array);
+
 
     if ($total_attributes == $total_safe_attributes){
         if (!isset($_SESSION["cart"])) {

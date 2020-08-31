@@ -22,29 +22,45 @@ if (isset($_POST['submit'])) {
         if (isset($_SESSION['username']) && $customer) {
             $order->customer_id = $customer->id;
         }
+        $first_name = htmlspecialchars(trim($_POST['first_name']), ENT_QUOTES, 'UTF-8');
+        $last_name = htmlspecialchars(trim($_POST['last_name']), ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars(trim($_POST['email']), ENT_QUOTES, 'UTF-8');
+        $phone = htmlspecialchars(trim($_POST['phone']), ENT_QUOTES, 'UTF-8');
+        $adress = htmlspecialchars(trim($_POST['adress']), ENT_QUOTES, 'UTF-8');
+        $city = htmlspecialchars(trim($_POST['city']), ENT_QUOTES, 'UTF-8');
+        $postal_code = htmlspecialchars(trim($_POST['postal_code']), ENT_QUOTES, 'UTF-8');
+        $region = htmlspecialchars(trim($_POST['region']), ENT_QUOTES,  'UTF-8');
+        $country = htmlspecialchars(trim($_POST['country']), ENT_QUOTES, 'UTF-8');
+
         $order->products = serialize($_SESSION['cart']);
-        $order->first_name = trim($_POST['first_name']);
-        $order->last_name = trim($_POST['last_name']);
-        $order->email = trim($_POST['email']);
-        $order->phone = trim($_POST['phone']);
-        $order->adress = trim($_POST['adress']);
-        $order->city = trim($_POST['city']);
-        $order->postal_code = trim($_POST['postal_code']);
-        $order->region = trim($_POST['region']);
-        $order->country = trim($_POST['country']);
+        $order->first_name = $first_name;
+        $order->last_name = $last_name;
+        $order->email = $email;
+        $order->phone = $phone;
+        $order->adress = $adress;
+        $order->city = $city;
+        $order->postal_code = $postal_code;
+        $order->region = $region;
+        $order->country = $country;
 
         if (isset($_POST['shipping_adress_check'])) {
-            $order->shipping_adress = trim($_POST['shipping_adress']);
-            $order->shipping_city = trim($_POST['shipping_city']);
-            $order->shipping_postal_code = trim($_POST['shipping_postal_code']);
-            $order->shipping_region = trim($_POST['shipping_region']);
-            $order->shipping_country = trim($_POST['shipping_country']);
+            $shipping_adress = htmlspecialchars(trim($_POST['shipping_adress']), ENT_QUOTES, 'UTF-8');
+            $shipping_city = htmlspecialchars(trim($_POST['shipping_city']), ENT_QUOTES, 'UTF-8');
+            $shipping_postal_code = htmlspecialchars(trim($_POST['shipping_postal_code']), ENT_QUOTES, 'UTF-8');
+            $shipping_region = htmlspecialchars(trim($_POST['shipping_region']), ENT_QUOTES, 'UTF-8');
+            $shipping_country = htmlspecialchars(trim($_POST['shipping_country']));
+
+            $order->shipping_adress = $shipping_adress;
+            $order->shipping_city = $shipping_city;
+            $order->shipping_postal_code = $shipping_postal_code;
+            $order->shipping_region = $shipping_region;
+            $order->shipping_country = $shipping_country;
         } else {
-            $order->shipping_adress = trim($_POST['adress']);
-            $order->shipping_city = trim($_POST['city']);
-            $order->shipping_postal_code = trim($_POST['postal_code']);
-            $order->shipping_region = trim($_POST['region']);
-            $order->shipping_country = trim($_POST['shipping_country']);
+            $order->shipping_adress = $adress;
+            $order->shipping_city = $city;
+            $order->shipping_postal_code = $postal_code;
+            $order->shipping_region = $region;
+            $order->shipping_country = $country;
         }
 
         $order->save();
