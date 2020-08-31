@@ -1,20 +1,23 @@
 <?php
 include("includes/header.php");
 
-$product = Product::find_by_id($_GET['id']);
+$product_id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
 
-$specific_products = Specific_product::find_the_key($product->id);
-
+if (Product::find_by_id($product_id)){
+    $product = Product::find_by_id($product_id);
+    $specific_products = Specific_product::find_the_key($product->id);
+} else{
+    redirect('shop');
+}
 
 if (isset($_POST['submit'])) {
-    if (!isset($_SESSION["cart"])) {
-        $_SESSION["cart"] = array();
-    }
+
 
     if (isset($_POST['text'])){
         $text_attribute = Attributes::find_by('name', 'Text');
+        $text = htmlspecialchars(trim($_POST['text']), ENT_QUOTES, 'UTF-8');
         $new_attribute_value = new Attribute_values();
-        $new_attribute_value->name = $_POST['text'];
+        $new_attribute_value->name = $text;
         $new_attribute_value->attribute_id = $text_attribute->id;
         $new_attribute_value->save();
 
@@ -23,13 +26,37 @@ if (isset($_POST['submit'])) {
 
     $quantity = $_POST['quantity'];
     $y = 0;
-    for ($x = 0; $x < $quantity; $x++) {
-        $order_product = array();
+    $safe_array = array();
 
-        array_push($order_product, $product->id, $_POST['attribute_value']);
-        $_SESSION["cart"][] = $order_product;
-        $y++;
+    foreach ($_POST['attribute_value'] as $value){
+        $safe_value = htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
+        if (Attribute_values::find_by('id', $safe_value)){
+            array_push($safe_array, $safe_value);
+        } else{
+            redirect('shop');
+        }
     }
+
+    $total_attributes = count($_POST['attribute_value']);
+    var_dump($total_attributes);
+    $total_safe_attributes = count($safe_array);
+    var_dump($safe_array);
+
+    if ($total_attributes == $total_safe_attributes){
+        if (!isset($_SESSION["cart"])) {
+            $_SESSION["cart"] = array();
+        }
+        for ($x = 0; $x < $quantity; $x++) {
+            $order_product = array();
+            array_push($order_product, $product->id, $safe_array);
+            $_SESSION["cart"][] = $order_product;
+            $y++;
+        }
+    } else{
+        redirect('shop');
+    }
+
+
 
 
     if ($y == $_POST['quantity']) {
