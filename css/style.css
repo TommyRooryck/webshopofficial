@@ -9,53 +9,53 @@
 
 @font-face {
     font-family: roboto_thin;
-    src: url("../admin/fonts/Roboto-Thin.ttf");
+    src: url("../fonts/Roboto-Thin.ttf");
 }
 
 @font-face {
     font-family: roboto_thin_italic;
-    src: url("../admin/fonts/Roboto-ThinItalic.ttf");
+    src: url("../fonts/Roboto-ThinItalic.ttf");
 }
 
 @font-face {
     font-family: roboto_light;
-    src: url("../admin/fonts/Roboto-Light.ttf");
+    src: url("../fonts/Roboto-Light.ttf");
 }
 
 @font-face {
     font-family: roboto_light_italic;
-    src: url("../admin/fonts/Roboto-LightItalic.ttf");
+    src: url("../fonts/Roboto-LightItalic.ttf");
 }
 
 @font-face {
     font-family: roboto_regular;
-    src: url("../admin/fonts/Roboto-Regular.ttf");
+    src: url("../fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
     font-family: roboto_regular_italic;
-    src: url("../admin/fonts/Roboto-Italic.ttf");
+    src: url("../fonts/Roboto-Italic.ttf");
 }
 
 
 @font-face {
     font-family: roboto_bold;
-    src: url("../admin/fonts/Roboto-Bold.ttf");
+    src: url("../fonts/Roboto-Bold.ttf");
 }
 
 @font-face {
     font-family: roboto_bold_italic;
-    src: url("../admin/fonts/Roboto-BoldItalic.ttf");
+    src: url("../fonts/Roboto-BoldItalic.ttf");
 }
 
 @font-face {
     font-family: roboto_black;
-    src: url("../admin/fonts/Roboto-Black.ttf");
+    src: url("../fonts/Roboto-Black.ttf");
 }
 
 @font-face {
     font-family: roboto_black_italic;
-    src: url("../admin/fonts/Roboto-BlackItalic.ttf");
+    src: url("../fonts/Roboto-BlackItalic.ttf");
 }
 
 *{

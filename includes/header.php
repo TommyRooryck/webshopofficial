@@ -12,9 +12,9 @@ $super_categories = Super_category::find_all();
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" type="image/x-icon" href="admin/img/logo_without_text.png">
-    <link rel="stylesheet" href="admin/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="admin/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="img/logo_without_text.png">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css">
     <title>Little Blessings</title>
 </head>
@@ -23,7 +23,7 @@ $super_categories = Super_category::find_all();
 <div class="container-fluid p-0">
     <div class="row w-100 justify-content-around align-items-center mx-auto">
         <div class="col-lg-4 text-center p-3 p-lg-0">
-            <a href="index"><img id="horizontalImg" class="img-center" src="admin/img/horizontal_logo.png" alt=""></a>
+            <a href="index"><img id="horizontalImg" class="img-center" src="img/horizontal_logo.png" alt=""></a>
         </div>
         <div class="col-lg-5 p-3 p-lg-0 d-flex flex-row align-items-center">
             <form class="flex-row d-flex flex-fill border border-darker rounded-pill pl-4" action="">

@@ -94,7 +94,7 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="col-lg-6 m-auto">
                     <div class="col-12 text-center">
-                        <img class="img-fluid product-details-image" src="<?php echo $product->image_path_and_placeholder_front(); ?>" alt="">
+                        <img class="img-fluid product-details-image" src="<?php echo $product->image_path_and_placeholder(); ?>" alt="">
                     </div>
                     <div class="col-12">
                         <div class="col-lg-6 m-auto">
