@@ -6,7 +6,7 @@
 $order = Orders::find_by_bestelnummer($_GET['id']);
 $order_products = Order_products::find_the_key($order->id);
 
-if ($order->customer_id !== $_SESSION['user_id']){
+if ($order->customer_id != $_SESSION['user_id']){
     redirect("access_denied");
 }
 ?>
