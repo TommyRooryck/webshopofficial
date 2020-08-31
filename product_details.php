@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
         $_SESSION["cart"] = array();
     }
 
-    if ($_POST['text']){
+    if (isset($_POST['text'])){
         $text_attribute = Attributes::find_by('name', 'Text');
         $new_attribute_value = new Attribute_values();
         $new_attribute_value->name = $_POST['text'];

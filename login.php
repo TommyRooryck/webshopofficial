@@ -9,42 +9,42 @@ $msg = '';
 
 
 if (isset($_POST['submit_login'])) {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
+    $username = htmlspecialchars(trim($_POST['username']),ENT_QUOTES,'UTF-8');
+    $password = htmlspecialchars(trim($_POST['password']),ENT_QUOTES, 'UTF-8');
 
-    if (Customer::find_by_username($_POST['username'])) {
-        $customer = Customer::find_by_username($_POST['username']);
+    if (Customer::find_by_username($username)) {
+        $customer = Customer::find_by_username($username);
         $hashed_password = $customer->password;
 
         if (password_verify($password, $hashed_password)) {
             if (!empty($_POST['remember_me'])) {
-                setcookie("customer_username", $_POST['username'], time() + (86400 * 30), "/");
-                setcookie("customer_password", $_POST['password'], time() + (86400 * 30), "/");
+                setcookie("customer_username", $username, time() + (86400 * 30), "/");
+                setcookie("customer_password", $password, time() + (86400 * 30), "/");
             } else {
                 if (isset($_COOKIE['customer_username'])) {
-                    setcookie("customer_login", "");
+                    unset($_COOKIE['customer_username']);
                 }
                 if (isset($_COOKIE['customer_password'])) {
-                    setcookie("customer_password", "");
+                    unset($_COOKIE['customer_password']);
                 }
             }
             $session->login($customer);
             redirect("index");
         }
-    } elseif (Admin::find_by_username($_POST['username'])) {
-        $admin = Admin::find_by_username($_POST['username']);
+    } elseif (Admin::find_by_username($username)) {
+        $admin = Admin::find_by_username($username);
         $hashed_password = $admin->password;
 
         if (password_verify($password, $hashed_password)) {
-            if (!empty($_POST['remember_me'])) {
-                setcookie("customer_username", $_POST['username'], time() + (86400 * 30), "/");
-                setcookie("customer_password", $_POST['password'], time() + (86400 * 30), "/");
+            if (!empty(htmlspecialchars($_POST['remember_me'], ENT_QUOTES, 'UTF-8'))) {
+                setcookie("customer_username", $username, time() + (86400 * 30), "/");
+                setcookie("customer_password", $password, time() + (86400 * 30), "/");
             } else {
                 if (isset($_COOKIE['customer_username'])) {
-                    setcookie("customer_login", "");
+                    unset($_COOKIE['customer_username']);
                 }
                 if (isset($_COOKIE['customer_password'])) {
-                    setcookie("customer_password", "");
+                    unset($_COOKIE['customer_password']);
                 }
             }
             $session->login($admin);
@@ -65,14 +65,14 @@ $message = "";
 
 
 if (isset($_POST['submit_register'])) {
-    $email_register = trim($_POST['email_register']);
-    $username_register = trim($_POST['username_register']);
-    $password_register = trim($_POST['password_register']);
+    $email_register = htmlspecialchars(trim($_POST['email_register']), ENT_QUOTES, 'UTF-8');
+    $username_register = htmlspecialchars(trim($_POST['username_register']), ENT_QUOTES, 'UTF-8');
+    $password_register = htmlspecialchars(trim($_POST['password_register']), ENT_QUOTES, 'UTF-8');
     $hashed_password_register = password_hash($password_register, PASSWORD_DEFAULT);
 
-    $email = trim($_POST['email_register']);
+    $email = htmlspecialchars(trim($_POST['email_register']), ENT_QUOTES, 'UTF-8');
 
-    if (empty($customer->check_customer_exist(trim($_POST['username_register']))) && empty(Admin::check_admin_exist(trim($_POST['username_register'])))) {
+    if (empty($customer->check_customer_exist($username_register)) && empty(Admin::check_admin_exist($username_register))) {
         $customer->email = $email;
         $customer->username = $username_register;
         $customer->password = $hashed_password_register;

@@ -30,17 +30,22 @@ if (isset($_GET['delete'])) {
 }
 
 if (isset($_POST['update'])) {
-    if ($customer) {
-        $customer->shipping_country = trim($_POST['shipping_country']);
-        $customer->save();
-    } elseif ($customer && isset($_SESSION['shipping_country'])){
-        unset($_SESSION['shipping_country']);
-    } elseif (isset($_SESSION['shipping_country'])){
-        unset($_SESSION['shipping_country']);
-        $_SESSION['shipping_country'] = trim($_POST['shipping_country']);
-    } else {
-        $_SESSION['shipping_country'] = trim($_POST['shipping_country']);
+    if (Shipping::find_by('shipping_zone', htmlspecialchars(trim($_POST['shipping_country'])))){
+        if ($customer) {
+            $customer->shipping_country = htmlspecialchars(trim($_POST['shipping_country']), ENT_QUOTES, 'UTF-8');
+            $customer->save();
+        } elseif ($customer && isset($_SESSION['shipping_country'])){
+            unset($_SESSION['shipping_country']);
+        } elseif (isset($_SESSION['shipping_country'])){
+            unset($_SESSION['shipping_country']);
+            $_SESSION['shipping_country'] = htmlspecialchars(trim($_POST['shipping_country']), ENT_QUOTES, 'UTF-8');
+        } else {
+            $_SESSION['shipping_country'] = htmlspecialchars(trim($_POST['shipping_country']), ENT_QUOTES, 'UTF-8');
+        }
+    }else{
+        redirect('cart');
     }
+
 }
 
 if (isset($_SESSION["cart"])) :
