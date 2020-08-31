@@ -1,12 +1,12 @@
 <?php include("includes/header.php"); ?>
 
-<?php   include("includes/sidebar.php"); ?>
+<?php include("includes/sidebar.php"); ?>
 <?php include("includes/content_top.php"); ?>
 
 <?php
-if (!$session->is_signed_in()){
+if (!$session->is_signed_in()) {
     redirect('login');
-} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))) {
     redirect("../access_denied");
 }
 
@@ -35,18 +35,26 @@ if (isset($_POST['submit'])) {
     Photo::set_files_product($_FILES['file'], $product->id);
 
 
-
-    if (isset($_POST['attribute_value'])){
+    if (isset($_POST['attribute_value'])) {
         $all_values = count($_POST['attribute_value']);
+        $all_attributes = array();
+        $all_attributes = $_POST['attribute'];
+
         for ($i = 0; $i < $all_values; $i++) {
             $specific_product = new Specific_product();
-            $specific_product->attribute_id = trim($_POST['attribute'][$i]);
+
+            if (array_key_exists($i,$all_attributes)) {
+                $specific_product->attribute_id = trim($_POST['attribute'][$i]);
+            }
             $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
             $specific_product->product_id = $product->id;
             $specific_product->save();
 
         }
     }
+
+
+//    redirect("products");
 
     echo "
          <div class='row align-content-center justify-content-center w-100 mt-5 mx-auto'>
@@ -127,17 +135,29 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <?php
-                        $y=0;
+                        $y = 0;
                         usort($attributes, array("Attributes", "order_by_name"));
                         foreach ($attributes
-                                       as $attribute) : ?>
+                                 as $attribute) : ?>
                             <div class="form-group">
+
+                                <?php if ($attribute->name === "Text") : ?>
+                                    <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
+                                    </label>
+                                    <input type="checkbox"
+                                           value="<?php echo $attribute->id; ?>"
+                                           name="attribute[]" data-toggle="collapse"
+                                           data-target="#collapse<?php echo $y; ?>"">
+
+                                <?php else: ?>
+
                                 <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
                                 </label>
                                 <input type="checkbox"
                                        value="<?php echo $attribute->id; ?>"
-                                       name="attribute[]" data-toggle="collapse" data-target="#collapse<?php echo $y; ?>"">
-                                <div class="row values collapse"  id="collapse<?php echo $y; ?>">
+                                       name="attribute[]" data-toggle="collapse"
+                                       data-target="#collapse<?php echo $y; ?>"">
+                                <div class="row values collapse" id="collapse<?php echo $y; ?>">
                                     <?php
                                     $attribute_values = Attribute_values::find_the_key($attribute->id);
                                     usort($attribute_values, array("Attribute_values", "order_by_name"));
@@ -147,15 +167,21 @@ if (isset($_POST['submit'])) {
                                         ?>
                                         <table class="table table-hover">
                                             <tr>
-                                                <th class="col-6"><label for="attribute_value[]"><?php echo $attribute_value->name; ?></label></th>
-                                                <td class="col-6"><input type="checkbox" name="attribute_value[]" value="<?php echo $attribute_value->id; ?>"></td>
+                                                <th class="col-6"><label
+                                                            for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
+                                                </th>
+                                                <td class="col-6"><input type="checkbox" name="attribute_value[]"
+                                                                         value="<?php echo $attribute_value->id; ?>">
+                                                </td>
                                             </tr>
                                         </table>
                                     <?php endforeach; ?>
                                 </div>
+
+                                <?php endif; ?>
                             </div>
-                        <?php
-                        $y++;
+                            <?php
+                            $y++;
                         endforeach; ?>
                         <input type="submit" name="submit" value="Add Product"
                                class="btn btn-primary mb-5 float-right">
@@ -165,7 +191,6 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
-
 
 
 <?php include("includes/footer.php"); ?>

@@ -103,6 +103,7 @@ class Photo extends Db_object
             }
 
             $target_path = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->filename;
+            $target_path2 = SITE_ROOT . DS . $this->upload_directory . DS . $this->filename;
 
             if (file_exists($target_path)) {
                 $this->errors[] = "File {$this->filename} exists!";
@@ -117,6 +118,21 @@ class Photo extends Db_object
                 $this->errors[] = "This folder has no rights!";
                 return false;
             }
+
+            if (file_exists($target_path2)) {
+                $this->errors[] = "File {$this->filename} exists!";
+                return false;
+            }
+            if (move_uploaded_file($this->tmp_path, $target_path2)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+            } else {
+                $this->errors[] = "This folder has no rights!";
+                return false;
+            }
+
         }
     }
 
@@ -129,7 +145,9 @@ class Photo extends Db_object
     {
         if ($this->delete()) {
             $target_path = SITE_ROOT . DS . 'admin' . DS . $this->picture_path();
+            $target_path2 = SITE_ROOT . DS . $this->picture_path();
             return unlink($target_path) ? true : false;
+            return unlink($target_path2) ? true : false;
         } else {
             return false;
         }

@@ -2,9 +2,9 @@
 
 <?php
 
-if (!$session->is_signed_in()){
+if (!$session->is_signed_in()) {
     redirect('login');
-} elseif (empty(Admin::check_admin_exist($_SESSION['username']))){
+} elseif (empty(Admin::check_admin_exist($_SESSION['username']))) {
     redirect("../access_denied");
 }
 
@@ -36,25 +36,23 @@ if (isset($_POST['submit'])) {
     Photo::set_files_product($_FILES['file'], $product->id);
 
 
+    foreach ($specific_products as $specific_product) {
+        $specific_product->delete();
+    }
+    if (isset($_POST['attribute_value'])) {
+        $all_values = count($_POST['attribute_value']);
+        var_dump($all_values);
+        for ($i = 0; $i < $all_values; $i++) {
+            $specific_product = new Specific_product();
+            $specific_product->attribute_id = trim($_POST['attribute'][$i]);
+            $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
+            $specific_product->product_id = $product->id;
+            $specific_product->save();
+        }
+    }
 
 
-     foreach ($specific_products as $specific_product){
-          $specific_product->delete();
-      }
-      if (isset($_POST['attribute_value'])){
-          $all_values = count($_POST['attribute_value']);
-          var_dump($all_values);
-          for ($i = 0; $i < $all_values; $i++) {
-              $specific_product = new Specific_product();
-              $specific_product->attribute_id = trim($_POST['attribute'][$i]);
-              $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
-              $specific_product->product_id = $product->id;
-              $specific_product->save();
-          }
-      }
-
-
-     redirect("products");
+    redirect("products");
 
 }
 ?>
@@ -93,13 +91,15 @@ if (isset($_POST['submit'])) {
 
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="number" name="stock" class="form-control" value="<?php echo $product->stock; ?>">
+                            <input type="number" name="stock" class="form-control"
+                                   value="<?php echo $product->stock; ?>">
                         </div>
 
                         <div class="form-group">
                             <label for="category">Select category</label>
                             <select name="category" class="form-control">
-                                <option value="<?php echo $category->id ?>" style='background: #cfe3f1'><?php echo $category->name; ?></option>
+                                <option value="<?php echo $category->id ?>"
+                                        style='background: #cfe3f1'><?php echo $category->name; ?></option>
                                 <?php foreach ($categories as $category_option) : ?>
                                     <option value="<?php echo $category_option->id; ?>"><?php echo $category_option->name; ?></option>
                                 <?php endforeach; ?>
@@ -128,66 +128,82 @@ if (isset($_POST['submit'])) {
                             $y = 0;
                             usort($attributes, array("Attributes", "order_by_name"));
                             foreach ($attributes
+
                                      as $attribute) :
                                 $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
                                 ?>
                                 <div class="form-group">
-                                    <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
-                                    </label>
-                                    <input type="checkbox"
-                                           value="<?php echo $attribute->id; ?>"
-                                           name="attribute[]"
-                                        <?php
-                                           if ($specific_attribute) {
-                                            echo "checked";
-                                        }
-                                        ?> data-toggle="collapse" data-target="#collapse<?php echo $y; ?>"">
-                                    <div
-                                            class="
+                                <?php if ($attribute->name === "Text"): ?>
+                                <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
+                                </label>
+                                <input type="checkbox"
+                                       value="<?php echo $attribute->id; ?>"
+                                       name="attribute[]"
+                                    <?php
+                                    if ($specific_attribute) {
+                                        echo "checked";
+                                    }
+                                    ?> >
+
+                            <?php else: ?>
+
+                                <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
+                                </label>
+                                <input type="checkbox"
+                                       value="<?php echo $attribute->id; ?>"
+                                       name="attribute[]"
+                                    <?php
+                                    if ($specific_attribute) {
+                                        echo "checked";
+                                    }
+                                    ?> data-toggle="collapse" data-target="#collapse<?php echo $y; ?>"">
+                                <div
+                                        class="
                                             row
                                             values
                                             collapse
                                              <?php
-                                            if ($specific_attribute) {
-                                                echo "show";
-                                            }
-                                            ?>
+                                        if ($specific_attribute) {
+                                            echo "show";
+                                        }
+                                        ?>
                                             "
-                                            id="collapse<?php echo $y; ?>">
-                                        <?php
-                                        $attribute_values = Attribute_values::find_the_key($attribute->id);
-                                        usort($attribute_values, array("Attribute_values", "order_by_name"));
+                                        id="collapse<?php echo $y; ?>">
+                                    <?php
+                                    $attribute_values = Attribute_values::find_the_key($attribute->id);
+                                    usort($attribute_values, array("Attribute_values", "order_by_name"));
 
-                                        foreach ($attribute_values
+                                    foreach ($attribute_values
 
-                                                 as $attribute_value) :
-                                            $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
-                                            ?>
-                                            <table class="table table-hover">
-                                                <tr>
-                                                    <th class="col-6"><label
-                                                                for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
-                                                    </th>
-                                                    <td class="col-6">
-                                                        <input
-                                                                type="checkbox"
-                                                                name="attribute_value[]"
-                                                                value="<?php echo $attribute_value->id; ?>"
-                                                            <?php
+                                             as $attribute_value) :
+                                        $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
+                                        ?>
+                                        <table class="table table-hover">
+                                            <tr>
+                                                <th class="col-6"><label
+                                                            for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
+                                                </th>
+                                                <td class="col-6">
+                                                    <input
+                                                            type="checkbox"
+                                                            name="attribute_value[]"
+                                                            value="<?php echo $attribute_value->id; ?>"
+                                                        <?php
 
-                                                            if ($specific_attribute_value) {
-                                                                echo "checked";
-                                                            }
-                                                            ?>
-                                                        >
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        <?php endforeach; ?>
-                                    </div>
+                                                        if ($specific_attribute_value) {
+                                                            echo "checked";
+                                                        }
+                                                        ?>
+                                                    >
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    <?php endforeach; ?>
+                                </div>
                                 </div>
                                 <?php
                                 $y++;
+                            endif;
                             endforeach; ?>
                         </div>
 

@@ -25,16 +25,12 @@ class Product extends Db_object
 
 
 
-    /**Locatie van de afbeelding**/
+
     public function image_path_and_placeholder()
     {
         return empty($this->product_placeholder) ? $this->image_placeholder : $this->upload_directory . DS . $this->product_placeholder;
     }
 
-    /**Locatie van afbeeldingen voor front-end**/
-    public function image_path_and_placeholder_front(){
-        return empty($this->product_placeholder) ? $this->image_placeholder : 'admin' . DS . $this->upload_directory . DS . $this->product_placeholder;
-    }
 
 
     /**Methods uit Photo() class**/
@@ -70,6 +66,7 @@ class Product extends Db_object
             }
 
             $target_path = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->product_placeholder;
+            $target_path2 = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->product_placeholder;
 
             if (file_exists($target_path)) {
                 $this->errors[] = "File {$this->product_placeholder} exists!";
@@ -84,12 +81,27 @@ class Product extends Db_object
                 $this->errors[] = "This folder has no rights!";
                 return false;
             }
+
+            if (file_exists($target_path2)) {
+                $this->errors[] = "File {$this->product_placeholder} exists!";
+                return false;
+            }
+            if (move_uploaded_file($this->tmp_path, $target_path2)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+            } else {
+                $this->errors[] = "This folder has no rights!";
+                return false;
+            }
         }
     }
 
     public function save_image()
     {
         $target_path = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->product_placeholder;
+        $target_path2 = SITE_ROOT . DS . $this->upload_directory . DS . $this->product_placeholder;
 
         if ($this->id){
             move_uploaded_file($this->tmp_path,$target_path);
@@ -114,13 +126,40 @@ class Product extends Db_object
                 return false;
             }
         }
+
+        if ($this->id){
+            move_uploaded_file($this->tmp_path,$target_path2);
+            $this->update();
+            unset($this->tmp_path);
+            return true;
+        }else{
+            if (!empty($this->errors)){
+                return false;
+            }
+            if (empty($this->user_image) || empty($this->tmp_path)){
+                $this->errors[] = "File not available";
+                return false;
+            }
+            if (move_uploaded_file($this->tmp_path, $target_path2)){
+                if ($this->create()){
+                    unset($this->tmp_path);
+                    return true;
+                }
+            } else{
+                $this->errors[] = "This folder has no write rights!";
+                return false;
+            }
+        }
+
     }
 
     public function delete_product()
     {
         if ($this->delete()) {
             $target_path = SITE_ROOT . DS . 'admin' . DS . $this->image_path_and_placeholder();
+            $target_path2 = SITE_ROOT .  DS . $this->image_path_and_placeholder();
             return unlink($target_path) ? true : false;
+            return unlink($target_path2) ? true : false;
         } else {
             return false;
         }
