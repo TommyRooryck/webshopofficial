@@ -213,8 +213,8 @@ if (isset($_POST['submit'])) {
                                 $photos = Photo::find_the_key($product->id);
                                 foreach ($photos as $photo) :
                                     ?>
-                                    <div class="col-lg-3 col-6 text-center">
-                                        <img src="<?php echo $photo->picture_path(); ?>" class="p-3 img-fluid" alt="">
+                                    <div class="col-lg-4 col-md-4 col-6 text-center">
+                                        <img src="<?php echo $photo->picture_path(); ?>" class="p-3 img-fluid preview-img" alt="">
                                         <a onclick=""
                                            href="delete_Photo_Product.php?id=<?php echo $photo->id; ?>&product=<?php echo $product->id; ?>"><i
                                                     class="far fa-trash-alt fa-lg"></i></a>

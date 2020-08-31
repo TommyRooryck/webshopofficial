@@ -1,3 +1,7 @@
+/**CLASSES**/
+
+
+
 /*BEGIN NAVBAR*/
 #navbar-main > div > a > img{
     height: 5rem;
@@ -121,6 +125,10 @@ body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container
 
 
 
+/******MEDIA QUERIES*******/
+
+
+/**IPAD**/
 @media (min-width: 768px) {
     /*BEGIN DROPDOWNS*/
     .dropdown-item{
@@ -134,5 +142,35 @@ body > div > div.header.bg-gradient-primary.py-7.py-lg-8.pt-lg-9 > div.container
     }
     /*END DROPDOWNS*/
 
+    /*START PREVIEW IMAGE*/
+    .preview-img{
+        height: 200px;
+    }
+    /*END PREVIEW IMAGE*/
 }
+
+@media only screen and (max-width: 991px) and (min-width: 768px) {
+
+}
+
+@media (max-width: 1023px) {
+
+}
+
+
+/**IPAD PRO**/
+@media (min-width: 1024px) {
+    /*START PREVIEW IMAGE*/
+    .preview-img{
+        height: 150px;
+    }
+    /*END PREVIEW IMAGE*/
+
+}
+
+@media (min-width: 1700px) {
+
+
+}
+
 

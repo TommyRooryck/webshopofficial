@@ -79,10 +79,6 @@
                             <span class="nav-link-text">Customers</span>
                         </a>
                     </li>
-
-
-
-
                 </ul>
             </div>
         </div>
