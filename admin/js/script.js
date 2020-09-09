@@ -88,9 +88,6 @@ $(function () {
     })
 })
 
-/**META TAGS HIDE**/
-$("[name='author']").remove()
-$("[name='description']").remove()
 
 
 /**IMAGE PREVIEW FUNCTIONS**/
@@ -147,6 +144,7 @@ $(document).ready(function () {
     })
 
 })
+
 
 
 

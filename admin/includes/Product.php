@@ -200,9 +200,10 @@ class Specific_product extends Db_object
     public $attribute_id;
     public $attribute_values_id;
     public $product_id;
+    public $quantity;
 
     protected static $db_table = "specific_product";
-    protected static $db_table_fields = array('attribute_id','attribute_values_id', 'product_id');
+    protected static $db_table_fields = array('attribute_id','attribute_values_id', 'product_id', 'quantity');
     protected static $foreign_column = 'product_id';
 
 

@@ -39,6 +39,9 @@ if (isset($_POST['submit'])) {
         $all_values = count($_POST['attribute_value']);
         $all_attributes = array();
         $all_attributes = $_POST['attribute'];
+        $all_color_quantity= array();
+        $all_color_quantity = array_filter($_POST['color_quantity']);
+        $all_color_quantity = array_values($all_color_quantity);
 
         for ($i = 0; $i < $all_values; $i++) {
             $specific_product = new Specific_product();
@@ -48,7 +51,17 @@ if (isset($_POST['submit'])) {
             }
             $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
             $specific_product->product_id = $product->id;
+
+            if (array_key_exists($i,$all_color_quantity)) {
+                $specific_product->quantity = $all_color_quantity[$i];
+            }
+
+
+
+
             $specific_product->save();
+
+
 
         }
     }
@@ -151,6 +164,36 @@ if (isset($_POST['submit'])) {
 
                                 <?php else: ?>
 
+                                <?php if ($attribute->name == "Kleur"): ?>
+                                        <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
+                                        </label>
+                                        <input type="checkbox"
+                                               value="<?php echo $attribute->id; ?>"
+                                               name="attribute[]" data-toggle="collapse"
+                                               data-target="#collapse<?php echo $y; ?>"">
+                                        <div class="row values collapse" id="collapse<?php echo $y; ?>">
+                                            <?php
+                                            $attribute_values = Attribute_values::find_the_key($attribute->id);
+                                            usort($attribute_values, array("Attribute_values", "order_by_name"));
+                                            foreach ($attribute_values
+
+                                                     as $attribute_value) :
+                                                ?>
+                                                <table class="table table-hover">
+                                                    <tr>
+                                                        <th class="col-4"><label
+                                                                    for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
+                                                        </th>
+                                                        <td class="col-4"><input type="number" min="0" name="color_quantity[]"></td>
+                                                        <td class="col-4"><input type="checkbox" name="attribute_value[]"
+                                                                                 value="<?php echo $attribute_value->id; ?>">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            <?php endforeach; ?>
+                                        </div>
+                                <?php else: ?>
+
                                 <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
                                 </label>
                                 <input type="checkbox"
@@ -177,6 +220,7 @@ if (isset($_POST['submit'])) {
                                         </table>
                                     <?php endforeach; ?>
                                 </div>
+                                <?php endif; ?>
 
                                 <?php endif; ?>
                             </div>

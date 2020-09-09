@@ -22,14 +22,16 @@ if (isset($_POST['submit_login'])) {
                 setcookie("customer_password", $password, time() + (86400 * 30), "/");
             } else {
                 if (isset($_COOKIE['customer_username'])) {
-                    unset($_COOKIE['customer_username']);
+                    setcookie("customer_username","");
                 }
                 if (isset($_COOKIE['customer_password'])) {
-                    unset($_COOKIE['customer_password']);
+                    setcookie("customer_password","");
                 }
             }
             $session->login($customer);
             redirect("index");
+        } else{
+            $msg = "Uw gebruikersnaam en/of wachtwoord zijn ongeldig";
         }
     } elseif (Admin::find_by_username($username)) {
         $admin = Admin::find_by_username($username);
@@ -41,17 +43,19 @@ if (isset($_POST['submit_login'])) {
                 setcookie("customer_password", $password, time() + (86400 * 30), "/");
             } else {
                 if (isset($_COOKIE['customer_username'])) {
-                    unset($_COOKIE['customer_username']);
+                    setcookie("customer_username","");
                 }
                 if (isset($_COOKIE['customer_password'])) {
-                    unset($_COOKIE['customer_password']);
+                    setcookie("customer_password","");
                 }
             }
             $session->login($admin);
             redirect("admin/index");
+        } else{
+            $msg = "Uw gebruikersnaam en/of wachtwoord zijn ongeldig";
         }
     } else {
-        $msg = "Uw gebruikersnaam en wachtwoorden komen niet overeen";
+        $msg = "Geen gebruiker gevonden";
     }
 
 } else {
@@ -84,7 +88,7 @@ if (isset($_POST['submit_register'])) {
         include("templates/mail/registration_email.php");
 
     } else {
-        $message = "Username is already taken!";
+        $message = "Gebruikersnaam is al in gebruik!";
     }
 } else {
     $email_register = "";

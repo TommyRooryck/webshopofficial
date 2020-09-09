@@ -129,23 +129,23 @@ if (isset($_POST['submit'])) {
                             usort($attributes, array("Attributes", "order_by_name"));
                             foreach ($attributes
 
-                                     as $attribute) :
-                                $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
-                                ?>
-                                <div class="form-group">
+                            as $attribute) :
+                            $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
+                            ?>
+                            <div class="form-group">
                                 <?php if ($attribute->name === "Text"): ?>
-                                <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
-                                </label>
-                                <input type="checkbox"
-                                       value="<?php echo $attribute->id; ?>"
-                                       name="attribute[]"
-                                    <?php
-                                    if ($specific_attribute) {
-                                        echo "checked";
-                                    }
-                                    ?> >
+                                    <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
+                                    </label>
+                                    <input type="checkbox"
+                                           value="<?php echo $attribute->id; ?>"
+                                           name="attribute[]"
+                                        <?php
+                                        if ($specific_attribute) {
+                                            echo "checked";
+                                        }
+                                        ?> >
 
-                            <?php else: ?>
+                                <?php else: ?>
 
                                 <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
                                 </label>
@@ -175,36 +175,72 @@ if (isset($_POST['submit'])) {
 
                                     foreach ($attribute_values
 
-                                             as $attribute_value) :
-                                        $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
-                                        ?>
-                                        <table class="table table-hover">
-                                            <tr>
-                                                <th class="col-6"><label
-                                                            for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
-                                                </th>
-                                                <td class="col-6">
-                                                    <input
-                                                            type="checkbox"
-                                                            name="attribute_value[]"
-                                                            value="<?php echo $attribute_value->id; ?>"
-                                                        <?php
+                                    as $attribute_value) :
+                                    $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
 
-                                                        if ($specific_attribute_value) {
-                                                            echo "checked";
-                                                        }
-                                                        ?>
-                                                    >
-                                                </td>
-                                            </tr>
-                                        </table>
+                                    ?>
+                                    <?php if ($attribute->name === "Kleur") : ?>
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th class="col-4"><label
+                                                        for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
+                                            </th>
+                                            <td class="col-4">
+                                                <?php if ($specific_attribute_value): ?>
+                                                <?php foreach ($specific_attribute_value as $specific_product) :?>
+                                                        <input type="number" min="0"
+                                                               value="<?php
+                                                               echo $specific_product->quantity;  ?>" >
+                                                <?php endforeach; ?>
+                                                <?php else: ?>
+                                                    <input type="number" min="0" name="color_quantity">
+                                                <?php endif; ?>
+                                            </td>
+
+                                            <td class="col-4">
+                                                <input
+                                                        type="checkbox"
+                                                        name="attribute_value[]"
+                                                        value="<?php echo $attribute_value->id; ?>"
+                                                    <?php
+
+                                                    if ($specific_attribute_value) {
+                                                        echo "checked";
+                                                    }
+                                                    ?>
+                                                >
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <?php else: ?>
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th class="col-6"><label
+                                                        for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
+                                            </th>
+                                            <td class="col-6">
+                                                <input
+                                                        type="checkbox"
+                                                        name="attribute_value[]"
+                                                        value="<?php echo $attribute_value->id; ?>"
+                                                    <?php
+
+                                                    if ($specific_attribute_value) {
+                                                        echo "checked";
+                                                    }
+                                                    ?>
+                                                >
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <?php endif; ?>
                                     <?php endforeach; ?>
                                 </div>
-                                </div>
-                                <?php
-                                $y++;
-                            endif;
-                            endforeach; ?>
+                            </div>
+                        <?php
+                        $y++;
+                        endif;
+                        endforeach; ?>
                         </div>
 
                         <div class="row">
@@ -214,7 +250,8 @@ if (isset($_POST['submit'])) {
                                 foreach ($photos as $photo) :
                                     ?>
                                     <div class="col-lg-4 col-md-4 col-6 text-center">
-                                        <img src="<?php echo $photo->picture_path(); ?>" class="p-3 img-fluid preview-img" alt="">
+                                        <img src="<?php echo $photo->picture_path(); ?>"
+                                             class="p-3 img-fluid preview-img" alt="">
                                         <a onclick=""
                                            href="delete_Photo_Product.php?id=<?php echo $photo->id; ?>&product=<?php echo $product->id; ?>"><i
                                                     class="far fa-trash-alt fa-lg"></i></a>
