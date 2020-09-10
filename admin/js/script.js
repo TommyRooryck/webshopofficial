@@ -97,6 +97,7 @@ $(function () {
     var imagesPreview = function (input, placeToInsertImagePreview) {
 
         if (input.files) {
+            $(".gallery").html("");
             var filesAmount = input.files.length;
 
             for (o = 0; o < filesAmount; o++) {
@@ -111,6 +112,7 @@ $(function () {
         }
 
     };
+
 
     $('#gallery-photo-add').on('change', function () {
         $(".gallery").append(imagesPreview(this, 'div.gallery'));
