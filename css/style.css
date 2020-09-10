@@ -338,6 +338,10 @@ footer{
 .product_details h1{
     color: #FF53C2 !important;
 }
+
+.img-gallery{
+    height: 50px;
+}
 /**PRODUCT DETAILS**/
 
 /**CART PAGE**/

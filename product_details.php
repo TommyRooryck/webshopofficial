@@ -2,6 +2,7 @@
 include("includes/header.php");
 
 $product_id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
+$photos = Photo::find_the_key($product_id);
 
 if (Product::find_by_id($product_id)) {
     $product = Product::find_by_id($product_id);
@@ -92,22 +93,33 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="col-lg-6 m-auto">
                     <div class="col-12 text-center">
-                        <img class="img-fluid product-details-image"
+                        <img id="placeholder" class="img-fluid product-details-image"
                              src="<?php echo $product->image_path_and_placeholder(); ?>" alt="">
+                        <img id="expandedImg" class="img-fluid product-details-image">
                     </div>
                     <div class="col-12">
-                        <div class="col-lg-6 m-auto">
-                            Description: <br>
-                            <?php
-                            if ($product->description) {
-                                echo $product->description;
-                            } else {
-                                echo "No description available";
-                            }
-                            ?>
+                        <div class="row m-auto">
+                            <div class="col-12 d-flex justify-content-center">
+                            <?php foreach ($photos as $photo) : ?>
+                            <div class="col-lg-1">
+                                <img class="img-gallery" onclick="myFunction(this);" src=" <?php echo $photo->picture_path();?>" alt="">
+                            </div>
+                            <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 m-auto">
+                                Description: <br>
+                                <?php
+                                if ($product->description) {
+                                    echo $product->description;
+                                } else {
+                                    echo "No description available";
+                                }
+                                ?>
+                            </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-lg-4 text-center pt-6 m-auto">
                     <h1><?php echo $product->name; ?></h1>

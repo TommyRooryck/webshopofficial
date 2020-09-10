@@ -66,5 +66,16 @@ $(document).ready(function () {
 
 })
 
-/** MOLLIE API **/
+/** PRODUCT DETAILS  **/
+function myFunction(imgs) {
+    let expandImg = document.getElementById("expandedImg");
+    let imgText = document.getElementById("imgtext");
+    let placeholder = document.getElementById("placeholder");
+
+    placeholder.style.display ="none";
+    expandImg.src = imgs.src;
+    imgText.innerHTML = imgs.alt;
+    expandImg.parentElement.style.display = "block";
+}
+
 
