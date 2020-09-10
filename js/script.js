@@ -67,14 +67,14 @@ $(document).ready(function () {
 })
 
 /** PRODUCT DETAILS  **/
-function myFunction(imgs) {
+function expand_img(img) {
     let expandImg = document.getElementById("expandedImg");
     let imgText = document.getElementById("imgtext");
     let placeholder = document.getElementById("placeholder");
 
     placeholder.style.display ="none";
-    expandImg.src = imgs.src;
-    imgText.innerHTML = imgs.alt;
+    expandImg.src = img.src;
+    imgText.innerHTML = img.alt;
     expandImg.parentElement.style.display = "block";
 }
 

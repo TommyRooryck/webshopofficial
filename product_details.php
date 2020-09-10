@@ -99,13 +99,13 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-12">
                         <div class="row m-auto">
-                            <div class="col-12 d-flex justify-content-center">
-                                <div class="col-lg-1">
-                                    <img class="img-gallery" onclick="myFunction(this);" src=" <?php echo $product->image_path_and_placeholder();?>" alt="">
+                            <div class="col-12 d-flex justify-content-lg-center flex-wrap">
+                                <div class="col-4 col-lg-1">
+                                    <img class="img-gallery" onclick="expand_img(this);" src=" <?php echo $product->image_path_and_placeholder();?>" alt="">
                                 </div>
                             <?php foreach ($photos as $photo) : ?>
-                            <div class="col-lg-1">
-                                <img class="img-gallery" onclick="myFunction(this);" src=" <?php echo $photo->picture_path();?>" alt="">
+                            <div class="col-4 col-lg-1">
+                                <img class="img-gallery" onclick="expand_img(this);" src=" <?php echo $photo->picture_path();?>" alt="">
                             </div>
                             <?php endforeach; ?>
                             </div>
