@@ -1,5 +1,6 @@
 <?php include("includes/header.php"); ?>
-
+<?php include("includes/sidebar.php"); ?>
+<?php include("includes/content_top.php"); ?>
 <?php
 
 if (!$session->is_signed_in()) {
@@ -23,42 +24,129 @@ $specific_products = Specific_product::find_the_key($product->id);
 
 
 if (isset($_POST['submit'])) {
-    $product->name = trim($_POST['name']);
-    $product->description = trim($_POST['desc']);
-    $product->price = trim($_POST['price']);
-    $product->stock = trim($_POST['stock']);
-    $product->created_at = date("Y/m/d");
-    $product->category_id = trim($_POST['category']);
-    $product->sub_category_id = trim($_POST['sub']);
-    var_dump($product->set_file($_FILES['placeholder']));
-    $product->save_image();
-    $product->save();
-    Photo::set_files_product($_FILES['file'], $product->id);
+
+    $all_color_quantity= array();
+    $all_color_quantity = array_filter($_POST['color_quantity']);
+    $all_color_quantity = array_values($all_color_quantity);
+    if (array_sum($all_color_quantity) == trim($_POST['stock'])){
+        $product->name = trim($_POST['name']);
+        $product->description = trim($_POST['desc']);
+        $product->price = trim($_POST['price']);
+        $product->stock = trim($_POST['stock']);
+        $product->created_at = date("Y/m/d");
+        $product->category_id = trim($_POST['category']);
+        $product->sub_category_id = trim($_POST['sub']);
+        $product->save_image();
+        $product->save();
+        Photo::set_files_product($_FILES['file'], $product->id);
 
 
-    foreach ($specific_products as $specific_product) {
-        $specific_product->delete();
-    }
-    if (isset($_POST['attribute_value'])) {
-        $all_values = count($_POST['attribute_value']);
-        var_dump($all_values);
-        for ($i = 0; $i < $all_values; $i++) {
-            $specific_product = new Specific_product();
-            $specific_product->attribute_id = trim($_POST['attribute'][$i]);
-            $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
-            $specific_product->product_id = $product->id;
-            $specific_product->save();
+        foreach ($specific_products as $specific_product) {
+            $specific_product->delete();
         }
+
+        if (isset($_POST['attribute_value'])) {
+            $all_values = count($_POST['attribute_value']);
+            $all_attributes = array();
+            $all_attributes = $_POST['attribute'];
+
+            for ($i = 0; $i < $all_values; $i++) {
+                $specific_product = new Specific_product();
+
+                if (array_key_exists($i,$all_attributes)) {
+                    $specific_product->attribute_id = trim($_POST['attribute'][$i]);
+                }
+                $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
+                $specific_product->product_id = $product->id;
+
+                if (array_key_exists($i,$all_color_quantity)) {
+                    $specific_product->quantity = $all_color_quantity[$i];
+                }
+
+                $specific_product->save();
+            }
+        }
+
+        echo "
+         <div class='row align-content-center justify-content-center w-100 mt-5 mx-auto'>
+             <div class='col-lg-6'>
+                <div class='alert alert-success alert-dismissible fade show text-center' role='alert'>
+                    <strong>Products successfully edited!</strong>
+                    <button type='button' class='close mt-lg-3' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                     </button>
+                </div>
+            </div>
+        </div>
+        ";
+    } elseif (empty($all_color_quantity)){
+        $product->name = trim($_POST['name']);
+        $product->description = trim($_POST['desc']);
+        $product->price = trim($_POST['price']);
+        $product->stock = trim($_POST['stock']);
+        $product->created_at = date("Y/m/d");
+        $product->category_id = trim($_POST['category']);
+        $product->sub_category_id = trim($_POST['sub']);
+        $product->set_file($_FILES['placeholder']);
+        $product->create_image();
+        $product->save();
+        Photo::set_files_product($_FILES['file'], $product->id);
+
+
+        if (isset($_POST['attribute_value'])) {
+            $all_values = count($_POST['attribute_value']);
+            $all_attributes = array();
+            $all_attributes = $_POST['attribute'];
+
+            for ($i = 0; $i < $all_values; $i++) {
+                $specific_product = new Specific_product();
+
+                if (array_key_exists($i,$all_attributes)) {
+                    $specific_product->attribute_id = trim($_POST['attribute'][$i]);
+                }
+                $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
+                $specific_product->product_id = $product->id;
+
+                if (array_key_exists($i,$all_color_quantity)) {
+                    $specific_product->quantity = $all_color_quantity[$i];
+                }
+
+                $specific_product->save();
+            }
+        }
+
+        echo "
+         <div class='row align-content-center justify-content-center w-100 mt-5 mx-auto'>
+             <div class='col-lg-6'>
+                <div class='alert alert-success alert-dismissible fade show text-center' role='alert'>
+                    <strong>Products successfully edited!</strong>
+                    <button type='button' class='close mt-lg-3' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                     </button>
+                </div>
+            </div>
+        </div>
+        ";
+    } else{
+        echo "
+         <div class='row align-content-center justify-content-center w-100 mt-5 mx-auto'>
+             <div class='col-lg-6'>
+                <div class='alert alert-danger alert-dismissible fade show text-center' role='alert'>
+                    <strong>Color quantity does not match total product quantity!</strong>
+                    <button type='button' class='close mt-lg-3' data-dismiss='alert' aria-label='Close'>
+                        <span aria-hidden='true'>&times;</span>
+                     </button>
+                </div>
+            </div>
+        </div>
+        ";
     }
-
-
-    redirect("products");
+//    redirect("products");
 
 }
 ?>
 
-<?php include("includes/sidebar.php"); ?>
-<?php include("includes/content_top.php"); ?>
+
 
 <div class="container-fluid">
     <div class="row">
@@ -188,12 +276,12 @@ if (isset($_POST['submit'])) {
                                             <td class="col-4">
                                                 <?php if ($specific_attribute_value): ?>
                                                 <?php foreach ($specific_attribute_value as $specific_product) :?>
-                                                        <input type="number" min="0"
+                                                        <input type="number" name="color_quantity[]" min="0"
                                                                value="<?php
                                                                echo $specific_product->quantity;  ?>" >
                                                 <?php endforeach; ?>
                                                 <?php else: ?>
-                                                    <input type="number" min="0" name="color_quantity">
+                                                    <input type="number" min="0" name="color_quantity[]">
                                                 <?php endif; ?>
                                             </td>
 

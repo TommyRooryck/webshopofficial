@@ -197,7 +197,7 @@ if (isset($_POST['submit'])) {
                                                 <div class="col-12 d-flex align-items-center">
                                                     <div class="col-lg-4 text-center">
                                                         <img class="img-fluid"
-                                                             src="<?php echo $product->image_path_and_placeholder_front(); ?>"
+                                                             src="<?php echo $product->image_path_and_placeholder(); ?>"
                                                              style="height: 100px;" alt="">
                                                     </div>
                                                     <div class="col-lg-6">

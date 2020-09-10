@@ -3,17 +3,17 @@ include("includes/header.php");
 
 $product_id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
 
-if (Product::find_by_id($product_id)){
+if (Product::find_by_id($product_id)) {
     $product = Product::find_by_id($product_id);
     $specific_products = Specific_product::find_the_key($product->id);
-} else{
+} else {
     redirect('shop');
 }
 
 if (isset($_POST['submit'])) {
 
 
-    if (isset($_POST['text'])){
+    if (isset($_POST['text'])) {
         $text_attribute = Attributes::find_by('name', 'Text');
         $text = htmlspecialchars(trim($_POST['text']), ENT_QUOTES, 'UTF-8');
         $new_attribute_value = new Attribute_values();
@@ -28,11 +28,11 @@ if (isset($_POST['submit'])) {
     $y = 0;
     $safe_array = array();
 
-    foreach ($_POST['attribute_value'] as $value){
+    foreach ($_POST['attribute_value'] as $value) {
         $safe_value = htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
-        if (Attribute_values::find_by('id', $safe_value)){
+        if (Attribute_values::find_by('id', $safe_value)) {
             array_push($safe_array, $safe_value);
-        } else{
+        } else {
             redirect('shop');
         }
     }
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
     $total_safe_attributes = count($safe_array);
 
 
-    if ($total_attributes == $total_safe_attributes){
+    if ($total_attributes == $total_safe_attributes) {
         if (!isset($_SESSION["cart"])) {
             $_SESSION["cart"] = array();
         }
@@ -51,11 +51,9 @@ if (isset($_POST['submit'])) {
             $_SESSION["cart"][] = $order_product;
             $y++;
         }
-    } else{
+    } else {
         redirect('shop');
     }
-
-
 
 
     if ($y == $_POST['quantity']) {
@@ -94,15 +92,16 @@ if (isset($_POST['submit'])) {
             <div class="row">
                 <div class="col-lg-6 m-auto">
                     <div class="col-12 text-center">
-                        <img class="img-fluid product-details-image" src="<?php echo $product->image_path_and_placeholder(); ?>" alt="">
+                        <img class="img-fluid product-details-image"
+                             src="<?php echo $product->image_path_and_placeholder(); ?>" alt="">
                     </div>
                     <div class="col-12">
                         <div class="col-lg-6 m-auto">
                             Description: <br>
                             <?php
-                            if ($product->description){
+                            if ($product->description) {
                                 echo $product->description;
-                            } else{
+                            } else {
                                 echo "No description available";
                             }
                             ?>
@@ -112,7 +111,7 @@ if (isset($_POST['submit'])) {
                 </div>
                 <div class="col-lg-4 text-center pt-6 m-auto">
                     <h1><?php echo $product->name; ?></h1>
-                    <h3>€<?php echo $product->price; ?></h3>
+                    <h3>€<?php echo number_format($product->price, 2) ?></h3>
                     <form action="" method="post">
                         <table class="table table-hover">
                             <?php
@@ -134,39 +133,61 @@ if (isset($_POST['submit'])) {
 
                             foreach ($specific_attributes as $specific_attribute):
                                 ?>
-
-
-
-                                    <?php if ($specific_attribute->name == 'Text') : ?>
+                                <?php if ($specific_attribute->name == 'Text') : ?>
                                 <tr>
                                     <th><?php echo $specific_attribute->name; ?></th>
                                     <td>
                                         <textarea name="text" class="form-control" cols="30" rows="10"></textarea>
                                     </td>
                                 </tr>
-                                    <?php else: ?>
+                            <?php else: ?>
                                 <tr>
-                                    <th><?php echo $specific_attribute->name; ?></th>
+                                <th><?php echo $specific_attribute->name; ?></th>
+                                <?php if ($specific_attribute->name === "Kleur"): ?>
                                     <td>
                                         <select name="attribute_value[]" class="form-control" id="">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
-                                                <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id) {
-                                                    echo "<option value=\"$specific_attributes_value->id\">" . $specific_attributes_value->name . "</option>";
-                                                } ?>
+                                                <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
+                                                  <?php  $specific_products = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id); ?>
+                                                    <option <?php foreach ($specific_products as $specific_product) {if ($specific_product->quantity == 0){echo "disabled";}} ?>
+                                                            value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
+                                                <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
-                                </tr>
-                                    <?php endif; ?>
-
+                                <?php else: ?>
+                                    <td>
+                                        <select name="attribute_value[]" class="form-control" id="">
+                                            <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
+                                                <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
+                                                    $specific_product = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id);
+                                                    <option <?php ?>
+                                                            value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
+                                    </tr>
+                                <?php endif; ?>
+                            <?php endif; ?>
                             <?php endforeach; ?>
                             <tr>
                                 <th><label for="quantity">Quantity</label></th>
-                                <td><input type="number" name="quantity" class="form-control" min="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" max="<?php echo $product->stock; ?>" value="<?php if ($product->stock > 0){echo "1";} else{echo "0";} ?>" ></td>
+                                <td><input type="number" name="quantity" class="form-control"
+                                           min="<?php if ($product->stock > 0) {
+                                               echo "1";
+                                           } else {
+                                               echo "0";
+                                           } ?>" max="<?php echo $product->stock; ?>"
+                                           value="<?php if ($product->stock > 0) {
+                                               echo "1";
+                                           } else {
+                                               echo "0";
+                                           } ?>"></td>
                             </tr>
                         </table>
                         <?php if ($product->stock > 0): ?>
-                        <input type="submit" class="btn btn-primary float-right" name="submit" value="Add To Cart">
+                            <input type="submit" class="btn btn-primary float-right" name="submit" value="Add To Cart">
                         <?php else: ?>
                             <div class='alert alert-warning alert-dismissible fade show text-center' role='alert'>
                                 <strong>Sorry, product is out of stock</strong>

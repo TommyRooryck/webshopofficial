@@ -22,6 +22,7 @@ if (isset($_COOKIE["{$official_cookie_name}"])){
         $customer = Customer::find_by_id($order->customer_id);
 
 
+
         $order_products = Order_products::find_the_key($order->id);
         $payment = $payment = $mollie->payments->get($order->payment_id);
 
@@ -48,6 +49,20 @@ if (isset($_COOKIE["{$official_cookie_name}"])){
                 $total_stock = $product->stock - 1;
                 $product->stock = $total_stock;
                 $product->save();
+                foreach ($all_product as $values) {
+                    foreach ($values as $value) {
+                        $attribute_value = Attribute_values::find_by_id($value);
+                        $attribute = Attributes::find_by_id($attribute_value->attribute_id);
+
+                        if ($attribute->name === "Kleur"){
+                            $specific_products = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product_id);
+                            foreach ($specific_products as $specific_product){
+                                $specific_product->quantity = $specific_product->quantity - 1;
+                                $specific_product->save();
+                            }
+                        }
+                    }
+                }
             }
             include ("templates/mail/order_confirmation_mail.php");
         }

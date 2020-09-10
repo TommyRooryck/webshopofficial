@@ -347,9 +347,9 @@ if (isset($_POST['submit'])) {
 
                                     <td>
                                         <?php
-                                        echo "€" . $product->price;
+                                        echo "€" . number_format($product->price,2);
 
-                                        $total_price += $product->price + 0;
+                                        $total_price += $product->price;
 
                                         ?></td>
                                 </tr>
@@ -387,9 +387,9 @@ if (isset($_POST['submit'])) {
                                             echo $_SESSION['shipping_country'];
                                         }?>
                                     </td>
-                                    <td><?php echo "€" . $price; ?></td>
+                                    <td><?php echo "€" . number_format($price,2); ?></td>
                                     <?php
-                                    $total_price += $price + 0.00;
+                                    $total_price += $price;
                                 endif;
                             endif;
                             ?>
@@ -399,7 +399,7 @@ if (isset($_POST['submit'])) {
                                 <th colspan="2" class="text-right">Total Price:</th>
                                 <td>
                                     <?php
-                                    echo "<b>" . "€" . $total_price . "</b>";
+                                    echo "<b>" . "€" . number_format($total_price,2) . "</b>";
                                     ?>
                                 </td>
                             </tr>

@@ -90,8 +90,8 @@ if (isset($_SESSION["cart"])) :
                             </td>
                             <td>
                                 <?php
-                                echo "€" . $product->price;
-                                $total_price += $product->price + 0;
+                                echo "€" . number_format($product->price,2);
+                                $total_price += $product->price;
                                 ?>
 
                             </td>
@@ -173,9 +173,9 @@ if (isset($_SESSION["cart"])) :
                                         <input type="submit" name="update" class="btn btn-success mt-2" value="Update">
                                     </form>
                                 </td>
-                                <td><?php echo "€" . $price; ?></td>
+                                <td><?php echo "€" . number_format($price,2); ?></td>
                                 <?php
-                                $total_price += $price + 0.00;
+                                $total_price += $price;
                             endif;
                             ?>
 
@@ -203,7 +203,7 @@ if (isset($_SESSION["cart"])) :
                     <tr>
                         <th colspan="2" class="text-right">Total Price:</th>
                         <td>
-                            <?php echo "<b>" . "€" . $total_price . "</b>"; ?>
+                            <?php echo "<b>" . "€" . number_format($total_price,2) . "</b>"; ?>
                         </td>
                     </tr>
                 </table>

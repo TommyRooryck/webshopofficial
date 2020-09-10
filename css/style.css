@@ -71,10 +71,9 @@ a{
     font-family: roboto_bold;
 }
 
-
-
-
-
+footer{
+    height: 50px;
+}
 
 /**CLASSES**/
 .mb-50{
@@ -404,6 +403,10 @@ a{
 /**IPAD PRO**/
 @media (min-width: 1024px) {
 
+    footer{
+        height: 100px;
+    }
+
     /*NAV*/
     .dropdown-menu{
         background:#fdfefe;
@@ -442,6 +445,10 @@ a{
 }
 
 @media (min-width: 1700px) {
+    footer{
+        height: 150px;
+    }
+
     /**CLASSES**/
     .pt-6{
         padding-top: 5rem;

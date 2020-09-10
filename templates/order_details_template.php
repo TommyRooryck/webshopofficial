@@ -130,8 +130,8 @@ if (isset($order->customer_id)) {
                         </td>
                         <td>
                             <?php
-                            echo "€" . $product->price;
-                            $total_price += $product->price + 0;
+                            echo "€" .number_format($product->price,2);
+                            $total_price += $product->price;
                             ?>
 
                         </td>
@@ -168,9 +168,9 @@ if (isset($order->customer_id)) {
                             ?>
                             <td colspan="2"> Shipping Price: <br>
                                 Zone: <?php echo $order->shipping_country ?></td>
-                            <td><?php echo "€" . $price; ?></td>
+                            <td><?php echo "€" . number_format($price,2); ?></td>
                             <?php
-                            $total_price += $price + 0.00;
+                            $total_price += $price;
                         endif;
                     endif;
                     ?>
@@ -178,7 +178,7 @@ if (isset($order->customer_id)) {
                 <tr>
                     <th colspan="2" class="text-right">Total Price:</th>
                     <td>
-                        <?php echo "<b>" . "€" . $total_price . "</b>"; ?>
+                        <?php echo "<b>" . "€" . number_format($total_price,2) . "</b>"; ?>
                     </td>
                 </tr>
             </table>

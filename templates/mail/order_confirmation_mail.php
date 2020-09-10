@@ -77,9 +77,11 @@ foreach ($all_products as $all_product){
     $message .= "
     </td>
     <td>
-    €$product->price;
+    €
     ";
-    $total_price += $product->price + 0;
+
+    $message .=  number_format($product->price,2);
+    $total_price += $product->price;
 
     $message .= "
     </td>
@@ -114,8 +116,10 @@ if ($customer && $customer->shipping_country || isset($_SESSION['shipping_countr
 
     if ($zone_key !== false){
         $price = $price_array[$zone_key];
-        $message .= "<td colspan='2'> Shipping Price: <br> Zone: $order->shipping_country </td> <td>€$price</td>";
-        $total_price += $price + 0.00;
+        $message .= "<td colspan='2'> Shipping Price: <br> Zone: $order->shipping_country </td> <td>€ ";
+        $message .= number_format($price,2);
+        $message .= "</td>";
+        $total_price += $price;
     }
 }
 
@@ -123,7 +127,12 @@ $message .= "
 </tr>
 <tr>
 <th colspan='2' class='text-right'>Total Price:</th>
-<td><b>€$total_price</b></td>
+<td><b>€";
+
+$message .= number_format($total_price,2);
+
+$message .= "
+</b></td>
 </tr>
 </body>
 </html>
