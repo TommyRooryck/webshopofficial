@@ -21,7 +21,6 @@ $(document).ready(function () {
 
     $(window).scroll(function () {
 
-        console.log($(window).scrollTop());
         if ($(window).scrollTop() > 200) {
             $('#nav').addClass('fixed-top');
             $('#nav').removeClass('my-3');
@@ -80,6 +79,16 @@ $(document).ready(function () {
         }
     })
 
+    $("#product_information").click(function (){
+        let arrow = $("#Arrow");
+        if (arrow.hasClass("fa-arrow-down")){
+            arrow.removeClass("fa-arrow-down");
+            arrow.addClass("fa-arrow-right");
+        } else {
+            arrow.removeClass("fa-arrow-right");
+            arrow.addClass("fa-arrow-down");
+        }
+    })
 
 })
 
@@ -106,7 +115,6 @@ window.onload = function default_value() {
     if (document.getElementById('font-selector')) {
         let selector = document.getElementById('font-selector');
         let text = document.getElementById('custom-text');
-        console.log(selector.value);
         selector.style.fontFamily = selector.value;
         text.style.fontFamily = selector.value;
 

@@ -6,7 +6,6 @@ $photos = Photo::find_the_key($product_id);
 $first = true;
 
 
-
 if (Product::find_by_id($product_id)) {
     $product = Product::find_by_id($product_id);
     $specific_products = Specific_product::find_the_key($product->id);
@@ -102,36 +101,26 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-12">
                         <div class="row m-auto">
-                            <div class="col-12 d-flex justify-content-lg-center flex-wrap pt-3">
-                                <div class="col-4 col-lg-1">
-                                    <img class="img-gallery" onclick="expand_img(this);" src=" <?php echo $product->image_path_and_placeholder();?>" alt="">
+                            <div class="col-12 d-flex justify-content-md-center flex-wrap pt-3">
+                                <div class="col-4 col-md-2 col-lg-1">
+                                    <img class="img-gallery" onclick="expand_img(this);"
+                                         src=" <?php echo $product->image_path_and_placeholder(); ?>" alt="">
                                 </div>
-                            <?php foreach ($photos as $photo) : ?>
-                            <div class="col-4 col-lg-1">
-                                <img class="img-gallery" onclick="expand_img(this);" src=" <?php echo $photo->picture_path();?>" alt="">
-                            </div>
-                            <?php endforeach; ?>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6 m-auto">
-                                Description: <br>
-                                <?php
-                                if ($product->description) {
-                                    echo $product->description;
-                                } else {
-                                    echo "No description available";
-                                }
-                                ?>
+                                <?php foreach ($photos as $photo) : ?>
+                                    <div class="col-4 col-md-2 col-lg-1">
+                                        <img class="img-gallery" onclick="expand_img(this);"
+                                             src=" <?php echo $photo->picture_path(); ?>" alt="">
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 text-center pt-6 m-auto">
+                <div class="col-lg-4 text-center text-lg-left pt-6 m-auto">
                     <h1><?php echo $product->name; ?></h1>
                     <h3>€<?php echo number_format($product->price, 2) ?></h3>
                     <form action="" method="post">
-                        <table class="table table-hover">
+                        <table class="table table-hover table-borderless">
                             <?php
 
                             $specific_attributes_values = array();
@@ -155,7 +144,9 @@ if (isset($_POST['submit'])) {
                                 <tr>
                                     <th><?php echo $specific_attribute->name; ?></th>
                                     <td>
-                                        <textarea name="text" id="custom-text" class="form-control" cols="30" rows="10"></textarea>
+                                        <textarea name="text" id="custom-text" class="form-control col-md-6 col-lg-10"
+                                                  cols="30"
+                                                  rows="10"></textarea>
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -166,27 +157,37 @@ if (isset($_POST['submit'])) {
                                         <select name="attribute_value[]" class="form-control" id="">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
-                                                  <?php  $specific_products = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id); ?>
-                                                    <option <?php foreach ($specific_products as $specific_product) {if ($specific_product->quantity == 0){echo "disabled";}} ?>
+                                                    <?php $specific_products = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id); ?>
+                                                    <option <?php foreach ($specific_products as $specific_product) {
+                                                        if ($specific_product->quantity == 0) {
+                                                            echo "disabled";
+                                                        }
+                                                    } ?>
                                                             value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
-                                <?php elseif($specific_attribute->name === "Lettertype") : ?>
+                                <?php elseif ($specific_attribute->name === "Lettertype") : ?>
                                     <td>
-                                        <select  name="attribute_value[]" id="font-selector" class="custom-select"  onchange="change_font(this);">
+                                        <select name="attribute_value[]" id="font-selector"
+                                                class="custom-select col-md-6 col-lg-10 float-md-left"
+                                                onchange="change_font(this);">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
-                                                    <option <?php if ($first){echo "selected"; $first=false;} ?> style="font-family: <?php echo $specific_attributes_value->name; ?>; font-size: 1rem;" <?php ?>
-                                                           name="<?php echo $specific_attributes_value->name; ?>" value="<?php echo $specific_attributes_value->name ?>" > <?php echo $specific_attributes_value->name ?></option>
+                                                    <option <?php if ($first) {
+                                                        echo "selected";
+                                                        $first = false;
+                                                    } ?> style="font-family: <?php echo $specific_attributes_value->name; ?>; font-size: 1rem;" <?php ?>
+                                                         name="<?php echo $specific_attributes_value->name; ?>"
+                                                         value="<?php echo $specific_attributes_value->name ?>"> <?php echo $specific_attributes_value->name ?></option>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
                                 <?php else: ?>
                                     <td>
-                                        <select name="attribute_value[]" class="form-control" id="">
+                                        <select name="attribute_value[]" class="form-control col-md-6 col-lg-10" id="">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
                                                     <option <?php ?>
@@ -201,17 +202,18 @@ if (isset($_POST['submit'])) {
                             <?php endforeach; ?>
                             <tr>
                                 <th><label for="quantity">Hoeveelheid</label></th>
-                                <td><input type="number" name="quantity" class="form-control"
-                                           min="<?php if ($product->stock > 0) {
-                                               echo "1";
-                                           } else {
-                                               echo "0";
-                                           } ?>" max="<?php echo $product->stock; ?>"
-                                           value="<?php if ($product->stock > 0) {
-                                               echo "1";
-                                           } else {
-                                               echo "0";
-                                           } ?>"></td>
+                                <td class="text-center"><input type="number" name="quantity"
+                                                               class="form-control col-6  col-md-3 col-lg-2 text-center"
+                                                               min="<?php if ($product->stock > 0) {
+                                                                   echo "1";
+                                                               } else {
+                                                                   echo "0";
+                                                               } ?>" max="<?php echo $product->stock; ?>"
+                                                               value="<?php if ($product->stock > 0) {
+                                                                   echo "1";
+                                                               } else {
+                                                                   echo "0";
+                                                               } ?>"></td>
                             </tr>
                         </table>
                         <?php if ($product->stock > 0): ?>
@@ -225,13 +227,54 @@ if (isset($_POST['submit'])) {
                             </div>
                         <?php endif; ?>
                     </form>
+                    <div class="row d-none d-lg-block pt-5">
+                        <div class="col-lg-12 pt-3">
+                            <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
+                                    type="button" data-toggle="collapse" data-target="#collapseExample"
+                                    aria-expanded="false" aria-controls="collapseExample">
+                                <h4>Omschrijving</h4><span><i id="Arrow" class="fas fa-arrow-down"></i></span>
+                            </button>
+                            <div class="collapse show border-0" id="collapseExample">
+                                <div class="card card-body border-0">
+                                    <?php
+                                    if ($product->description) {
+                                        echo $product->description;
+                                    } else {
+                                        echo "No description available";
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row d-lg-none pt-5">
+                    <div class="col-lg-4 offset-lg-2">
+                        <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
+                                type="button" data-toggle="collapse" data-target="#collapseExample"
+                                aria-expanded="false" aria-controls="collapseExample">
+                            <h4>Omschrijving</h4><span><i id="Arrow" class="fas fa-arrow-down"></i></span>
+                        </button>
+                        <div class="collapse show border-0" id="collapseExample">
+                            <div class="card card-body border-0">
+                                <?php
+                                if ($product->description) {
+                                    echo $product->description;
+                                } else {
+                                    echo "No description available";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+
 
 </main>
-
 
 
 <?php include("includes/footer.php"); ?>
