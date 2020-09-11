@@ -121,6 +121,16 @@ window.onload = function default_value() {
         text.style.fontFamily = selector.value;
 
     }
+
+    if (document.getElementById('colors')){
+        let colors = document.getElementById('colors');
+        let total_quantity =  colors.options[colors.selectedIndex].getAttribute("name");
+        let quantity_selector = document.getElementById("quantity")
+
+        console.log(total_quantity)
+        quantity_selector.setAttribute("max", total_quantity);
+        console.log(total_quantity);
+    }
 }
 
 function edit_color_quantity(quantity){
@@ -133,18 +143,6 @@ function edit_color_quantity(quantity){
     console.log(total_quantity);
 }
 
-window.onload = function default_color_quantity(){
-    if (document.getElementById('colors')){
-        let colors = document.getElementById('colors');
-        let total_quantity =  colors.options[colors.selectedIndex].getAttribute("name");
-        let quantity_selector = document.getElementById("quantity")
-
-        console.log(total_quantity)
-        quantity_selector.setAttribute("max", total_quantity);
-        console.log(total_quantity);
-    }
-
-}
 
 
 /**BACK TO TOP**/
