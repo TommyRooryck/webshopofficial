@@ -58,6 +58,51 @@
     src: url("../fonts/Roboto-BlackItalic.ttf");
 }
 
+@font-face {
+    font-family: Charline;
+    src: url("../fonts/Charline.otf");
+}
+
+@font-face {
+    font-family: Comic Sans;
+    src: url("../fonts/comicsansms3.ttf");
+}
+
+@font-face {
+    font-family: Impact;
+    src: url("../fonts/impact.ttf");
+}
+
+@font-face {
+    font-family: Lucida Handwriting;
+    src: url("../fonts/lucida-handwriting.ttf");
+}
+
+@font-face {
+    font-family: Magical Duo;
+    src: url("../fonts/300812-magical-duo-font.otf");
+}
+
+@font-face {
+    font-family: Matte Brush;
+    src: url("../fonts/matte-brush.ttf");
+}
+
+@font-face {
+    font-family: Moonchild;
+    src: url("../fonts/Moonchild.otf");
+}
+
+@font-face {
+    font-family: PN Boogie Woogie;
+    src:url("../fonts/314922-pn-boogie-woogie.otf");
+}
+
+@font-face {
+    font-family: ZP Watcha Doing;
+    src: url("../fonts/ZP-Watcha-Doing.otf");
+}
+
 *{
     padding: 0;
     margin: 0;
@@ -111,6 +156,14 @@ footer{
 .active-pagination-link{
     color: #000000;
     text-decoration: underline;
+}
+
+.custom-select{
+    position: relative;
+}
+
+.custom-select select{
+    display: none;
 }
 
 /**END CLASSES**/
@@ -350,6 +403,23 @@ footer{
 
 /**END CART PAGE**/
 
+/**BACK TO TOP**/
+#BackToTop{
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    outline: none;
+    background: #7a1036;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#BackToTop:hover{
+    color: #808080;
+}
+
 
 /******MEDIA QUERIES*******/
 
@@ -409,6 +479,7 @@ footer{
 /**IPAD PRO**/
 @media (min-width: 1024px) {
 
+
     footer{
         height: 100px;
     }
@@ -446,6 +517,10 @@ footer{
     /*PRODUCT_DETAILS*/
     .product-details-image{
         height: 600px;
+    }
+
+    .placeholder-column{
+        max-height: 600px;
     }
     /*END PRODUCT_DETAILS*/
 }

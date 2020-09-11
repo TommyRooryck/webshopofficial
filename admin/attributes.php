@@ -90,6 +90,7 @@ if (isset($_POST['add_attribute'])) {
                 <?php
                 usort($attributes, array("Attributes", "order_by_name"));
                 foreach ($attributes as $attribute) : ?>
+                <?php if ($attribute->name != "Tekst") : ?>
                     <tr>
                         <td ><?php echo $attribute->id; ?></td>
                         <td ><?php echo $attribute->name; ?></td>
@@ -111,6 +112,7 @@ if (isset($_POST['add_attribute'])) {
                                class="btn btn-danger rounded-0"><i
                                         class="fas fa-trash-alt"></i></a></td>
                     </tr>
+                    <?php endif; ?>
                 <?php endforeach; ?>
                 </tbody>
 

@@ -1,12 +1,11 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <footer>
-
-            </footer>
-        </div>
-    </div>
+<div class="row">
+    <button onclick="topFunction()" id="BackToTop" title="Go to top" class="btn">
+        <i class="fas fa-level-up-alt"></i>
+    </button>
 </div>
+<footer>
+
+</footer>
 
 
 <script src="node_modules/jquery/dist/jquery.min.js"></script>

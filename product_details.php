@@ -3,6 +3,9 @@ include("includes/header.php");
 
 $product_id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
 $photos = Photo::find_the_key($product_id);
+$first = true;
+
+
 
 if (Product::find_by_id($product_id)) {
     $product = Product::find_by_id($product_id);
@@ -92,14 +95,14 @@ if (isset($_POST['submit'])) {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6 m-auto">
-                    <div class="col-12 text-center">
+                    <div class="col-12 text-center placeholder-column">
                         <img id="placeholder" class="img-fluid product-details-image"
                              src="<?php echo $product->image_path_and_placeholder(); ?>" alt="">
                         <img id="expandedImg" class="img-fluid product-details-image">
                     </div>
                     <div class="col-12">
                         <div class="row m-auto">
-                            <div class="col-12 d-flex justify-content-lg-center flex-wrap">
+                            <div class="col-12 d-flex justify-content-lg-center flex-wrap pt-3">
                                 <div class="col-4 col-lg-1">
                                     <img class="img-gallery" onclick="expand_img(this);" src=" <?php echo $product->image_path_and_placeholder();?>" alt="">
                                 </div>
@@ -148,11 +151,11 @@ if (isset($_POST['submit'])) {
 
                             foreach ($specific_attributes as $specific_attribute):
                                 ?>
-                                <?php if ($specific_attribute->name == 'Text') : ?>
+                                <?php if ($specific_attribute->name == 'Tekst') : ?>
                                 <tr>
                                     <th><?php echo $specific_attribute->name; ?></th>
                                     <td>
-                                        <textarea name="text" class="form-control" cols="30" rows="10"></textarea>
+                                        <textarea name="text" id="custom-text" class="form-control" cols="30" rows="10"></textarea>
                                     </td>
                                 </tr>
                             <?php else: ?>
@@ -170,12 +173,22 @@ if (isset($_POST['submit'])) {
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
+                                <?php elseif($specific_attribute->name === "Lettertype") : ?>
+                                    <td>
+                                        <select  name="attribute_value[]" id="font-selector" class="custom-select"  onchange="change_font(this);">
+                                            <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
+                                                <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
+                                                    <option <?php if ($first){echo "selected"; $first=false;} ?> style="font-family: <?php echo $specific_attributes_value->name; ?>; font-size: 1rem;" <?php ?>
+                                                           name="<?php echo $specific_attributes_value->name; ?>" value="<?php echo $specific_attributes_value->name ?>" > <?php echo $specific_attributes_value->name ?></option>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </td>
                                 <?php else: ?>
                                     <td>
                                         <select name="attribute_value[]" class="form-control" id="">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
-                                                    $specific_product = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id);
                                                     <option <?php ?>
                                                             value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
                                                 <?php endif; ?>
@@ -187,7 +200,7 @@ if (isset($_POST['submit'])) {
                             <?php endif; ?>
                             <?php endforeach; ?>
                             <tr>
-                                <th><label for="quantity">Quantity</label></th>
+                                <th><label for="quantity">Hoeveelheid</label></th>
                                 <td><input type="number" name="quantity" class="form-control"
                                            min="<?php if ($product->stock > 0) {
                                                echo "1";
@@ -218,6 +231,7 @@ if (isset($_POST['submit'])) {
     </div>
 
 </main>
+
 
 
 <?php include("includes/footer.php"); ?>

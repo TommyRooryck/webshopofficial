@@ -46,7 +46,7 @@ $super_categories = Super_category::find_all();
             <?php endif; ?>
         </div>
     </div>
-    <div class="row w-100 mx-auto bg-main-color justify-content-end justify-content-md-center my-3">
+    <div class="row w-100 mx-auto bg-main-color justify-content-end justify-content-md-center my-3" id="nav">
         <nav class="navbar navbar-expand-lg navbar-light justify-content-end justify-content-md-center">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
