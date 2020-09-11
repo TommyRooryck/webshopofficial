@@ -4,6 +4,7 @@ include("includes/header.php");
 $product_id = htmlspecialchars($_GET['id'], ENT_QUOTES, 'UTF-8');
 $photos = Photo::find_the_key($product_id);
 $first = true;
+$second = true;
 
 
 if (Product::find_by_id($product_id)) {
@@ -37,9 +38,7 @@ if (isset($_POST['submit'])) {
         if (Attribute_values::find_by('name', $safe_value)) {
             array_push($safe_array, $safe_value);
         } else {
-//            redirect('shop');
-            var_dump($value);
-            var_dump($safe_array);
+            redirect('shop');
         }
     }
 
@@ -58,7 +57,7 @@ if (isset($_POST['submit'])) {
             $y++;
         }
     } else {
-      //  redirect('shop');
+        //  redirect('shop');
     }
 
 
@@ -155,9 +154,11 @@ if (isset($_POST['submit'])) {
                             <?php else: ?>
                                 <tr>
                                 <th><?php echo $specific_attribute->name; ?></th>
-                                <?php if ($specific_attribute->name === "Kleur"): ?>
+                                <?php
+                                if ($specific_attribute->name === "Kleur"): ?>
                                     <td>
-                                        <select name="attribute_value[]" class="form-control" id="">
+                                        <select name="attribute_value[]" class="form-control" onchange="edit_color_quantity(this)" id="colors">
+                                            <?php $color_quantity = array(); ?>
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
                                                     <?php $specific_products = Specific_product::find_specific_product_attribute_value($specific_attributes_value->id, $product_id); ?>
@@ -166,8 +167,10 @@ if (isset($_POST['submit'])) {
                                                             echo "disabled";
                                                         }
                                                     } ?>
-                                                            value="<?php echo $specific_attributes_value->name ?>"> <?php echo $specific_attributes_value->name ?></option>
+                                                           <?php if ($second){echo "selected"; $second = false;} ?> name="<?php echo $specific_product->quantity; ?>" value="<?php echo $specific_attributes_value->name; ?>"> <?php echo $specific_attributes_value->name; ?></option>
+
                                                 <?php endif; ?>
+                                            <?php $color_quantity[$specific_attributes_value->name] = $specific_product->quantity; ?>
                                             <?php endforeach; ?>
                                         </select>
                                     </td>
@@ -204,19 +207,27 @@ if (isset($_POST['submit'])) {
                             <?php endif; ?>
                             <?php endforeach; ?>
                             <tr>
-                                <th><label for="quantity">Hoeveelheid</label></th>
-                                <td class="text-center"><input type="number" name="quantity"
+                                <th>
+                                    <label for="quantity">Hoeveelheid</label> <br>
+                                </th>
+                                <td class="text-center d-flex justify-content-around">
+                                    <input type="number" id="quantity" name="quantity"
                                                                class="form-control col-6  col-md-3 col-lg-4 text-center"
                                                                min="<?php if ($product->stock > 0) {
                                                                    echo "1";
                                                                } else {
                                                                    echo "0";
-                                                               } ?>" max="<?php echo $product->stock; ?>"
+                                                               } ?>"
                                                                value="<?php if ($product->stock > 0) {
                                                                    echo "1";
                                                                } else {
                                                                    echo "0";
-                                                               } ?>"></td>
+                                                               } ?>"
+                                                               max="<?php if (!isset($color_quantity)){echo $product->stock; } ?>"
+                                                                >
+
+                                    <small class="text-muted pt-3">Max hoeveelheid is afhankelijk van onze stock!</small>
+                                </td>
                             </tr>
                         </table>
                         <?php if ($product->stock > 0): ?>
@@ -235,7 +246,7 @@ if (isset($_POST['submit'])) {
                             <button class="btn d-flex justify-content-between w-100 border-bottom product_information_button"
                                     type="button" data-toggle="collapse" data-target="#collapseExample"
                                     aria-expanded="false" aria-controls="collapseExample">
-                                <h4>Omschrijving</h4><span><i  class="Arrow fas fa-arrow-down"></i></span>
+                                <h4>Omschrijving</h4><span><i class="Arrow fas fa-arrow-down"></i></span>
                             </button>
                             <div class="collapse show border-0" id="collapseExample">
                                 <div class="card card-body border-0">
@@ -258,7 +269,7 @@ if (isset($_POST['submit'])) {
                     <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
                             type="button" data-toggle="collapse" data-target="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample">
-                        <h4>Omschrijving</h4><span><i  class="Arrow fas fa-arrow-down"></i></span>
+                        <h4>Omschrijving</h4><span><i class="Arrow fas fa-arrow-down"></i></span>
                     </button>
                     <div class="collapse show border-0" id="collapseExample">
                         <div class="card card-body border-0">
