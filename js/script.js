@@ -79,8 +79,8 @@ $(document).ready(function () {
         }
     })
 
-    $("#product_information").click(function (){
-        let arrow = $("#Arrow");
+    $(".product_information_button").click(function (){
+        let arrow = $(".Arrow");
         if (arrow.hasClass("fa-arrow-down")){
             arrow.removeClass("fa-arrow-down");
             arrow.addClass("fa-arrow-right");

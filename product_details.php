@@ -117,8 +117,8 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="col-lg-4 text-center text-lg-left pt-6 m-auto">
-                    <h1><?php echo $product->name; ?></h1>
-                    <h3>€<?php echo number_format($product->price, 2) ?></h3>
+                    <h2><?php echo $product->name; ?></h2>
+                    <h5>€<?php echo number_format($product->price, 2) ?></h5>
                     <form action="" method="post">
                         <table class="table table-hover table-borderless">
                             <?php
@@ -203,7 +203,7 @@ if (isset($_POST['submit'])) {
                             <tr>
                                 <th><label for="quantity">Hoeveelheid</label></th>
                                 <td class="text-center"><input type="number" name="quantity"
-                                                               class="form-control col-6  col-md-3 col-lg-2 text-center"
+                                                               class="form-control col-6  col-md-3 col-lg-4 text-center"
                                                                min="<?php if ($product->stock > 0) {
                                                                    echo "1";
                                                                } else {
@@ -229,10 +229,10 @@ if (isset($_POST['submit'])) {
                     </form>
                     <div class="row d-none d-lg-block pt-5">
                         <div class="col-lg-12 pt-3">
-                            <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
+                            <button class="btn d-flex justify-content-between w-100 border-bottom product_information_button"
                                     type="button" data-toggle="collapse" data-target="#collapseExample"
                                     aria-expanded="false" aria-controls="collapseExample">
-                                <h4>Omschrijving</h4><span><i id="Arrow" class="fas fa-arrow-down"></i></span>
+                                <h4>Omschrijving</h4><span><i  class="Arrow fas fa-arrow-down"></i></span>
                             </button>
                             <div class="collapse show border-0" id="collapseExample">
                                 <div class="card card-body border-0">
@@ -248,32 +248,28 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>
                 </div>
+            </div>
 
-
-
-                <div class="row d-lg-none pt-5">
-                    <div class="col-lg-4 offset-lg-2">
-                        <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
-                                type="button" data-toggle="collapse" data-target="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample">
-                            <h4>Omschrijving</h4><span><i id="Arrow" class="fas fa-arrow-down"></i></span>
-                        </button>
-                        <div class="collapse show border-0" id="collapseExample">
-                            <div class="card card-body border-0">
-                                <?php
-                                if ($product->description) {
-                                    echo $product->description;
-                                } else {
-                                    echo "No description available";
-                                }
-                                ?>
-                            </div>
+            <div class="row d-lg-none pt-5">
+                <div class="col-lg-4 offset-lg-2">
+                    <button class="btn d-flex justify-content-between w-100 border-bottom product_information_button"
+                            type="button" data-toggle="collapse" data-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">
+                        <h4>Omschrijving</h4><span><i  class="Arrow fas fa-arrow-down"></i></span>
+                    </button>
+                    <div class="collapse show border-0" id="collapseExample">
+                        <div class="card card-body border-0">
+                            <?php
+                            if ($product->description) {
+                                echo $product->description;
+                            } else {
+                                echo "No description available";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
             </div>
-
-
 </main>
 
 
