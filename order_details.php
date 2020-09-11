@@ -51,7 +51,7 @@ if (isset($_COOKIE["{$official_cookie_name}"])){
                 $product->save();
                 foreach ($all_product as $values) {
                     foreach ($values as $value) {
-                        $attribute_value = Attribute_values::find_by_id($value);
+                        $attribute_value = Attribute_values::find_by('name', $value);
                         $attribute = Attributes::find_by_id($attribute_value->attribute_id);
 
                         if ($attribute->name === "Kleur"){

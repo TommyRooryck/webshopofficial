@@ -117,7 +117,7 @@ if (isset($order->customer_id)) {
                             echo $product->name . "<br>";
                             foreach ($all_product as $values) {
                                 foreach ($values as $value) {
-                                    $attribute_value = Attribute_values::find_by_id($value);
+                                    $attribute_value = Attribute_values::find_by('name', $value);
                                     $attribute = Attributes::find_by_id($attribute_value->attribute_id);
 
                                     echo $attribute->name . " : " . $attribute_value->name . "<br>";
@@ -185,5 +185,6 @@ if (isset($order->customer_id)) {
         </div>
     </div>
 </div>
+
 
 

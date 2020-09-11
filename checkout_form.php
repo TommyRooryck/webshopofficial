@@ -81,7 +81,7 @@ if (isset($_POST['submit'])) {
 
                     $order_products->order_id = $order->id;
                     $order_products->product_id = $product_id;
-                    $attribute_value = Attribute_values::find_by_id($value);
+                    $attribute_value = Attribute_values::find_by('name', $value);
                     $attribute = Attributes::find_by_id($attribute_value->attribute_id);
 
                     $order_products->attribute_id = $attribute->id;
@@ -331,13 +331,13 @@ if (isset($_POST['submit'])) {
                                 <tr>
                                     <td colspan="2">
                                         <?php
-                                        echo $product->name . "<br>";
+                                        echo "<h5>" . $product->name . "</h5>" . "<br>";
                                         foreach ($cart_product as $values) {
                                             foreach ($values as $value) {
-                                                $attribute_value = Attribute_values::find_by_id($value);
+                                                $attribute_value = Attribute_values::find_by('name',$value);
                                                 $attribute = Attributes::find_by_id($attribute_value->attribute_id);
 
-                                                echo $attribute->name . " : " . $attribute_value->name . "<br>";
+                                                echo "<b>" . $attribute->name . "</b>" . " : " . $attribute_value->name . "<br>";
                                             }
 
                                             echo "<br>";

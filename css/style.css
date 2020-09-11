@@ -158,14 +158,6 @@ footer{
     text-decoration: underline;
 }
 
-.custom-select{
-    position: relative;
-}
-
-.custom-select select{
-    display: none;
-}
-
 .btn:focus{
     box-shadow: none; !important;
 }

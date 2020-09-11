@@ -17,14 +17,14 @@ if (isset($_POST['submit'])) {
 
 
     if (isset($_POST['text'])) {
-        $text_attribute = Attributes::find_by('name', 'Text');
+        $text_attribute = Attributes::find_by('name', 'Tekst');
         $text = htmlspecialchars(trim($_POST['text']), ENT_QUOTES, 'UTF-8');
         $new_attribute_value = new Attribute_values();
         $new_attribute_value->name = $text;
         $new_attribute_value->attribute_id = $text_attribute->id;
         $new_attribute_value->save();
 
-        array_push($_POST['attribute_value'], $new_attribute_value->id);
+        array_push($_POST['attribute_value'], $new_attribute_value->name);
     }
 
     $quantity = $_POST['quantity'];
@@ -33,10 +33,13 @@ if (isset($_POST['submit'])) {
 
     foreach ($_POST['attribute_value'] as $value) {
         $safe_value = htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
-        if (Attribute_values::find_by('id', $safe_value)) {
+        $safe_value = strtolower($safe_value);
+        if (Attribute_values::find_by('name', $safe_value)) {
             array_push($safe_array, $safe_value);
         } else {
-            redirect('shop');
+//            redirect('shop');
+            var_dump($value);
+            var_dump($safe_array);
         }
     }
 
@@ -55,7 +58,7 @@ if (isset($_POST['submit'])) {
             $y++;
         }
     } else {
-        redirect('shop');
+      //  redirect('shop');
     }
 
 
@@ -163,7 +166,7 @@ if (isset($_POST['submit'])) {
                                                             echo "disabled";
                                                         }
                                                     } ?>
-                                                            value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
+                                                            value="<?php echo $specific_attributes_value->name ?>"> <?php echo $specific_attributes_value->name ?></option>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
@@ -171,7 +174,7 @@ if (isset($_POST['submit'])) {
                                 <?php elseif ($specific_attribute->name === "Lettertype") : ?>
                                     <td>
                                         <select name="attribute_value[]" id="font-selector"
-                                                class="custom-select col-md-6 col-lg-10 float-md-left"
+                                                class=" form-control col-md-6 col-lg-10 float-md-left"
                                                 onchange="change_font(this);">
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
@@ -191,7 +194,7 @@ if (isset($_POST['submit'])) {
                                             <?php foreach ($specific_attributes_values as $specific_attributes_value) : ?>
                                                 <?php if ($specific_attributes_value->attribute_id === $specific_attribute->id): ?>
                                                     <option <?php ?>
-                                                            value="<?php echo $specific_attributes_value->id ?>"> <?php echo $specific_attributes_value->name ?></option>
+                                                            value="<?php echo $specific_attributes_value->name ?>"> <?php echo $specific_attributes_value->name ?></option>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
                                         </select>
@@ -252,7 +255,7 @@ if (isset($_POST['submit'])) {
 
             <div class="row d-lg-none pt-5">
                 <div class="col-lg-4 offset-lg-2">
-                    <button class="btn d-flex justify-content-between w-100 border-bottom product_information_button"
+                    <button class="btn d-flex justify-content-between w-100 border-bottom" id="product_information"
                             type="button" data-toggle="collapse" data-target="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample">
                         <h4>Omschrijving</h4><span><i  class="Arrow fas fa-arrow-down"></i></span>

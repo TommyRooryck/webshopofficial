@@ -55,7 +55,7 @@ if (isset($_SESSION["cart"])) :
 
     <div class="container pt-5">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
+            <div class="col-lg-8">
                 <table class="table table-hover">
                     <tr>
                         <th>Product</th>
@@ -74,13 +74,13 @@ if (isset($_SESSION["cart"])) :
                         <tr>
                             <td>
                                 <?php
-                                echo $product->name . "<br>";
+                                echo "<h5>" . $product->name . "</h5>" . "<br>";
                                 foreach ($cart_product as $values) {
                                     foreach ($values as $value) {
-                                        $attribute_value = Attribute_values::find_by_id($value);
+                                        $attribute_value = Attribute_values::find_by('name',$value);
                                         $attribute = Attributes::find_by_id($attribute_value->attribute_id);
 
-                                        echo $attribute->name . " : " . $attribute_value->name . "<br>";
+                                        echo "<b>" . $attribute->name . "</b>" . " : " . $attribute_value->name . "<br>";
                                     }
 
 
