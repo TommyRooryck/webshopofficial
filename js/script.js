@@ -94,24 +94,6 @@ $(document).ready(function () {
 
 })
 
-/** PRODUCT DETAILS  **/
-function expand_img(img) {
-    let expandImg = document.getElementById("expandedImg");
-    let imgText = document.getElementById("imgtext");
-    let placeholder = document.getElementById("placeholder");
-
-    placeholder.style.display = "none";
-    expandImg.src = img.src;
-    imgText.innerHTML = img.alt;
-    expandImg.parentElement.style.display = "block";
-}
-
-
-function change_font(font) {
-    document.getElementById("font-selector").style.fontFamily = font.value;
-    let text = document.getElementById('custom-text');
-    text.style.fontFamily = font.value;
-}
 
 window.onload = function default_value() {
     if (document.getElementById('font-selector')) {
@@ -132,6 +114,27 @@ window.onload = function default_value() {
         console.log(total_quantity);
     }
 }
+
+/** PRODUCT DETAILS  **/
+function expand_img(img) {
+    let expandImg = document.getElementById("expandedImg");
+    let imgText = document.getElementById("imgtext");
+    let placeholder = document.getElementById("placeholder");
+
+    placeholder.style.display = "none";
+    expandImg.src = img.src;
+    imgText.innerHTML = img.alt;
+    expandImg.parentElement.style.display = "block";
+}
+
+
+function change_font(font) {
+    document.getElementById("font-selector").style.fontFamily = font.value;
+    let text = document.getElementById('custom-text');
+    text.style.fontFamily = font.value;
+}
+
+
 
 function edit_color_quantity(quantity){
     let total_quantity =  quantity.options[quantity.selectedIndex].getAttribute("name");
