@@ -36,7 +36,8 @@ if (isset($_POST['submit'])) {
         $product->created_at = date("Y/m/d");
         $product->category_id = trim($_POST['category']);
         $product->sub_category_id = trim($_POST['sub']);
-        $product->save_image();
+        $product->set_file($_FILES['placeholder']);
+        $product->create_image();
         $product->save();
         Photo::set_files_product($_FILES['file'], $product->id);
 

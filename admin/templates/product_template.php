@@ -70,9 +70,10 @@
                                     } else {
                                         echo " <option value=\"$sub_category->id>\"  style='background: #cfe3f1'> $sub_category->name </option>";
                                     }
+                                } else{
+                                    echo "   <option value=\"0\">None</option>";
                                 }
                                 ?>
-                                <option value="0">None</option>
                                 <?php usort($sub_categories, array("Sub_category", "order_by_name")); ?>
                                 <?php foreach ($sub_categories as $sub_category_option) : ?>
                                 <?php if (!isset($sub_category) || $sub_category->name != $sub_category_option->name): ?>
@@ -89,17 +90,19 @@
                             foreach ($attributes
 
                                      as $attribute) :
-                                $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
+                                if (isset($product)) {
+                                    $specific_attribute = Specific_product::find_specific_product_attribute($attribute->id, $product->id);
+                                }
                                 ?>
                                 <div class="form-group">
-                                <?php if ($attribute->name === "Text"): ?>
+                                <?php if ($attribute->name === "Tekst"): ?>
                                 <label for="attribute[]"><h5><?php echo $attribute->name; ?></h5>
                                 </label>
                                 <input type="checkbox"
                                        value="<?php echo $attribute->id; ?>"
                                        name="attribute[]"
                                     <?php
-                                    if ($specific_attribute) {
+                                    if (!empty($specific_attribute)) {
                                         echo "checked";
                                     }
                                     ?> >
@@ -135,8 +138,9 @@
                                     foreach ($attribute_values
 
                                              as $attribute_value) :
-                                        $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
-
+                                        if (isset($product)) {
+                                            $specific_attribute_value = Specific_product::find_specific_product_attribute_value($attribute_value->id, $product->id);
+                                        }
                                         ?>
                                         <?php if ($attribute->name === "Kleur") : ?>
                                         <table class="table table-hover">
@@ -145,7 +149,7 @@
                                                             for="attribute_value[]"><?php echo $attribute_value->name; ?></label>
                                                 </th>
                                                 <td class="col-4">
-                                                    <?php if ($specific_attribute_value): ?>
+                                                    <?php if (!empty($specific_attribute_value)): ?>
                                                         <?php foreach ($specific_attribute_value as $specific_product) :?>
                                                             <input type="number" name="color_quantity[]" min="0"
                                                                    value="<?php
@@ -205,6 +209,7 @@
                         <div class="row">
                             <div class="col-lg-12 d-flex flex-wrap">
                                 <?php
+                                if (isset($product)):
                                 $photos = Photo::find_the_key($product->id);
                                 foreach ($photos as $photo) :
                                     ?>
@@ -216,7 +221,7 @@
                                                     class="far fa-trash-alt fa-lg"></i></a>
                                     </div>
                                 <?php endforeach; ?>
-
+                                <?php endif; ?>
                             </div>
                         </div>
 
