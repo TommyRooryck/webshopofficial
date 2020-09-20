@@ -23,9 +23,28 @@ $sub_categories = Sub_category::find_all();
 if (isset($_POST['submit'])) {
     $product = new Product();
     $placeholder = new Photo();
+
     $all_color_quantity= array();
     $all_color_quantity = array_filter($_POST['color_quantity']);
     $all_color_quantity = array_values($all_color_quantity);
+
+
+    $all_color_photos_name = array_filter($_FILES['photos']['name']);
+    $all_color_photos_name = array_values($all_color_photos_name);
+
+
+    $all_color_photos_tmp_name = array_filter($_FILES['photos']['tmp_name']);
+    $all_color_photos_tmp_name = array_values($all_color_photos_tmp_name);
+
+    $all_color_photos_type = array_filter($_FILES['photos']['type']);
+    $all_color_photos_type = array_values($all_color_photos_type);
+
+    $all_color_photos_size = array_filter($_FILES['photos']['size']);
+    $all_color_photos_size = array_values($_FILES['photos']['size']);
+
+
+
+
     if (!empty($all_color_quantity) && array_sum($all_color_quantity) == trim($_POST['stock'])){
         $product->name = trim($_POST['name']);
         $product->description = trim($_POST['desc']);
@@ -55,6 +74,17 @@ if (isset($_POST['submit'])) {
                 $specific_product->product_id = $product->id;
 
                 if (array_key_exists($i,$all_color_quantity)) {
+                    $attribute_value = Attribute_values::find_by_id(trim($_POST['attribute_value'][$i]));
+                    $photo = new Photo();
+                    $photo->set_single_file(
+                        $all_color_photos_name[$i],
+                        $all_color_photos_tmp_name[$i],
+                        $all_color_photos_type[$i],
+                        $all_color_photos_size[$i]
+                    );
+                    $photo->product_id = $product->id;
+                    $photo->description = $attribute_value->name;
+                    $photo->save_single_file();
                     $specific_product->quantity = $all_color_quantity[$i];
                 }
 

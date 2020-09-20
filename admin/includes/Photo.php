@@ -37,6 +37,19 @@ class Photo extends Db_object
         }
     }
 
+    public function set_single_file($filename, $file_tmp_name, $filetype, $filesize )
+    {
+        if (empty($filename)){
+            $this->errors[] = "No file uploaded!";
+            return false;
+        } else {
+            $this->filename = $filename;
+            $this->tmp_path = $file_tmp_name;
+            $this->type = $filetype;
+            $this->size = $filesize;
+        }
+    }
+
     public static function set_files($files){;
 
         $countfiles = count($files['name']);
@@ -57,7 +70,6 @@ class Photo extends Db_object
             $photo-> size = $size;
 
             $photo->save();
-            var_dump($photo);
         }
     }
 
@@ -87,7 +99,35 @@ class Photo extends Db_object
     }
 
 
+    public function save_single_file()
+    {
+        if ($this->id) {
+            $this->update();
+        } else {
+            if (empty($this->filename) || empty($this->tmp_path)) {
+                $this->errors[] = "File not available";
+                return false;
+            }
 
+            $target_path = SITE_ROOT . DS . "admin" . DS . $this->upload_directory . DS . $this->filename;
+            $target_path2 = SITE_ROOT . DS . $this->upload_directory . DS . $this->filename;
+
+            if (move_uploaded_file($this->tmp_path, $target_path)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+            }
+
+            if (move_uploaded_file($this->tmp_path, $target_path2)) {
+                if ($this->create()) {
+                    unset($this->tmp_path);
+                    return true;
+                }
+            }
+
+        }
+    }
 
     public function save()
     {
@@ -141,6 +181,11 @@ class Photo extends Db_object
         return $this->upload_directory . DS . $this->filename;
     }
 
+    public function full_picture_path()
+    {
+        return SITE_ROOT . DS . "admin" . $this->upload_directory . DS . $this->filename;
+    }
+
     public function delete_photo()
     {
         if ($this->delete()) {
@@ -151,6 +196,18 @@ class Photo extends Db_object
         } else {
             return false;
         }
+    }
+
+    public function find_color_photo($color, $product_id)
+    {
+        global $database;
+        $color = $database->escape_string($color);
+
+        $sql = "SELECT * FROM " . static::$db_table;
+        $sql .= " WHERE description= '{$color}' ";
+        $sql .= " AND product_id = " . $database->escape_string($product_id);
+
+        return static::find_this_query($sql);
     }
 
 }

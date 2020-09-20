@@ -28,6 +28,7 @@ if (isset($_POST['submit'])) {
     $all_color_quantity= array();
     $all_color_quantity = array_filter($_POST['color_quantity']);
     $all_color_quantity = array_values($all_color_quantity);
+
     if (array_sum($all_color_quantity) == trim($_POST['stock'])){
         $product->name = trim($_POST['name']);
         $product->description = trim($_POST['desc']);
@@ -108,9 +109,6 @@ if (isset($_POST['submit'])) {
                 $specific_product->attribute_values_id = trim($_POST['attribute_value'][$i]);
                 $specific_product->product_id = $product->id;
 
-                if (array_key_exists($i,$all_color_quantity)) {
-                    $specific_product->quantity = $all_color_quantity[$i];
-                }
 
                 $specific_product->save();
             }

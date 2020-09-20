@@ -57,7 +57,7 @@
                             <span class="nav-link-text">Photos</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="photos">All Photos</a>
+                            <a class="dropdown-item" href="photos">All Photos </a>
                             <a class="dropdown-item" href="upload">Upload Photo</a>
                         </div>
                     </li>

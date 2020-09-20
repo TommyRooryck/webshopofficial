@@ -48,6 +48,27 @@ class Db_object
         return !empty($the_result_array) ? array_shift($the_result_array) : false;
     }
 
+    public static function find_by_array($column, $parameter)
+    {
+        global $database;
+        $parameter = $database->escape_string($parameter);
+        $column = $database->escape_string($column);
+
+        $sql = "SELECT * FROM " . static::$db_table . " WHERE {$column} = '{$parameter}'";
+
+        return static::find_this_query($sql);
+    {
+        global $database;
+        $parameter = $database->escape_string($parameter);
+        $column = $database->escape_string($column);
+
+        $sql = "SELECT * FROM " . static::$db_table . " WHERE {$column} = '{$parameter}'";
+
+        $the_result_array = self::find_this_query($sql);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+    }
+    }
+
 
     private function has_the_attribute($the_attribute)
     {
